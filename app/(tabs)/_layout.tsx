@@ -1,7 +1,21 @@
+import React from 'react';
 import { Tabs } from 'expo-router';
-import { Feather } from '@expo/vector-icons';
+import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { Icon } from 'react-native-paper';
-import { View } from 'react-native';
+import { TouchableOpacity } from 'react-native';
+
+interface HeaderIconProps {
+	icon: keyof typeof MaterialCommunityIcons.glyphMap;
+	onPress: () => void;
+}
+
+const HeaderIcon: React.FC<HeaderIconProps> = ({ icon, onPress }) => {
+	return (
+		<TouchableOpacity onPress={onPress} style={{ marginHorizontal: 16 }}>
+			<Icon source={icon} size={24} />
+		</TouchableOpacity>
+	);
+};
 
 export default function NavigationLayout() {
 	return (
@@ -23,6 +37,7 @@ export default function NavigationLayout() {
 					elevation: 0,
 				},
 				tabBarStyle: {
+					backgroundColor: 'transparent',
 					borderTopWidth: 0,
 				},
 			}}
@@ -32,11 +47,14 @@ export default function NavigationLayout() {
 				options={{
 					title: 'Home',
 					tabBarLabel: 'Home',
-					tabBarIcon: ({ color, size }) => <Feather name="home" color={color} size={size} />,
+					tabBarIcon: ({ color, size }) => <MaterialCommunityIcons name="home" color={color} size={size} />,
 					headerRight: () => (
-						<View style={{ marginRight: 16 }}>
-							<Icon source="bell" size={24} />
-						</View>
+						<HeaderIcon
+							icon="bell"
+							onPress={() => {
+								console.log('notifications');
+							}}
+						/>
 					),
 				}}
 			/>
@@ -45,7 +63,7 @@ export default function NavigationLayout() {
 				options={{
 					title: 'Journal',
 					tabBarLabel: 'Journal',
-					tabBarIcon: ({ color, size }) => <Feather name="book" color={color} size={size} />,
+					tabBarIcon: ({ color, size }) => <MaterialCommunityIcons name="book" color={color} size={size} />,
 				}}
 			/>
 			<Tabs.Screen
@@ -53,7 +71,7 @@ export default function NavigationLayout() {
 				options={{
 					title: 'Health',
 					tabBarLabel: 'Health',
-					tabBarIcon: ({ color, size }) => <Feather name="activity" color={color} size={size} />,
+					tabBarIcon: ({ color, size }) => <MaterialCommunityIcons name="heart" color={color} size={size} />,
 				}}
 			/>
 			<Tabs.Screen
@@ -61,7 +79,7 @@ export default function NavigationLayout() {
 				options={{
 					title: 'Goal',
 					tabBarLabel: 'Goal',
-					tabBarIcon: ({ color, size }) => <Feather name="target" color={color} size={size} />,
+					tabBarIcon: ({ color, size }) => <MaterialCommunityIcons name="target" color={color} size={size} />,
 				}}
 			/>
 			<Tabs.Screen
@@ -69,7 +87,7 @@ export default function NavigationLayout() {
 				options={{
 					title: 'Profile',
 					tabBarLabel: 'Profile',
-					tabBarIcon: ({ color, size }) => <Feather name="user" color={color} size={size} />,
+					tabBarIcon: ({ color, size }) => <MaterialCommunityIcons name="account" color={color} size={size} />,
 				}}
 			/>
 		</Tabs>
