@@ -1,7 +1,7 @@
 import React from 'react';
 import { Tabs } from 'expo-router';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
-import { Icon } from 'react-native-paper';
+import { Icon, useTheme } from 'react-native-paper';
 import { TouchableOpacity } from 'react-native';
 
 interface HeaderIconProps {
@@ -18,17 +18,20 @@ const HeaderIcon: React.FC<HeaderIconProps> = ({ icon, onPress }) => {
 };
 
 export default function NavigationLayout() {
+	const theme = useTheme();
+
 	return (
 		<Tabs
 			screenOptions={{
 				headerShown: true,
 				headerTitleAlign: 'left',
+				headerTransparent: true,
 				headerTitleStyle: {
 					fontSize: 24,
 					fontWeight: 'bold',
 				},
 				headerStyle: {
-					backgroundColor: 'transparent',
+					backgroundColor: theme.colors.surface,
 					borderBottomWidth: 0,
 					shadowColor: 'transparent',
 					shadowOffset: { width: 0, height: 0 },
@@ -37,7 +40,7 @@ export default function NavigationLayout() {
 					elevation: 0,
 				},
 				tabBarStyle: {
-					backgroundColor: 'transparent',
+					backgroundColor: theme.colors.surface,
 					borderTopWidth: 0,
 				},
 			}}
