@@ -1,21 +1,20 @@
 import React from 'react';
 import { Tabs } from 'expo-router';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
-import { Icon, useTheme } from 'react-native-paper';
-import { TouchableOpacity } from 'react-native';
+import { useTheme } from 'react-native-paper';
 
-interface HeaderIconProps {
-	icon: keyof typeof MaterialCommunityIcons.glyphMap;
-	onPress: () => void;
-}
+// interface HeaderIconProps {
+// 	icon: keyof typeof MaterialCommunityIcons.glyphMap;
+// 	onPress: () => void;
+// }
 
-const HeaderIcon: React.FC<HeaderIconProps> = ({ icon, onPress }) => {
-	return (
-		<TouchableOpacity onPress={onPress} style={{ marginHorizontal: 16 }}>
-			<Icon source={icon} size={24} />
-		</TouchableOpacity>
-	);
-};
+// const HeaderIcon: React.FC<HeaderIconProps> = ({ icon, onPress }) => {
+// 	return (
+// 		<TouchableOpacity onPress={onPress} style={{ marginHorizontal: 16 }}>
+// 			<Icon source={icon} size={24} />
+// 		</TouchableOpacity>
+// 	);
+// };
 
 export default function NavigationLayout() {
 	const theme = useTheme();
@@ -23,42 +22,18 @@ export default function NavigationLayout() {
 	return (
 		<Tabs
 			screenOptions={{
-				headerShown: true,
-				headerTitleAlign: 'left',
-				headerTransparent: true,
-				headerTitleStyle: {
-					fontSize: 24,
-					fontWeight: 'bold',
-				},
-				headerStyle: {
-					backgroundColor: theme.colors.surface,
-					borderBottomWidth: 0,
-					shadowColor: 'transparent',
-					shadowOffset: { width: 0, height: 0 },
-					shadowOpacity: 0,
-					shadowRadius: 0,
-					elevation: 0,
-				},
-				tabBarStyle: {
-					backgroundColor: theme.colors.surface,
-					borderTopWidth: 0,
-				},
+				headerShown: false,
+				tabBarShowLabel: false,
+				tabBarStyle: { backgroundColor: theme.colors.surface, borderTopWidth: 0 },
 			}}
 		>
+			<Tabs.Screen name="index" options={{ href: null }} />
 			<Tabs.Screen
-				name="index"
+				name="home"
 				options={{
 					title: 'Home',
 					tabBarLabel: 'Home',
 					tabBarIcon: ({ color, size }) => <MaterialCommunityIcons name="home" color={color} size={size} />,
-					headerRight: () => (
-						<HeaderIcon
-							icon="bell"
-							onPress={() => {
-								console.log('notifications');
-							}}
-						/>
-					),
 				}}
 			/>
 			<Tabs.Screen
