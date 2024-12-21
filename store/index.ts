@@ -6,11 +6,13 @@ import { useDispatch, useSelector } from 'react-redux';
 import { combineReducers } from 'redux';
 
 import exampleReducer from '@/store/exampleSlice';
+import motivationalReducer from '@/store/motivationalSlice';
 
 const persistConfig = { key: 'root', storage: AsyncStorage };
 
 const rootReducer = combineReducers({
 	example: exampleReducer,
+	motivational: motivationalReducer,
 });
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);
