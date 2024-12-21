@@ -1,11 +1,21 @@
-import { decrement, increment, reset } from '@/store/exampleSlice';
+import {
+	decrement,
+	increment,
+	reset,
+	incrementByAmount,
+	selectCount,
+	IncrementAction,
+	DecrementAction,
+	IncrementByAmountAction,
+	ResetAction,
+} from '@/store/exampleSlice';
+import { useAppDispatch, useAppSelector } from '@/store';
 import { View } from 'react-native';
 import { Button, Text } from 'react-native-paper';
-import { useDispatch, useSelector } from 'react-redux';
 
 export default function HomeScreen() {
-	const count = useSelector((state) => state.example.count);
-	const dispatch = useDispatch();
+	const count = useAppSelector(selectCount);
+	const dispatch = useAppDispatch();
 
 	return (
 		<View
@@ -16,9 +26,10 @@ export default function HomeScreen() {
 			}}
 		>
 			<Text>{count}</Text>
-			<Button onPress={() => dispatch(increment())}>Increment</Button>
-			<Button onPress={() => dispatch(decrement())}>Decrement</Button>
-			<Button onPress={() => dispatch(reset())}>Reset</Button>
+			<Button onPress={(): IncrementAction => dispatch(increment())}>Increment</Button>
+			<Button onPress={(): DecrementAction => dispatch(decrement())}>Decrement</Button>
+			<Button onPress={(): IncrementByAmountAction => dispatch(incrementByAmount(5))}>Increment by 5</Button>
+			<Button onPress={(): ResetAction => dispatch(reset())}>Reset</Button>
 		</View>
 	);
 }
