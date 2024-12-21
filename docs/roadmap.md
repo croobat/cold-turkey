@@ -13,7 +13,7 @@ managing cravings, accessing community support, and celebrating milestones.
 ### 1. Home Screen
 
 - [ ] **Main**:
-  - [ ] Display dynamic motivational messages: [Quotes](https://github.com/JamesFT/Database-Quotes-JSON/blob/master/quotes.json)
+  - [x] Display dynamic motivational messages: [Quotes](https://github.com/JamesFT/Database-Quotes-JSON/blob/master/quotes.json)
   - [ ] Progress bar showing days smoke-free.
 - [ ] **Quit Tracker**:
   - [ ] Real-time tracker for days, hours, and minutes since quitting.
