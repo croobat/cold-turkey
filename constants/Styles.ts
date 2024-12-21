@@ -2,6 +2,14 @@ import { StyleSheet } from 'react-native';
 import { METRICS } from './Metrics';
 
 export const style = StyleSheet.create({
+	container: {
+		flexGrow: 1,
+		marginTop: 50,
+	},
+	content: {
+		flex: 1,
+		padding: METRICS.small,
+	},
 	centered: {
 		justifyContent: 'center',
 		alignItems: 'center',
@@ -21,10 +29,10 @@ export const style = StyleSheet.create({
 		alignItems: 'center',
 		justifyContent: 'space-between',
 	},
-	test: {
-		borderColor: 'red',
-		borderWidth: 1,
-		backgroundColor: 'lightred',
+	fabStyle: {
+		bottom: METRICS.large,
+		right: METRICS.large,
+		position: 'absolute',
 	},
 
 	smallMargin: { margin: METRICS.small },
@@ -42,4 +50,10 @@ export const style = StyleSheet.create({
 	smallColumnGap: { columnGap: METRICS.small },
 	mediumColumnGap: { columnGap: METRICS.medium },
 	largeColumnGap: { columnGap: METRICS.large },
+
+	test: {
+		borderColor: 'red',
+		borderWidth: 1,
+		backgroundColor: 'lightred',
+	},
 });
