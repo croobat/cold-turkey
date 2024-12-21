@@ -38,7 +38,7 @@ managing cravings, accessing community support, and celebrating milestones.
 
 ---
 
-### 4. Resources Section
+### 4. Resources Section (add button inside home screen)
 
 - [ ] **Guided Programs**:
   - [ ] Step-by-step quitting guides.

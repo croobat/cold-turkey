@@ -1,5 +1,9 @@
 import { Stack } from 'expo-router';
-import { DarkTheme as NavigationDarkTheme, DefaultTheme as NavigationDefaultTheme } from '@react-navigation/native';
+import {
+	DarkTheme as NavigationDarkTheme,
+	DefaultTheme as NavigationDefaultTheme,
+	ThemeProvider,
+} from '@react-navigation/native';
 import { MD3DarkTheme, MD3LightTheme, PaperProvider, adaptNavigationTheme } from 'react-native-paper';
 import merge from 'deepmerge';
 
@@ -24,9 +28,14 @@ export default function RootLayout() {
 
 	return (
 		<PaperProvider theme={theme}>
-			<Stack>
-				<Stack.Screen name="index" options={{ headerShown: false }} />
-			</Stack>
+			{/* @ts-ignore */}
+			<ThemeProvider value={theme}>
+				<Stack>
+					<Stack.Screen name="index" options={{ headerShown: false }} />
+					<Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+					<Stack.Screen name="+not-found" options={{ headerShown: false }} />
+				</Stack>
+			</ThemeProvider>
 		</PaperProvider>
 	);
 }
