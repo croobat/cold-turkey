@@ -4,11 +4,20 @@ import {
 	DefaultTheme as NavigationDefaultTheme,
 	ThemeProvider,
 } from '@react-navigation/native';
-import { MD3DarkTheme, MD3LightTheme, PaperProvider, adaptNavigationTheme } from 'react-native-paper';
+import {
+	ActivityIndicator,
+	MD3DarkTheme,
+	MD3LightTheme,
+	PaperProvider,
+	adaptNavigationTheme,
+} from 'react-native-paper';
 import merge from 'deepmerge';
+import { Provider } from 'react-redux';
 
 import { Colors } from '@/constants/Colors';
 import { useColorScheme } from '@/utils/useColorScheme';
+import { persistor, store } from '@/store';
+import { PersistGate } from 'redux-persist/integration/react';
 
 const { LightTheme, DarkTheme } = adaptNavigationTheme({
 	reactNavigationLight: NavigationDefaultTheme,
@@ -27,15 +36,18 @@ export default function RootLayout() {
 	const theme = colorScheme === 'dark' ? CombinedDarkTheme : CombinedDefaultTheme;
 
 	return (
-		<PaperProvider theme={theme}>
-			{/* @ts-ignore */}
-			<ThemeProvider value={theme}>
-				<Stack>
-					<Stack.Screen name="index" options={{ headerShown: false }} />
-					<Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-					<Stack.Screen name="+not-found" options={{ headerShown: false }} />
-				</Stack>
-			</ThemeProvider>
-		</PaperProvider>
+		<Provider store={store}>
+			<PersistGate loading={<ActivityIndicator />} persistor={persistor}>
+				<PaperProvider theme={theme}>
+					{/* @ts-ignore */}
+					<ThemeProvider value={theme}>
+						<Stack>
+							<Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+							<Stack.Screen name="+not-found" options={{ headerShown: false }} />
+						</Stack>
+					</ThemeProvider>
+				</PaperProvider>
+			</PersistGate>
+		</Provider>
 	);
 }

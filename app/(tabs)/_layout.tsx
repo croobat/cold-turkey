@@ -5,7 +5,6 @@ import { Icon } from 'react-native-paper';
 export default function NavigationLayout() {
 	return (
 		<Tabs screenOptions={{ headerShown: false, tabBarStyle: { borderTopWidth: 0 } }}>
-			)
 			<Tabs.Screen
 				name="index"
 				options={{

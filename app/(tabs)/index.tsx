@@ -1,7 +1,12 @@
+import { decrement, increment, reset } from '@/store/exampleSlice';
 import { View } from 'react-native';
-import { Text } from 'react-native-paper';
+import { Button, Text } from 'react-native-paper';
+import { useDispatch, useSelector } from 'react-redux';
 
 export default function HomeScreen() {
+	const count = useSelector((state) => state.example.count);
+	const dispatch = useDispatch();
+
 	return (
 		<View
 			style={{
@@ -10,7 +15,10 @@ export default function HomeScreen() {
 				alignItems: 'center',
 			}}
 		>
-			<Text>Home</Text>
+			<Text>{count}</Text>
+			<Button onPress={() => dispatch(increment())}>Increment</Button>
+			<Button onPress={() => dispatch(decrement())}>Decrement</Button>
+			<Button onPress={() => dispatch(reset())}>Reset</Button>
 		</View>
 	);
 }
