@@ -1,47 +1,55 @@
-import {
-	decrement,
-	increment,
-	reset,
-	incrementByAmount,
-	selectCount,
-	IncrementAction,
-	DecrementAction,
-	IncrementByAmountAction,
-	ResetAction,
-} from '@/store/exampleSlice';
+import React, { useCallback, useEffect } from 'react';
+import {} from '@/store/exampleSlice';
 import { useAppDispatch, useAppSelector } from '@/store';
-import { ScrollView, StatusBar, StyleSheet } from 'react-native';
-import { Button, Text } from 'react-native-paper';
+import { ScrollView, StyleSheet, View } from 'react-native';
+import { IconButton, Text } from 'react-native-paper';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import { selectLastQuote, updateLastQuote } from '@/store/motivationalSlice';
+import motivationalQuotes from '@/constants/MotivationalQuotes.json';
+import { style } from '@/constants/Styles';
 
 export default function HomeScreen() {
-	const count = useAppSelector(selectCount);
 	const dispatch = useAppDispatch();
 
+	const getRandomQuote = useCallback(() => {
+		const randomIndex = Math.floor(Math.random() * motivationalQuotes.length);
+		const selectedQuote = motivationalQuotes[randomIndex];
+		dispatch(updateLastQuote(selectedQuote));
+	}, [dispatch]);
+
+	// update motivational quote every 10 minutes
+	useEffect(() => {
+		getRandomQuote();
+		const intervalId = setInterval(getRandomQuote, 10 * 1000 * 60);
+
+		return () => clearInterval(intervalId);
+	}, [dispatch, getRandomQuote]);
+
+	const lastQuote = useAppSelector(selectLastQuote);
+
 	return (
-		<ScrollView contentContainerStyle={styles.container}>
-			<SafeAreaView
-				style={{
-					flex: 1,
-					justifyContent: 'center',
-					alignItems: 'center',
-					marginTop: StatusBar.currentHeight || 0 + 50,
-				}}
-			>
-				<Text>{count}</Text>
-				<Button onPress={(): IncrementAction => dispatch(increment())}>Increment</Button>
-				<Button onPress={(): DecrementAction => dispatch(decrement())}>Decrement</Button>
-				<Button onPress={(): IncrementByAmountAction => dispatch(incrementByAmount(5))}>Increment by 5</Button>
-				<Button onPress={(): ResetAction => dispatch(reset())}>Reset</Button>
+		<ScrollView contentContainerStyle={style.flexCentered}>
+			<SafeAreaView style={[style.centered, style.largePadding]}>
+				{/* motivational quote */}
+				<View style={[style.centered, style.smallRowGap]}>
+					<Text variant="bodyLarge" style={styles.quoteText}>
+						{lastQuote.quote}
+					</Text>
+
+					<Text variant="bodySmall" style={[styles.quoteText, { color: 'gray' }]}>
+						- {lastQuote.author}
+					</Text>
+
+					<IconButton icon="refresh" mode="contained" onPress={getRandomQuote} />
+				</View>
 			</SafeAreaView>
 		</ScrollView>
 	);
 }
 
 const styles = StyleSheet.create({
-	container: {
-		flex: 1,
-		justifyContent: 'center',
-		alignItems: 'center',
+	quoteText: {
+		fontStyle: 'italic',
+		textAlign: 'center',
 	},
 });
