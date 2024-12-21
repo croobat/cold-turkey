@@ -5,13 +5,13 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useDispatch, useSelector } from 'react-redux';
 import { combineReducers } from 'redux';
 
-import exampleReducer from '@/store/exampleSlice';
+import logsReducer from '@/store/logsSlice';
 import motivationalReducer from '@/store/motivationalSlice';
 
 const persistConfig = { key: 'root', storage: AsyncStorage };
 
 const rootReducer = combineReducers({
-	example: exampleReducer,
+	logs: logsReducer,
 	motivational: motivationalReducer,
 });
 
