@@ -7,11 +7,11 @@ type Log = {
 };
 
 export interface LogsState {
-	without: Log[];
+	relapses: Log[];
 }
 
 const initialState: LogsState = {
-	without: [],
+	relapses: [],
 };
 
 const logsSlice = createSlice({
@@ -19,14 +19,14 @@ const logsSlice = createSlice({
 	initialState,
 	reducers: {
 		addLog: (state: LogsState, action: PayloadAction<Log>) => {
-			state.without.push(action.payload);
+			state.relapses.push(action.payload);
 		},
 	},
 });
 
 export const { addLog } = logsSlice.actions;
 
-export const selectLogs = (state: RootState) => state.logs.without;
+export const selectLogs = (state: RootState) => state.logs.relapses;
 
 export type AddLogAction = ReturnType<typeof addLog>;
 

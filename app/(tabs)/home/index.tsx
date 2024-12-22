@@ -42,7 +42,7 @@ export default function HomeScreen() {
 			label: 'Ok',
 			onPress: () => {
 				setIsResetConfirmVisible(false);
-				router.navigate('/home/reset');
+				router.navigate('/(tabs)/home/relapse-add');
 			},
 		},
 	];
