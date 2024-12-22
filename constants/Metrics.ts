@@ -1,5 +1,6 @@
 export const METRICS = {
-	small: 8,
-	medium: 12,
-	large: 16,
+	xs: 4,
+	sm: 8,
+	md: 12,
+	lg: 16,
 } as const;
