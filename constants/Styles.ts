@@ -1,5 +1,7 @@
-import { StyleSheet } from 'react-native';
+import { Platform, StyleSheet } from 'react-native';
 import { METRICS } from './Metrics';
+
+const isIos = Platform.OS === 'ios';
 
 export const style = StyleSheet.create({
 	container: {
@@ -30,7 +32,8 @@ export const style = StyleSheet.create({
 		justifyContent: 'space-between',
 	},
 	fabStyle: {
-		bottom: METRICS.large,
+		// bigger margin for android
+		bottom: METRICS.large + (isIos ? 0 : METRICS.large),
 		right: METRICS.large,
 		position: 'absolute',
 	},

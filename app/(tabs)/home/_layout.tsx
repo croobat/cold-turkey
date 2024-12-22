@@ -6,13 +6,13 @@ export default function HomeLayout() {
 			screenOptions={{
 				headerTransparent: true,
 				headerTitleStyle: {
-					fontSize: 24,
+					fontSize: 20,
 					fontWeight: 'bold',
 				},
 			}}
 		>
 			<Stack.Screen name="index" options={{ title: 'Home' }} />
-			<Stack.Screen name="reset" options={{ title: 'Reset' }} />
+			<Stack.Screen name="reset" options={{ title: 'Reset Timer' }} />
 		</Stack>
 	);
 }
