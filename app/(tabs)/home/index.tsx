@@ -1,10 +1,9 @@
 import React, { useCallback, useEffect, useState } from 'react';
-import { ScrollView, StyleSheet, View } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 import { AnimatedFAB, Banner, IconButton, Portal, Text } from 'react-native-paper';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { router } from 'expo-router';
 
-import {} from '@/store/exampleSlice';
 import { useAppDispatch, useAppSelector } from '@/store';
 import { selectLastQuote, updateLastQuote } from '@/store/motivationalSlice';
 
@@ -48,32 +47,30 @@ export default function HomeScreen() {
 	];
 
 	return (
-		<SafeAreaView style={[style.container, style.centered]}>
-			<ScrollView contentContainerStyle={style.flexCentered}>
-				<Portal>
-					<Banner
-						visible={isResetConfirmVisible}
-						icon="alert"
-						actions={resetConfirmActions}
-						style={{ paddingTop: METRICS.large }}
-					>
-						<Text variant="bodyLarge">Are you sure you want to reset the timer?</Text>
-					</Banner>
-				</Portal>
+		<SafeAreaView style={[style.container, style.flexCentered]}>
+			<Portal>
+				<Banner
+					visible={isResetConfirmVisible}
+					icon="alert"
+					actions={resetConfirmActions}
+					style={{ paddingTop: METRICS.large }}
+				>
+					<Text variant="bodyLarge">Are you sure you want to add a relapse, you will reset the timer?</Text>
+				</Banner>
+			</Portal>
 
-				{/* motivational quote */}
-				<View style={[style.centered, style.smallRowGap, style.largeMargin, { maxWidth: 350 }]}>
-					<Text variant="bodyLarge" style={styles.quoteText}>
-						{lastQuote.quote}
-					</Text>
+			{/* motivational quote */}
+			<View style={[style.centered, style.smallRowGap, style.largeMargin, { maxWidth: 350 }]}>
+				<Text variant="bodyLarge" style={styles.quoteText}>
+					{lastQuote.quote}
+				</Text>
 
-					<Text variant="bodySmall" style={[styles.quoteText, { color: 'gray' }]}>
-						- {lastQuote.author}
-					</Text>
+				<Text variant="bodySmall" style={[styles.quoteText, { color: 'gray' }]}>
+					- {lastQuote.author}
+				</Text>
 
-					<IconButton icon="refresh" mode="contained" onPress={getRandomQuote} />
-				</View>
-			</ScrollView>
+				<IconButton icon="refresh" mode="contained" onPress={getRandomQuote} />
+			</View>
 
 			<AnimatedFAB
 				icon="restore"

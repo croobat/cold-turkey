@@ -1,7 +1,11 @@
+import { resetAllSlices } from '@/store';
 import { View } from 'react-native';
-import { Text } from 'react-native-paper';
+import { Button } from 'react-native-paper';
 
 export default function ProfileScreen() {
+	const handleWipeData = () => {
+		resetAllSlices();
+	};
 	return (
 		<View
 			style={{
@@ -10,7 +14,9 @@ export default function ProfileScreen() {
 				alignItems: 'center',
 			}}
 		>
-			<Text>Profile</Text>
+			<Button icon="delete" onPress={handleWipeData} mode="contained">
+				WIPE ALL DATA
+			</Button>
 		</View>
 	);
 }
