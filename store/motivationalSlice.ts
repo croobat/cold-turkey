@@ -30,10 +30,13 @@ const motivationalSlice = createSlice({
 			state.lastQuote = action.payload;
 			state.lastTime = Date.now();
 		},
+		resetMotivationalSlice: () => {
+			return initialState;
+		},
 	},
 });
 
-export const { setLastTime, setLastQuote, updateLastQuote } = motivationalSlice.actions;
+export const { setLastTime, setLastQuote, updateLastQuote, resetMotivationalSlice } = motivationalSlice.actions;
 
 export const selectLastTime = (state: RootState) => state.motivational.lastTime;
 export const selectLastQuote = (state: RootState) => state.motivational.lastQuote;
@@ -41,5 +44,6 @@ export const selectLastQuote = (state: RootState) => state.motivational.lastQuot
 export type SetLastTimeAction = ReturnType<typeof setLastTime>;
 export type SetLastQuoteAction = ReturnType<typeof setLastQuote>;
 export type UpdateLastQuoteAction = ReturnType<typeof updateLastQuote>;
+export type ResetMotivationalSliceAction = ReturnType<typeof resetMotivationalSlice>;
 
 export default motivationalSlice.reducer;

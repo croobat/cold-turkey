@@ -1,14 +1,21 @@
 import { configureStore } from '@reduxjs/toolkit';
 import devtoolsEnhancer from 'redux-devtools-expo-dev-plugin';
-import { persistStore, persistReducer } from 'redux-persist';
+import { persistStore, persistReducer, createMigrate } from 'redux-persist';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useDispatch, useSelector } from 'react-redux';
 import { combineReducers } from 'redux';
 
-import logsReducer from '@/store/logsSlice';
-import motivationalReducer from '@/store/motivationalSlice';
+import migrations from '@/store/migrations';
 
-const persistConfig = { key: 'root', storage: AsyncStorage };
+import logsReducer, { resetLogsSlice } from '@/store/logsSlice';
+import motivationalReducer, { resetMotivationalSlice } from '@/store/motivationalSlice';
+
+const persistConfig = {
+	key: 'root',
+	version: 1,
+	storage: AsyncStorage,
+	migrate: createMigrate(migrations, { debug: false }),
+};
 
 const rootReducer = combineReducers({
 	logs: logsReducer,
@@ -30,6 +37,11 @@ export const store = configureStore({
 });
 
 export const persistor = persistStore(store);
+
+export const resetAllSlices = () => {
+	store.dispatch(resetLogsSlice());
+	store.dispatch(resetMotivationalSlice());
+};
 
 export type RootState = ReturnType<typeof store.getState>;
 export type AppDispatch = typeof store.dispatch;
