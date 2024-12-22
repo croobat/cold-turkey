@@ -12,7 +12,7 @@ export default function HomeLayout() {
 			}}
 		>
 			<Stack.Screen name="index" options={{ title: 'Home' }} />
-			<Stack.Screen name="reset" options={{ title: 'Reset Timer' }} />
+			<Stack.Screen name="relapse-add" options={{ title: 'Reset Timer' }} />
 		</Stack>
 	);
 }
