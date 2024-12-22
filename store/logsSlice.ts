@@ -1,13 +1,14 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import type { RootState } from '@/store';
 
-type Log = {
+type RelapseLog = {
 	datetime: string;
-	message: string;
+	title: string;
+	content: string;
 };
 
 export interface LogsState {
-	relapses: Log[];
+	relapses: RelapseLog[];
 }
 
 const initialState: LogsState = {
@@ -18,16 +19,20 @@ const logsSlice = createSlice({
 	name: 'logs',
 	initialState,
 	reducers: {
-		addLog: (state: LogsState, action: PayloadAction<Log>) => {
+		addRelapse: (state, action: PayloadAction<RelapseLog>) => {
 			state.relapses.push(action.payload);
+		},
+		resetLogsSlice: () => {
+			return initialState;
 		},
 	},
 });
 
-export const { addLog } = logsSlice.actions;
+export const { addRelapse, resetLogsSlice } = logsSlice.actions;
 
-export const selectLogs = (state: RootState) => state.logs.relapses;
+export const selectRelapses = (state: RootState) => state.logs.relapses;
 
-export type AddLogAction = ReturnType<typeof addLog>;
+export type AddLogAction = ReturnType<typeof addRelapse>;
+export type ResetLogsSliceAction = ReturnType<typeof resetLogsSlice>;
 
 export default logsSlice.reducer;
