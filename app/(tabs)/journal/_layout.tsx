@@ -6,7 +6,7 @@ export default function JournalLayout() {
 			screenOptions={{
 				headerTransparent: true,
 				headerTitleStyle: {
-					fontSize: 24,
+					fontSize: 20,
 					fontWeight: 'bold',
 				},
 			}}
