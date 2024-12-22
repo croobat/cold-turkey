@@ -18,6 +18,7 @@ import { Colors } from '@/constants/Colors';
 import { useColorScheme } from '@/utils/useColorScheme';
 import { persistor, store } from '@/store';
 import { PersistGate } from 'redux-persist/integration/react';
+import { StatusBar } from 'react-native';
 
 const { LightTheme, DarkTheme } = adaptNavigationTheme({
 	reactNavigationLight: NavigationDefaultTheme,
@@ -41,6 +42,11 @@ export default function RootLayout() {
 				<PaperProvider theme={theme}>
 					{/* @ts-ignore */}
 					<ThemeProvider value={theme}>
+						<StatusBar
+							backgroundColor={theme.colors.background}
+							barStyle={colorScheme === 'dark' ? 'light-content' : 'dark-content'}
+						/>
+
 						<Stack>
 							<Stack.Screen name="(tabs)" options={{ headerShown: false }} />
 							<Stack.Screen name="+not-found" options={{ headerShown: false }} />
