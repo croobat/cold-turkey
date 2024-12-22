@@ -9,7 +9,6 @@ import { selectLastQuote, updateLastQuote } from '@/store/motivationalSlice';
 
 import { style } from '@/constants/Styles';
 import motivationalQuotes from '@/constants/MotivationalQuotes.json';
-import { METRICS } from '@/constants/Metrics';
 
 export default function HomeScreen() {
 	const dispatch = useAppDispatch();
@@ -49,18 +48,13 @@ export default function HomeScreen() {
 	return (
 		<SafeAreaView style={[style.container, style.flexCentered]}>
 			<Portal>
-				<Banner
-					visible={isResetConfirmVisible}
-					icon="alert"
-					actions={resetConfirmActions}
-					style={{ paddingTop: METRICS.large }}
-				>
+				<Banner visible={isResetConfirmVisible} icon="alert" actions={resetConfirmActions} style={style.lgPaddingTop}>
 					<Text variant="bodyLarge">Are you sure you want to add a relapse, you will reset the timer?</Text>
 				</Banner>
 			</Portal>
 
 			{/* motivational quote */}
-			<View style={[style.centered, style.smallRowGap, style.largeMargin, { maxWidth: 350 }]}>
+			<View style={[style.centered, style.smRowGap, style.lgMargin, { maxWidth: 350 }]}>
 				<Text variant="bodyLarge" style={styles.quoteText}>
 					{lastQuote.quote}
 				</Text>

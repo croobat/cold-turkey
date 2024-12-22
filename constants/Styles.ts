@@ -10,7 +10,7 @@ export const style = StyleSheet.create({
 	},
 	content: {
 		flex: 1,
-		padding: METRICS.small,
+		padding: METRICS.sm,
 	},
 	centered: {
 		justifyContent: 'center',
@@ -33,26 +33,46 @@ export const style = StyleSheet.create({
 	},
 	fabStyle: {
 		// bigger margin for android
-		bottom: METRICS.large + (isIos ? 0 : METRICS.large),
-		right: METRICS.large,
+		bottom: METRICS.lg + (isIos ? 0 : METRICS.lg),
+		right: METRICS.lg,
 		position: 'absolute',
 	},
 
-	smallMargin: { margin: METRICS.small },
-	mediumMargin: { margin: METRICS.medium },
-	largeMargin: { margin: METRICS.large },
+	xsMargin: { margin: METRICS.xs },
+	xsMarginTop: { marginTop: METRICS.xs },
+	xsMarginBottom: { marginBottom: METRICS.xs },
 
-	smallPadding: { padding: METRICS.small },
-	mediumPadding: { padding: METRICS.medium },
-	largePadding: { padding: METRICS.large },
+	smMargin: { margin: METRICS.sm },
+	smMarginTop: { marginTop: METRICS.sm },
+	smMarginBottom: { marginBottom: METRICS.sm },
 
-	smallRowGap: { rowGap: METRICS.small },
-	mediumRowGap: { rowGap: METRICS.medium },
-	largeRowGap: { rowGap: METRICS.large },
+	mdMargin: { margin: METRICS.md },
+	mdMarginTop: { marginTop: METRICS.md },
+	mdMarginBottom: { marginBottom: METRICS.md },
 
-	smallColumnGap: { columnGap: METRICS.small },
-	mediumColumnGap: { columnGap: METRICS.medium },
-	largeColumnGap: { columnGap: METRICS.large },
+	lgMargin: { margin: METRICS.lg },
+	lgMarginTop: { marginTop: METRICS.lg },
+	lgMarginBottom: { marginBottom: METRICS.lg },
+
+	smPadding: { padding: METRICS.sm },
+
+	mdPadding: { padding: METRICS.md },
+
+	lgPadding: { padding: METRICS.lg },
+	lgPaddingTop: { paddingTop: METRICS.lg },
+
+	xsRowGap: { rowGap: METRICS.xs },
+	smRowGap: { rowGap: METRICS.sm },
+
+	mdRowGap: { rowGap: METRICS.md },
+
+	lgRowGap: { rowGap: METRICS.lg },
+
+	smColumnGap: { columnGap: METRICS.sm },
+
+	mdColumnGap: { columnGap: METRICS.md },
+
+	lgColumnGap: { columnGap: METRICS.lg },
 
 	test: {
 		borderColor: 'red',
