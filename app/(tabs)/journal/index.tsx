@@ -10,7 +10,6 @@ export default function JournalScreen() {
 	const theme = useTheme();
 
 	const relapses = useSelector(selectRelapses);
-	console.log(relapses);
 
 	return (
 		<SafeAreaView style={[style.container]}>
