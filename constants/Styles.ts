@@ -6,11 +6,11 @@ const isIos = Platform.OS === 'ios';
 export const style = StyleSheet.create({
 	container: {
 		flexGrow: 1,
-		marginTop: 50,
 	},
 	content: {
 		flex: 1,
-		padding: METRICS.sm,
+		marginTop: 42,
+		paddingHorizontal: METRICS.md,
 	},
 	centered: {
 		justifyContent: 'center',
@@ -46,9 +46,13 @@ export const style = StyleSheet.create({
 	smMarginTop: { marginTop: METRICS.sm },
 	smMarginBottom: { marginBottom: METRICS.sm },
 
-	mdMargin: { margin: METRICS.md },
-	mdMarginTop: { marginTop: METRICS.md },
-	mdMarginBottom: { marginBottom: METRICS.md },
+	margin: { margin: METRICS.md },
+	marginHorizontal: { marginHorizontal: METRICS.md },
+	marginVertical: { marginVertical: METRICS.md },
+	marginTop: { marginTop: METRICS.md },
+	marginBottom: { marginBottom: METRICS.md },
+	marginLeft: { marginLeft: METRICS.md },
+	marginRight: { marginRight: METRICS.md },
 
 	lgMargin: { margin: METRICS.lg },
 	lgMarginTop: { marginTop: METRICS.lg },
@@ -56,7 +60,9 @@ export const style = StyleSheet.create({
 
 	smPadding: { padding: METRICS.sm },
 
-	mdPadding: { padding: METRICS.md },
+	padding: { padding: METRICS.md },
+	paddingHorizontal: { paddingHorizontal: METRICS.md },
+	paddingVertical: { paddingVertical: METRICS.md },
 
 	lgPadding: { padding: METRICS.lg },
 	lgPaddingTop: { paddingTop: METRICS.lg },
@@ -64,19 +70,21 @@ export const style = StyleSheet.create({
 	xsRowGap: { rowGap: METRICS.xs },
 	smRowGap: { rowGap: METRICS.sm },
 
-	mdRowGap: { rowGap: METRICS.md },
+	rowGap: { rowGap: METRICS.md },
 
 	lgRowGap: { rowGap: METRICS.lg },
 
 	smColumnGap: { columnGap: METRICS.sm },
-
-	mdColumnGap: { columnGap: METRICS.md },
-
+	columnGap: { columnGap: METRICS.md },
 	lgColumnGap: { columnGap: METRICS.lg },
+	xlColumnGap: { columnGap: METRICS.xl },
 
 	test: {
 		borderColor: 'red',
 		borderWidth: 1,
-		backgroundColor: 'lightred',
+	},
+	test2: {
+		borderColor: 'blue',
+		borderWidth: 1,
 	},
 });
