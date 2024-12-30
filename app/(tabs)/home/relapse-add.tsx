@@ -45,7 +45,7 @@ export default function RelapseAddScreen() {
 
 	return (
 		<SafeAreaView style={[style.container]}>
-			<View style={[style.largeMargin, style.largeRowGap]}>
+			<View style={[style.lgMargin, style.lgRowGap]}>
 				<TextInput
 					label="Title"
 					value={form.title}
