@@ -9,7 +9,7 @@ import migrations from '@/store/migrations';
 
 import logsReducer, { resetLogsSlice } from '@/store/logsSlice';
 import motivationalReducer, { resetMotivationalSlice } from '@/store/motivationalSlice';
-
+import settingsReducer, { resetSettingsSlice } from '@/store/settingsSlice';
 const persistConfig = {
 	key: 'root',
 	version: 1,
@@ -20,6 +20,7 @@ const persistConfig = {
 const rootReducer = combineReducers({
 	logs: logsReducer,
 	motivational: motivationalReducer,
+	settings: settingsReducer,
 });
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);
@@ -41,6 +42,7 @@ export const persistor = persistStore(store);
 export const resetAllSlices = () => {
 	store.dispatch(resetLogsSlice());
 	store.dispatch(resetMotivationalSlice());
+	store.dispatch(resetSettingsSlice());
 };
 
 export type RootState = ReturnType<typeof store.getState>;
