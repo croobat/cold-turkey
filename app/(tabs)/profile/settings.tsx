@@ -24,7 +24,7 @@ import { style } from '@/constants/Styles';
 export default function SettingsScreen() {
 	const dispatch = useAppDispatch();
 
-	const chigarrettesPerDay = useSelector(selectCigarettesPerDay);
+	const chigarettesPerDay = useSelector(selectCigarettesPerDay);
 	const pricePerCigarette = useSelector(selectPricePerCigarette);
 
 	return (
@@ -89,11 +89,11 @@ export default function SettingsScreen() {
 					<Card.Content style={[style.rowGap]}>
 						<TextInput
 							label="Cigarettes per day"
-							value={chigarrettesPerDay.toString()}
+							value={chigarettesPerDay.toString()}
 							onChangeText={(text) => dispatch(setCigarettesPerDay(parseInt(text) || 0))}
 							keyboardType="numeric"
 							mode="outlined"
-							error={chigarrettesPerDay < 0}
+							error={chigarettesPerDay < 0}
 						/>
 
 						<TextInput

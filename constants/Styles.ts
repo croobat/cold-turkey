@@ -30,6 +30,12 @@ export const style = StyleSheet.create({
 		alignItems: 'center',
 		justifyContent: 'space-between',
 	},
+	fullHeight: {
+		height: '100%',
+	},
+	fullWidth: {
+		width: '100%',
+	},
 	fabStyle: {
 		// bigger margin for android
 		bottom: METRICS.lg + (isIos ? 0 : METRICS.lg),

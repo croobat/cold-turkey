@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { SafeAreaView, View, Text } from 'react-native';
-import { AnimatedFAB, TextInput } from 'react-native-paper';
+import { AnimatedFAB, TextInput, useTheme } from 'react-native-paper';
 import { router } from 'expo-router';
 import { formatISO } from 'date-fns';
 
@@ -21,6 +21,7 @@ const INITIAL_FORM: Form = {
 
 export default function RelapseAddScreen() {
 	const dispatch = useAppDispatch();
+	const theme = useTheme();
 
 	const [form, setForm] = useState<Form>(INITIAL_FORM);
 	const [error, setError] = useState<string | null>(null);
@@ -46,26 +47,34 @@ export default function RelapseAddScreen() {
 	return (
 		<SafeAreaView style={[style.container]}>
 			<View style={[style.lgMargin, style.lgRowGap]}>
-				<TextInput
-					label="Title"
-					value={form.title}
-					onChangeText={(text) => {
-						setForm({ ...form, title: text });
-						if (error) setError(null);
-					}}
-					error={!!error}
-				/>
-				{error && <Text style={{ color: 'red' }}>{error}</Text>}
+				<View style={style.smRowGap}>
+					<TextInput
+						label="Title"
+						value={form.title}
+						mode="outlined"
+						onChangeText={(text) => {
+							setForm({ ...form, title: text });
+							if (error) setError(null);
+						}}
+						error={!!error}
+					/>
+					{error && <Text style={{ color: theme.colors.error }}>{error}</Text>}
+				</View>
 
-				<TextInput label="Content" value={form.content} onChangeText={(text) => setForm({ ...form, content: text })} />
+				<TextInput
+					label="Content"
+					value={form.content}
+					mode="outlined"
+					onChangeText={(text) => setForm({ ...form, content: text })}
+				/>
 			</View>
 
 			<AnimatedFAB
 				icon="check"
 				label="Save"
-				extended={true}
-				disabled={!!error}
+				extended={false}
 				onPress={handleSubmit}
+				disabled={!!error}
 				style={style.fabStyle}
 			/>
 		</SafeAreaView>
