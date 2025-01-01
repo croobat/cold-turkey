@@ -69,6 +69,18 @@ export default function ProfileScreen() {
 						/>
 					))}
 				</View>
+				<View style={style.row}>
+					<Text variant="titleMedium" style={{ color: theme.colors.primary }}>
+						Feedback
+					</Text>
+					<IconButton icon="chevron-right" onPress={() => console.log('Pressed')} />
+				</View>
+				<View>
+					<Text variant="titleMedium" style={{ color: theme.colors.primary }}>
+						Donations
+					</Text>
+					<Text variant="bodyMedium">Support the development of this app.</Text>
+				</View>
 			</ScrollView>
 		</SafeAreaView>
 	);
