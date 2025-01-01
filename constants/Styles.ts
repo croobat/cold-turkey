@@ -5,12 +5,11 @@ const isIos = Platform.OS === 'ios';
 
 export const style = StyleSheet.create({
 	container: {
-		flexGrow: 1,
-	},
-	content: {
 		flex: 1,
-		marginTop: 42,
-		paddingHorizontal: METRICS.md,
+	},
+	card: {
+		marginVertical: METRICS.sm,
+		padding: METRICS.md,
 	},
 	centered: {
 		justifyContent: 'center',
@@ -63,17 +62,20 @@ export const style = StyleSheet.create({
 	padding: { padding: METRICS.md },
 	paddingHorizontal: { paddingHorizontal: METRICS.md },
 	paddingVertical: { paddingVertical: METRICS.md },
+	paddingTop: { paddingTop: METRICS.md },
+	paddingBottom: { paddingBottom: METRICS.md },
+	paddingLeft: { paddingLeft: METRICS.md },
+	paddingRight: { paddingRight: METRICS.md },
 
 	lgPadding: { padding: METRICS.lg },
 	lgPaddingTop: { paddingTop: METRICS.lg },
 
 	xsRowGap: { rowGap: METRICS.xs },
 	smRowGap: { rowGap: METRICS.sm },
-
 	rowGap: { rowGap: METRICS.md },
-
 	lgRowGap: { rowGap: METRICS.lg },
 
+	xsColumnGap: { columnGap: METRICS.xs },
 	smColumnGap: { columnGap: METRICS.sm },
 	columnGap: { columnGap: METRICS.md },
 	lgColumnGap: { columnGap: METRICS.lg },
