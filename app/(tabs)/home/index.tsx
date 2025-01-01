@@ -10,6 +10,7 @@ import { selectLastRelapse } from '@/store/logsSlice';
 import { style } from '@/constants/Styles';
 import motivationalQuotes from '@/constants/MotivationalQuotes.json';
 import { METRICS } from '@/constants/Metrics';
+import NoDataView from '@/components/noDataView';
 
 const CIGARETTE_COST = 10;
 const CIGARETTES_PER_DAY = 10;
@@ -72,20 +73,11 @@ export default function HomeScreen() {
 
 	if (lastRelapse === undefined) {
 		return (
-			<SafeAreaView style={style.container}>
-				<ScrollView
-					contentContainerStyle={[style.paddingHorizontal, style.centered, style.fullHeight, style.rowGap]}
-					refreshControl={
-						<RefreshControl refreshing={isRefreshing} onRefresh={handleRefresh} tintColor={theme.colors.primary} />
-					}
-				>
-					<Text variant="titleLarge">No data found</Text>
-					<Text variant="bodyLarge" style={{ textAlign: 'center' }}>
-						Please add a relapse to start tracking your progress.
-					</Text>
-					<IconButton icon="plus" mode="contained" onPress={() => router.navigate('/(tabs)/home/relapse-add')} />
-				</ScrollView>
-			</SafeAreaView>
+			<NoDataView
+				title="No data found"
+				subtitle="Please add a relapse to start tracking your progress."
+				onPress={() => router.navigate('/(tabs)/home/relapse-add')}
+			/>
 		);
 	}
 
