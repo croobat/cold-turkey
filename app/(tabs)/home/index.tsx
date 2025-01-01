@@ -126,21 +126,21 @@ export default function HomeScreen() {
 						Key Statistics
 					</Text>
 					<View style={[style.row, { justifyContent: 'space-around' }]}>
-						<View style={style.centered}>
+						<View style={[style.centered, style.smRowGap]}>
 							<Icon source="smoking-off" size={METRICS.icon} />
 							<Text>{cigarettesNotSmoked}</Text>
 						</View>
-						<View style={style.centered}>
+						<View style={[style.centered, style.smRowGap]}>
 							<Icon source="wallet" size={METRICS.icon} />
 							<Text>${moneySaved.toFixed(2)}</Text>
 						</View>
-						<View style={style.centered}>
+						<View style={[style.centered, style.smRowGap]}>
 							<Icon source="timer" size={METRICS.icon} />
 							<Text>
 								{daysSinceQuit}d {hoursSinceQuit}h
 							</Text>
 						</View>
-						<View style={style.centered}>
+						<View style={[style.centered, style.smRowGap]}>
 							<Icon source="heart-pulse" size={METRICS.icon} />
 							<Text>{cigarettesNotSmoked * 5}</Text>
 						</View>

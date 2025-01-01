@@ -62,6 +62,10 @@ export const style = StyleSheet.create({
 	padding: { padding: METRICS.md },
 	paddingHorizontal: { paddingHorizontal: METRICS.md },
 	paddingVertical: { paddingVertical: METRICS.md },
+	paddingTop: { paddingTop: METRICS.md },
+	paddingBottom: { paddingBottom: METRICS.md },
+	paddingLeft: { paddingLeft: METRICS.md },
+	paddingRight: { paddingRight: METRICS.md },
 
 	lgPadding: { padding: METRICS.lg },
 	lgPaddingTop: { paddingTop: METRICS.lg },
