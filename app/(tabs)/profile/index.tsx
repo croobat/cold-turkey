@@ -1,12 +1,13 @@
 import { View, ScrollView, SafeAreaView } from 'react-native';
-import { Button, Card, Text, useTheme, Avatar } from 'react-native-paper';
+import { Card, Text, useTheme, Avatar, List, IconButton } from 'react-native-paper';
+import { router } from 'expo-router';
 
 import { style } from '@/constants/Styles';
 
 export default function ProfileScreen() {
 	const theme = useTheme();
 
-	const motivation = [
+	const motivations = [
 		{
 			id: 1,
 			media: 'image',
@@ -31,19 +32,18 @@ export default function ProfileScreen() {
 	];
 
 	return (
-		<SafeAreaView style={{ flex: 1 }}>
-			<ScrollView contentContainerStyle={[style.paddingHorizontal, style.lgRowGap]}>
+		<SafeAreaView style={style.container}>
+			<ScrollView contentContainerStyle={[style.paddingHorizontal, style.rowGap]}>
 				{/* motivation */}
 				<View>
-					<View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
+					<View style={style.row}>
 						<Text variant="titleMedium" style={{ color: theme.colors.primary }}>
-							Motivation
+							Motivations
 						</Text>
-						<Button mode="text" contentStyle={{ flexDirection: 'row-reverse' }} icon="chevron-right" onPress={() => {}}>
-							View all
-						</Button>
+						<IconButton icon="chevron-right" onPress={() => router.navigate('/profile/motivations')} />
 					</View>
-					{motivation.map((item) => (
+
+					{motivations.map((item) => (
 						<Card key={item.id}>
 							<Card.Cover source={{ uri: 'https://picsum.photos/700' }} />
 							<Card.Title title={item.title} subtitle={item.description} />
@@ -52,23 +52,21 @@ export default function ProfileScreen() {
 				</View>
 
 				{/* achievements */}
-				<View style={{ flexDirection: 'column', gap: 10 }}>
-					<View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
+				<View>
+					<View style={style.row}>
 						<Text variant="titleMedium" style={{ color: theme.colors.primary }}>
 							Achievements
 						</Text>
-						<Button mode="text" contentStyle={{ flexDirection: 'row-reverse' }} icon="chevron-right" onPress={() => {}}>
-							View all
-						</Button>
+						<IconButton icon="chevron-right" onPress={() => router.navigate('/profile/achievements')} />
 					</View>
+
 					{achievements.map((achievement) => (
-						<Card key={achievement.id}>
-							<Card.Title
-								title={achievement.title}
-								subtitle={achievement.subtitle}
-								left={({ size }) => <Avatar.Icon size={size} icon={achievement.icon} />}
-							/>
-						</Card>
+						<List.Item
+							key={achievement.id}
+							title={achievement.title}
+							description={achievement.subtitle}
+							left={() => <Avatar.Icon icon={achievement.icon} />}
+						/>
 					))}
 				</View>
 			</ScrollView>

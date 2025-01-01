@@ -2,7 +2,7 @@ import React, { useCallback, useEffect, useState } from 'react';
 import { ScrollView, View, RefreshControl, SafeAreaView } from 'react-native';
 import { AnimatedFAB, Banner, Icon, IconButton, Text, Card, useTheme } from 'react-native-paper';
 import { format, intervalToDuration, parseISO } from 'date-fns';
-import { router } from 'expo-router';
+import { router, useFocusEffect } from 'expo-router';
 
 import { useAppDispatch, useAppSelector } from '@/store';
 import { selectLastQuote, updateLastQuote } from '@/store/motivationalSlice';
@@ -66,6 +66,28 @@ export default function HomeScreen() {
 			},
 		},
 	];
+
+	// fetch new quote on focus
+	useFocusEffect(useCallback(() => getRandomQuote(), [getRandomQuote]));
+
+	if (lastRelapse === undefined) {
+		return (
+			<SafeAreaView style={style.container}>
+				<ScrollView
+					contentContainerStyle={[style.paddingHorizontal, style.centered, style.fullHeight, style.rowGap]}
+					refreshControl={
+						<RefreshControl refreshing={isRefreshing} onRefresh={handleRefresh} tintColor={theme.colors.primary} />
+					}
+				>
+					<Text variant="titleLarge">No data found</Text>
+					<Text variant="bodyLarge" style={{ textAlign: 'center' }}>
+						Please add a relapse to start tracking your progress.
+					</Text>
+					<IconButton icon="plus" mode="contained" onPress={() => router.navigate('/(tabs)/home/relapse-add')} />
+				</ScrollView>
+			</SafeAreaView>
+		);
+	}
 
 	return (
 		<SafeAreaView style={style.container}>
