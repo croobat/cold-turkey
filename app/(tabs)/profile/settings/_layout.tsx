@@ -1,16 +1,11 @@
 import { Stack } from 'expo-router';
+import { useTheme } from 'react-native-paper';
 
 export default function ProfileLayout() {
+	const theme = useTheme();
+
 	return (
-		<Stack
-			screenOptions={{
-				headerTransparent: true,
-				headerTitleStyle: {
-					fontSize: 20,
-					fontWeight: 'bold',
-				},
-			}}
-		>
+		<Stack screenOptions={{ headerShadowVisible: false, headerStyle: { backgroundColor: theme.colors.background } }}>
 			<Stack.Screen name="index" options={{ title: 'Settings' }} />
 		</Stack>
 	);
