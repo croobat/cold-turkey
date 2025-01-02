@@ -23,6 +23,7 @@ export default function ProfileLayout() {
 			<Stack.Screen name="settings" options={{ title: 'Settings' }} />
 			<Stack.Screen name="motivations" options={{ title: 'Motivations' }} />
 			<Stack.Screen name="motivation_add" options={{ title: 'Add Motivation' }} />
+			<Stack.Screen name="archivements" options={{ title: 'Archivements' }} />
 		</Stack>
 	);
 }

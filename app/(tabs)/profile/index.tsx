@@ -3,9 +3,12 @@ import { Card, Text, useTheme, Avatar, List, IconButton } from 'react-native-pap
 import { router } from 'expo-router';
 
 import { style } from '@/constants/Styles';
+import { selectArchivements } from '@/store/archivementsSlice';
+import { useSelector } from 'react-redux';
 
 export default function ProfileScreen() {
 	const theme = useTheme();
+	const archivements = useSelector(selectArchivements);
 
 	const motivations = [
 		{
@@ -13,21 +16,6 @@ export default function ProfileScreen() {
 			media: 'image',
 			title: 'Motivation',
 			description: 'Add a text, image or video to remind you why you want to quit',
-		},
-	];
-
-	const achievements = [
-		{
-			id: 1,
-			title: 'Getting started',
-			subtitle: 'Quit Smoking for the first time',
-			icon: 'smoking-off',
-		},
-		{
-			id: 2,
-			title: 'Getting started',
-			subtitle: 'Quit Smoking for the first time',
-			icon: 'smoking-off',
 		},
 	];
 
@@ -57,15 +45,15 @@ export default function ProfileScreen() {
 						<Text variant="titleMedium" style={{ color: theme.colors.primary }}>
 							Achievements
 						</Text>
-						<IconButton icon="chevron-right" onPress={() => router.navigate('/profile/achievements')} />
+						<IconButton icon="chevron-right" onPress={() => router.navigate('/profile/archivements')} />
 					</View>
 
-					{achievements.map((achievement) => (
+					{archivements.map((achievement, index) => (
 						<List.Item
-							key={achievement.id}
+							key={index}
 							title={achievement.title}
-							description={achievement.subtitle}
-							left={() => <Avatar.Icon icon={achievement.icon} />}
+							description={achievement.content}
+							left={() => <Avatar.Icon icon={achievement.icon} size={42} />}
 						/>
 					))}
 				</View>

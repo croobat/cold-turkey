@@ -11,6 +11,7 @@ import logsReducer, { resetLogsSlice } from '@/store/logsSlice';
 import motivationalReducer, { resetMotivationalSlice } from '@/store/motivationalSlice';
 import motivationsReducer, { resetMotivationsSlice } from '@/store/motivationsSlice';
 import settingsReducer, { resetSettingsSlice } from '@/store/settingsSlice';
+import archivementsReducer, { resetArchivementsSlice } from '@/store/archivementsSlice';
 
 const persistConfig = {
 	key: 'root',
@@ -24,6 +25,7 @@ const rootReducer = combineReducers({
 	motivational: motivationalReducer,
 	settings: settingsReducer,
 	motivations: motivationsReducer,
+	archivements: archivementsReducer,
 });
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);
@@ -47,6 +49,7 @@ export const resetAllSlices = () => {
 	store.dispatch(resetMotivationalSlice());
 	store.dispatch(resetSettingsSlice());
 	store.dispatch(resetMotivationsSlice());
+	store.dispatch(resetArchivementsSlice());
 };
 
 export type RootState = ReturnType<typeof store.getState>;
