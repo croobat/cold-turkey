@@ -5,19 +5,12 @@ import { router } from 'expo-router';
 import { style } from '@/constants/Styles';
 import { selectArchivements } from '@/store/archivementsSlice';
 import { useSelector } from 'react-redux';
+import { selectMotivations } from '@/store/motivationsSlice';
 
 export default function ProfileScreen() {
 	const theme = useTheme();
 	const archivements = useSelector(selectArchivements);
-
-	const motivations = [
-		{
-			id: 1,
-			media: 'image',
-			title: 'Motivation',
-			description: 'Add a text, image or video to remind you why you want to quit',
-		},
-	];
+	const motivations = useSelector(selectMotivations);
 
 	return (
 		<SafeAreaView style={style.container}>
@@ -31,12 +24,12 @@ export default function ProfileScreen() {
 						<IconButton icon="chevron-right" onPress={() => router.navigate('/profile/motivations')} />
 					</View>
 
-					{motivations.map((item) => (
-						<Card key={item.id}>
+					{motivations.length > 0 && (
+						<Card>
 							<Card.Cover source={{ uri: 'https://picsum.photos/700' }} />
-							<Card.Title title={item.title} subtitle={item.description} />
+							<Card.Title title={motivations[0].title} subtitle={motivations[0].content} />
 						</Card>
-					))}
+					)}
 				</View>
 
 				{/* achievements */}
