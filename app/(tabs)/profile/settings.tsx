@@ -1,11 +1,10 @@
 import { Text, Button, SegmentedButtons, TextInput, Card } from 'react-native-paper';
 import { SafeAreaView, ScrollView, View } from 'react-native';
 import { useSelector } from 'react-redux';
+import { useTranslation } from 'react-i18next';
 
 import { resetAllSlices, useAppDispatch } from '@/store';
 import {
-	Currency,
-	Language,
 	setTheme,
 	setLanguage,
 	setCurrency,
@@ -17,32 +16,67 @@ import {
 	setPricePerCigarette,
 	setCigarettesPerDay,
 } from '@/store/settingsSlice';
-import { Theme } from '@/store/settingsSlice';
+
+import i18n from '@/locales';
 
 import { style } from '@/constants/Styles';
 
 export default function SettingsScreen() {
 	const dispatch = useAppDispatch();
+	const { t } = useTranslation();
 
+	const theme = useSelector(selectTheme);
+	const language = useSelector(selectLanguage);
+	const currency = useSelector(selectCurrency);
 	const chigarettesPerDay = useSelector(selectCigarettesPerDay);
 	const pricePerCigarette = useSelector(selectPricePerCigarette);
+
+	const handleThemeChange = (theme: string) => {
+		if (theme === 'light' || theme === 'dark') {
+			dispatch(setTheme(theme));
+		}
+	};
+
+	const handleLanguageChange = (language: string) => {
+		if (language === 'en' || language === 'es') {
+			i18n.changeLanguage(language);
+			dispatch(setLanguage(language));
+		}
+	};
+
+	const handleCurrencyChange = (currency: string) => {
+		if (currency === 'usd' || currency === 'eur' || currency === 'mxn') {
+			dispatch(setCurrency(currency));
+		}
+	};
+
+	const handleChangeCigarettesPerDay = (text: string) => {
+		dispatch(setCigarettesPerDay(parseInt(text) || 0));
+	};
+
+	const handleChangePricePerCigarette = (text: string) => {
+		dispatch(setPricePerCigarette(parseFloat(text) || 0));
+	};
+
+	const handleConfirmWipeData = () => {
+		resetAllSlices();
+	};
 
 	return (
 		<SafeAreaView style={style.container}>
 			<ScrollView contentContainerStyle={[style.paddingHorizontal, style.paddingBottom, style.rowGap]}>
 				{/* Theme Settings */}
 				<Card>
-					<Card.Title title="Appearance" />
-					<Card.Content style={[style.row]}>
-						<Text variant="bodyMedium">Theme</Text>
+					<Card.Title title={t('settings.appearance')} />
+					<Card.Content style={[style.xsRowGap]}>
+						<Text variant="bodyMedium">{t('settings.theme')}</Text>
 						<SegmentedButtons
-							style={{ width: 200 }}
 							density="regular"
-							value={useSelector(selectTheme)}
-							onValueChange={(value) => dispatch(setTheme(value as Theme))}
+							value={theme}
+							onValueChange={handleThemeChange}
 							buttons={[
-								{ value: 'light', label: 'Light', icon: 'white-balance-sunny' },
-								{ value: 'dark', label: 'Dark', icon: 'weather-night' },
+								{ value: 'light', label: t('settings.light'), icon: 'white-balance-sunny' },
+								{ value: 'dark', label: t('settings.dark'), icon: 'weather-night' },
 							]}
 						/>
 					</Card.Content>
@@ -50,16 +84,14 @@ export default function SettingsScreen() {
 
 				{/* Language and Currency Settings */}
 				<Card>
-					<Card.Title title="Preferences" />
+					<Card.Title title={t('settings.preferences')} />
 					<Card.Content style={[style.rowGap]}>
-						<View style={style.row}>
-							<Text variant="bodyMedium">Language</Text>
-
+						<View style={[style.xsRowGap]}>
+							<Text variant="bodyMedium">{t('settings.language')}</Text>
 							<SegmentedButtons
-								style={{ width: 150 }}
 								density="regular"
-								value={useSelector(selectLanguage)}
-								onValueChange={(value) => dispatch(setLanguage(value as Language))}
+								value={language}
+								onValueChange={handleLanguageChange}
 								buttons={[
 									{ value: 'es', label: 'ES' },
 									{ value: 'en', label: 'EN' },
@@ -67,16 +99,16 @@ export default function SettingsScreen() {
 							/>
 						</View>
 
-						<View style={style.row}>
-							<Text variant="bodyMedium">Currency</Text>
+						<View style={[style.xsRowGap]}>
+							<Text variant="bodyMedium">{t('settings.currency')}</Text>
 							<SegmentedButtons
-								style={{ width: 150 }}
 								density="regular"
-								value={useSelector(selectCurrency)}
-								onValueChange={(value) => dispatch(setCurrency(value as Currency))}
+								value={currency}
+								onValueChange={handleCurrencyChange}
 								buttons={[
-									{ value: 'MXN', label: 'MXN' },
-									{ value: 'USD', label: 'USD' },
+									{ value: 'usd', label: 'USD' },
+									{ value: 'eur', label: 'EUR' },
+									{ value: 'mxn', label: 'MXN' },
 								]}
 							/>
 						</View>
@@ -85,21 +117,21 @@ export default function SettingsScreen() {
 
 				{/* Stats Settings */}
 				<Card>
-					<Card.Title title="Statistics" />
+					<Card.Title title={t('settings.statistics')} />
 					<Card.Content style={[style.rowGap]}>
 						<TextInput
-							label="Cigarettes per day"
+							label={t('settings.cigarettesPerDay')}
 							value={chigarettesPerDay.toString()}
-							onChangeText={(text) => dispatch(setCigarettesPerDay(parseInt(text) || 0))}
+							onChangeText={handleChangeCigarettesPerDay}
 							keyboardType="numeric"
 							mode="outlined"
 							error={chigarettesPerDay < 0}
 						/>
 
 						<TextInput
-							label="Price per cigarette"
+							label={t('settings.pricePerCigarette')}
 							value={pricePerCigarette.toString()}
-							onChangeText={(text) => dispatch(setPricePerCigarette(parseFloat(text) || 0))}
+							onChangeText={handleChangePricePerCigarette}
 							keyboardType="numeric"
 							mode="outlined"
 							error={pricePerCigarette < 0}
@@ -108,8 +140,8 @@ export default function SettingsScreen() {
 				</Card>
 
 				{/* Wipe Data Button */}
-				<Button icon="delete" mode="contained-tonal" onPress={() => resetAllSlices()}>
-					Wipe All Data
+				<Button icon="delete" mode="contained-tonal" onPress={handleConfirmWipeData}>
+					{t('settings.wipeAllData').toUpperCase()}
 				</Button>
 			</ScrollView>
 		</SafeAreaView>

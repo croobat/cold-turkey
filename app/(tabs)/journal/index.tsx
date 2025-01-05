@@ -1,11 +1,12 @@
-import { style } from '@/constants/Styles';
-import { selectRelapses } from '@/store/logsSlice';
 import { format } from 'date-fns';
 import { FlatList, SafeAreaView, View } from 'react-native';
 import { List, Text, useTheme } from 'react-native-paper';
 import { useSelector } from 'react-redux';
 
-// relapse: {content, datetime, title}
+import { selectRelapses } from '@/store/logsSlice';
+
+import { style } from '@/constants/Styles';
+
 export default function JournalScreen() {
 	const theme = useTheme();
 

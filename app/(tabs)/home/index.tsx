@@ -3,6 +3,7 @@ import { ScrollView, View, RefreshControl, SafeAreaView } from 'react-native';
 import { AnimatedFAB, Banner, Icon, IconButton, Text, Card, useTheme } from 'react-native-paper';
 import { format, intervalToDuration, parseISO } from 'date-fns';
 import { router, useFocusEffect } from 'expo-router';
+import { useTranslation } from 'react-i18next';
 
 import { useAppDispatch, useAppSelector } from '@/store';
 import { selectLastQuote, updateLastQuote } from '@/store/motivationalSlice';
@@ -16,10 +17,12 @@ const CIGARETTES_PER_DAY = 10;
 
 export default function HomeScreen() {
 	const dispatch = useAppDispatch();
+	const { t } = useTranslation();
+	const theme = useTheme();
+
 	const [isResetConfirmVisible, setIsResetConfirmVisible] = useState(false);
 	const [isRefreshing, setIsRefreshing] = useState(false);
 	const [currentTime, setCurrentTime] = useState(new Date());
-	const theme = useTheme();
 
 	const getRandomQuote = useCallback(() => {
 		const randomIndex = Math.floor(Math.random() * motivationalQuotes.length);
@@ -55,11 +58,11 @@ export default function HomeScreen() {
 
 	const resetConfirmActions = [
 		{
-			label: 'Cancel',
+			label: t('form.cancel'),
 			onPress: () => setIsResetConfirmVisible(false),
 		},
 		{
-			label: 'Ok',
+			label: t('form.confirm'),
 			onPress: () => {
 				setIsResetConfirmVisible(false);
 				router.navigate('/(tabs)/home/relapse-add');
@@ -93,7 +96,10 @@ export default function HomeScreen() {
 		<SafeAreaView style={style.container}>
 			{/* Confirmation Banner */}
 			<Banner visible={isResetConfirmVisible} icon="alert" actions={resetConfirmActions}>
-				<Text>Are you sure you want to add a relapse? This will reset your progress.</Text>
+				{/* <Text>Are you sure you want to add a relapse? This will reset your progress.</Text> */}
+				<Text>
+					{t('home.areYouSureYouWantToAddARelapse')} {t('home.thisWillResetYourProgress')}
+				</Text>
 			</Banner>
 
 			<ScrollView
@@ -118,7 +124,7 @@ export default function HomeScreen() {
 				{/* Progress Overview Section */}
 				<Card style={[style.card, style.xsMarginBottom]}>
 					<Text variant="titleMedium" style={{ color: theme.colors.primary, textAlign: 'center' }}>
-						Time since quitting
+						{t('home.timeSinceQuitting')}
 					</Text>
 					<View style={[style.centered]}>
 						<Text variant="titleMedium">{dateSinceQuit}</Text>
@@ -129,7 +135,7 @@ export default function HomeScreen() {
 				{/* Not Smoked Since Section */}
 				<Card style={[style.card, style.xsMarginBottom]}>
 					<Text variant="titleMedium" style={{ color: theme.colors.primary, textAlign: 'center', marginBottom: 10 }}>
-						Not smoked since
+						{t('home.notSmokedSince')}
 					</Text>
 					<View style={[style.centered]}>
 						{Boolean(daysSinceQuit) && <Text variant="titleMedium">{daysSinceQuit} days</Text>}
@@ -145,7 +151,7 @@ export default function HomeScreen() {
 				{/* Statistics Section */}
 				<Card style={[style.card, style.xsMarginBottom]}>
 					<Text variant="titleMedium" style={{ color: theme.colors.primary, textAlign: 'center', marginBottom: 10 }}>
-						Key Statistics
+						{t('home.keyStatistics')}
 					</Text>
 					<View style={[style.row, { justifyContent: 'space-around' }]}>
 						<View style={[style.centered, style.smRowGap]}>

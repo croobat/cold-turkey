@@ -1,33 +1,61 @@
 import { View, ScrollView, SafeAreaView } from 'react-native';
 import { Card, Text, useTheme, Avatar, List, IconButton } from 'react-native-paper';
 import { router } from 'expo-router';
+import { useTranslation } from 'react-i18next';
 
 import { style } from '@/constants/Styles';
 
+type Motivation = {
+	id: number;
+	media: 'image' | 'text';
+	title: string;
+	description: string;
+};
+
+type Achievement = {
+	id: number;
+	icon: string;
+	title: string;
+	description: string;
+};
+
 export default function ProfileScreen() {
 	const theme = useTheme();
+	const { t } = useTranslation();
 
-	const motivations = [
+	const motivations: Motivation[] = [
 		{
 			id: 1,
 			media: 'image',
-			title: 'Motivation',
-			description: 'Add a text, image or video to remind you why you want to quit',
+			title: t('profile.motivation'),
+			description: t('profile.addATextOrImageToRemindYouWhyYouQuit'),
 		},
 	];
 
-	const achievements = [
+	const achievements: Achievement[] = [
 		{
 			id: 1,
-			title: 'Getting started',
-			subtitle: 'Quit Smoking for the first time',
-			icon: 'smoking-off',
+			icon: 'flag-checkered',
+			title: t('achievements.gettingStarted'),
+			description: t('achievements.gettingStartedDescription'),
 		},
 		{
 			id: 2,
-			title: 'Getting started',
-			subtitle: 'Quit Smoking for the first time',
-			icon: 'smoking-off',
+			icon: 'calendar-today',
+			title: t('achievements.firstDay'),
+			description: t('achievements.firstDayDescription'),
+		},
+		{
+			id: 3,
+			icon: 'progress-clock',
+			title: t('achievements.firstWeek'),
+			description: t('achievements.firstWeekDescription'),
+		},
+		{
+			id: 4,
+			icon: 'calendar-month',
+			title: t('achievements.firstMonth'),
+			description: t('achievements.firstMonthDescription'),
 		},
 	];
 
@@ -38,7 +66,7 @@ export default function ProfileScreen() {
 				<View>
 					<View style={style.row}>
 						<Text variant="titleMedium" style={{ color: theme.colors.primary }}>
-							Motivations
+							{t('profile.motivations')}
 						</Text>
 						<IconButton icon="chevron-right" onPress={() => router.navigate('/profile/motivations')} />
 					</View>
@@ -55,7 +83,7 @@ export default function ProfileScreen() {
 				<View>
 					<View style={style.row}>
 						<Text variant="titleMedium" style={{ color: theme.colors.primary }}>
-							Achievements
+							{t('achievements.title')}
 						</Text>
 						<IconButton icon="chevron-right" onPress={() => router.navigate('/profile/achievements')} />
 					</View>
@@ -64,7 +92,7 @@ export default function ProfileScreen() {
 						<List.Item
 							key={achievement.id}
 							title={achievement.title}
-							description={achievement.subtitle}
+							description={achievement.description}
 							left={() => <Avatar.Icon icon={achievement.icon} />}
 						/>
 					))}

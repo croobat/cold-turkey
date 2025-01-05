@@ -10,7 +10,10 @@ i18n.use(initReactI18next).init({
 	fallbackLng: 'en',
 	lng: Localization.getLocales()[0].languageCode,
 	compatibilityJSON: 'v3',
-	resources: { en, es },
+	resources: {
+		en: { translation: en },
+		es: { translation: es },
+	},
 	interpolation: { escapeValue: false },
 });
 

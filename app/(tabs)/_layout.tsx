@@ -1,9 +1,17 @@
 import React from 'react';
 import { Tabs } from 'expo-router';
 import { Icon, useTheme } from 'react-native-paper';
+import { useTranslation } from 'react-i18next';
+
+type TabBarIconProps = {
+	focused: boolean;
+	color: string;
+	size: number;
+};
 
 export default function NavigationLayout() {
 	const theme = useTheme();
+	const { t } = useTranslation();
 
 	return (
 		<Tabs
@@ -13,41 +21,41 @@ export default function NavigationLayout() {
 			<Tabs.Screen
 				name="home"
 				options={{
-					title: 'Home',
-					tabBarLabel: 'Home',
-					tabBarIcon: ({ color, size }) => <Icon source="home" color={color} size={size} />,
+					title: t('home.title'),
+					tabBarLabel: t('home.title'),
+					tabBarIcon: ({ color, size }: TabBarIconProps) => <Icon source="home" color={color} size={size} />,
 				}}
 			/>
 			<Tabs.Screen
 				name="journal"
 				options={{
-					title: 'Journal',
-					tabBarLabel: 'Journal',
-					tabBarIcon: ({ color, size }) => <Icon source="book" color={color} size={size} />,
+					title: t('journal.title'),
+					tabBarLabel: t('journal.title'),
+					tabBarIcon: ({ color, size }: TabBarIconProps) => <Icon source="book" color={color} size={size} />,
 				}}
 			/>
 			<Tabs.Screen
 				name="health"
 				options={{
-					title: 'Health',
-					tabBarLabel: 'Health',
-					tabBarIcon: ({ color, size }) => <Icon source="heart" color={color} size={size} />,
+					title: t('health.title'),
+					tabBarLabel: t('health.title'),
+					tabBarIcon: ({ color, size }: TabBarIconProps) => <Icon source="heart" color={color} size={size} />,
 				}}
 			/>
 			<Tabs.Screen
 				name="goal"
 				options={{
-					title: 'Goal',
-					tabBarLabel: 'Goal',
-					tabBarIcon: ({ color, size }) => <Icon source="target" color={color} size={size} />,
+					title: t('goal.title'),
+					tabBarLabel: t('goal.title'),
+					tabBarIcon: ({ color, size }: TabBarIconProps) => <Icon source="target" color={color} size={size} />,
 				}}
 			/>
 			<Tabs.Screen
 				name="profile"
 				options={{
-					title: 'Profile',
-					tabBarLabel: 'Profile',
-					tabBarIcon: ({ color, size }) => <Icon source="account" color={color} size={size} />,
+					title: t('profile.title'),
+					tabBarLabel: t('profile.title'),
+					tabBarIcon: ({ color, size }: TabBarIconProps) => <Icon source="account" color={color} size={size} />,
 				}}
 			/>
 		</Tabs>
