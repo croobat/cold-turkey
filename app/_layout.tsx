@@ -11,7 +11,7 @@ import { Provider } from 'react-redux';
 
 import { store } from '@/store';
 
-import { useColorScheme } from '@/utils/useColorScheme';
+import { useTheme } from '@/utils/useTheme';
 
 import { Colors } from '@/constants/Colors';
 
@@ -26,27 +26,33 @@ const customLightTheme = { ...MD3LightTheme, colors: Colors.light };
 const CombinedDefaultTheme = merge(LightTheme, customLightTheme);
 const CombinedDarkTheme = merge(DarkTheme, customDarkTheme);
 
-export default function RootLayout() {
-	const colorScheme = useColorScheme();
+export default function RootLayoutWrapper() {
+	return (
+		<Provider store={store}>
+			<RootLayout />
+		</Provider>
+	);
+}
+
+export function RootLayout() {
+	const colorScheme = useTheme();
 
 	const theme = colorScheme === 'dark' ? CombinedDarkTheme : CombinedDefaultTheme;
 
 	return (
-		<Provider store={store}>
-			<PaperProvider theme={theme}>
-				{/* @ts-ignore */}
-				<ThemeProvider value={theme}>
-					<StatusBar
-						backgroundColor={theme.colors.background}
-						barStyle={colorScheme === 'dark' ? 'light-content' : 'dark-content'}
-					/>
+		<PaperProvider theme={theme}>
+			{/* @ts-ignore */}
+			<ThemeProvider value={theme}>
+				<StatusBar
+					backgroundColor={theme.colors.background}
+					barStyle={colorScheme === 'dark' ? 'light-content' : 'dark-content'}
+				/>
 
-					<Stack>
-						<Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-						<Stack.Screen name="+not-found" options={{ headerShown: false }} />
-					</Stack>
-				</ThemeProvider>
-			</PaperProvider>
-		</Provider>
+				<Stack>
+					<Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+					<Stack.Screen name="+not-found" options={{ headerShown: false }} />
+				</Stack>
+			</ThemeProvider>
+		</PaperProvider>
 	);
 }

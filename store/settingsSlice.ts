@@ -3,7 +3,7 @@ import type { RootState } from '@/store';
 
 export type Theme = 'light' | 'dark';
 export type Language = 'en' | 'es';
-export type Currency = 'USD' | 'MXN';
+export type Currency = 'usd' | 'eur' | 'mxn';
 
 export interface SettingsState {
 	theme: Theme;
@@ -15,8 +15,8 @@ export interface SettingsState {
 
 const initialState: SettingsState = {
 	theme: 'dark',
-	language: 'es',
-	currency: 'MXN',
+	language: 'en',
+	currency: 'usd',
 	pricePerCigarette: 0,
 	cigarettesPerDay: 0,
 };
