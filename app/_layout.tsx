@@ -11,6 +11,7 @@ import { Provider } from 'react-redux';
 
 import { store } from '@/store';
 
+import '@/locales';
 import { useTheme } from '@/utils/useTheme';
 
 import { Colors } from '@/constants/Colors';
