@@ -1,24 +1,19 @@
+import { StatusBar } from 'react-native';
 import { Stack } from 'expo-router';
 import {
 	DarkTheme as NavigationDarkTheme,
 	DefaultTheme as NavigationDefaultTheme,
 	ThemeProvider,
 } from '@react-navigation/native';
-import {
-	ActivityIndicator,
-	MD3DarkTheme,
-	MD3LightTheme,
-	PaperProvider,
-	adaptNavigationTheme,
-} from 'react-native-paper';
+import { MD3DarkTheme, MD3LightTheme, PaperProvider, adaptNavigationTheme } from 'react-native-paper';
 import merge from 'deepmerge';
 import { Provider } from 'react-redux';
 
-import { Colors } from '@/constants/Colors';
+import { store } from '@/store';
+
 import { useColorScheme } from '@/utils/useColorScheme';
-import { persistor, store } from '@/store';
-import { PersistGate } from 'redux-persist/integration/react';
-import { StatusBar } from 'react-native';
+
+import { Colors } from '@/constants/Colors';
 
 const { LightTheme, DarkTheme } = adaptNavigationTheme({
 	reactNavigationLight: NavigationDefaultTheme,
@@ -38,22 +33,20 @@ export default function RootLayout() {
 
 	return (
 		<Provider store={store}>
-			<PersistGate loading={<ActivityIndicator />} persistor={persistor}>
-				<PaperProvider theme={theme}>
-					{/* @ts-ignore */}
-					<ThemeProvider value={theme}>
-						<StatusBar
-							backgroundColor={theme.colors.background}
-							barStyle={colorScheme === 'dark' ? 'light-content' : 'dark-content'}
-						/>
+			<PaperProvider theme={theme}>
+				{/* @ts-ignore */}
+				<ThemeProvider value={theme}>
+					<StatusBar
+						backgroundColor={theme.colors.background}
+						barStyle={colorScheme === 'dark' ? 'light-content' : 'dark-content'}
+					/>
 
-						<Stack>
-							<Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-							<Stack.Screen name="+not-found" options={{ headerShown: false }} />
-						</Stack>
-					</ThemeProvider>
-				</PaperProvider>
-			</PersistGate>
+					<Stack>
+						<Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+						<Stack.Screen name="+not-found" options={{ headerShown: false }} />
+					</Stack>
+				</ThemeProvider>
+			</PaperProvider>
 		</Provider>
 	);
 }
