@@ -1,0 +1,109 @@
+{
+	"common": {
+		"backToHome": "Back to home",
+
+		"relapse": "Relapse",
+		"relapses": "Relapses"
+	},
+
+	"error": {
+		"somethingWentWrong": "Something went wrong.",
+		"screenNotFound": "Screen not found."
+	},
+
+	"form": {
+		"cancel": "Cancel",
+		"save": "Save",
+		"yes": "Yes",
+		"no": "No",
+		"delete": "Delete",
+		"edit": "Edit",
+		"add": "Add",
+		"back": "Back",
+		"next": "Next",
+		"done": "Done",
+		"loading": "Loading",
+		"error": "Error",
+		"warning": "Warning",
+		"info": "Info",
+		"success": "Success",
+		"confirm": "Confirm",
+		"close": "Close",
+		"title": "Title",
+		"content": "Content",
+		"requiredField": "Required field",
+		"date": "Date",
+		"time": "Time",
+		"hours": "Hours",
+		"minutes": "Minutes",
+		"seconds": "Seconds",
+		"day": "Day",
+		"month": "Month",
+		"year": "Year"
+	},
+
+	"home": {
+		"title": "Home",
+
+		"timeSinceQuitting": "Time since quitting",
+		"notSmokedSince": "Not smoked since",
+		"keyStatistics": "Key statistics",
+		"areYouSureYouWantToAddARelapse": "Are you sure you want to add a relapse?",
+		"thisWillResetYourProgress": "This will reset your progress."
+	},
+
+	"journal": {
+		"title": "Journal"
+	},
+
+	"health": {
+		"title": "Health"
+	},
+
+	"goal": {
+		"title": "Goal"
+	},
+
+	"profile": {
+		"title": "Profile",
+
+		"motivation": "Motivation",
+		"motivations": "Motivations",
+		"addATextOrImageToRemindYouWhyYouQuit": "Add a text or image to remind you why you quit"
+	},
+
+	"settings": {
+		"title": "Settings",
+
+		"appearance": "Appearance",
+		"theme": "Theme",
+		"light": "Light",
+		"dark": "Dark",
+		"preferences": "Preferences",
+		"language": "Language",
+		"currency": "Currency",
+		"statistics": "Statistics",
+		"cigarettesPerDay": "Cigarettes per day",
+		"pricePerCigarette": "Price per cigarette",
+		"wipeAllData": "Wipe all data"
+	},
+
+	"achievements": {
+		"title": "Achievements",
+
+		"gettingStarted": "Getting started",
+		"gettingStartedDescription": "Quit smoking for the first time.",
+
+		"firstDay": "First day",
+		"firstDayDescription": "Reach one day without smoking.",
+
+		"firstWeek": "First week",
+		"firstWeekDescription": "Reach one week without smoking.",
+
+		"firstMonth": "First month",
+		"firstMonthDescription": "Reach one month without smoking.",
+
+		"firstYear": "First year",
+		"firstYearDescription": "Reach one year without smoking."
+	}
+}

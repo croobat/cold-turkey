@@ -3,6 +3,7 @@ import { SafeAreaView, View, Text } from 'react-native';
 import { AnimatedFAB, TextInput, useTheme } from 'react-native-paper';
 import { router } from 'expo-router';
 import { formatISO } from 'date-fns';
+import { useTranslation } from 'react-i18next';
 
 import { useAppDispatch } from '@/store';
 import { addRelapse } from '@/store/logsSlice';
@@ -22,6 +23,7 @@ const INITIAL_FORM: Form = {
 export default function RelapseAddScreen() {
 	const dispatch = useAppDispatch();
 	const theme = useTheme();
+	const { t } = useTranslation();
 
 	const [form, setForm] = useState<Form>(INITIAL_FORM);
 	const [error, setError] = useState<string | null>(null);
@@ -49,7 +51,7 @@ export default function RelapseAddScreen() {
 			<View style={[style.lgMargin, style.lgRowGap]}>
 				<View style={style.smRowGap}>
 					<TextInput
-						label="Title"
+						label={t('form.title')}
 						value={form.title}
 						mode="outlined"
 						onChangeText={(text) => {
@@ -62,7 +64,7 @@ export default function RelapseAddScreen() {
 				</View>
 
 				<TextInput
-					label="Content"
+					label={t('form.content')}
 					value={form.content}
 					mode="outlined"
 					onChangeText={(text) => setForm({ ...form, content: text })}

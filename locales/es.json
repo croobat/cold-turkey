@@ -1,0 +1,109 @@
+{
+	"common": {
+		"backToHome": "Volver a inicio",
+
+		"relapse": "Recaída",
+		"relapses": "Recaídas"
+	},
+
+	"error": {
+		"somethingWentWrong": "Algo salió mal.",
+		"screenNotFound": "Pantalla no encontrada."
+	},
+
+	"form": {
+		"cancel": "Cancelar",
+		"save": "Guardar",
+		"yes": "Sí",
+		"no": "No",
+		"delete": "Eliminar",
+		"edit": "Editar",
+		"add": "Añadir",
+		"back": "Atrás",
+		"next": "Siguiente",
+		"done": "Hecho",
+		"loading": "Cargando",
+		"error": "Error",
+		"warning": "Advertencia",
+		"info": "Información",
+		"success": "Éxito",
+		"confirm": "Confirmar",
+		"close": "Cerrar",
+		"title": "Título",
+		"content": "Contenido",
+		"requiredField": "Campo requerido",
+		"date": "Fecha",
+		"time": "Hora",
+		"hours": "Horas",
+		"minutes": "Minutos",
+		"seconds": "Segundos",
+		"day": "Día",
+		"month": "Mes",
+		"year": "Año"
+	},
+
+	"home": {
+		"title": "Inicio",
+
+		"timeSinceQuitting": "Tiempo sin fumar",
+		"notSmokedSince": "Sin fumar desde",
+		"keyStatistics": "Estadísticas clave",
+		"areYouSureYouWantToAddARelapse": "¿Estás seguro de que quieres añadir una recaída?",
+		"thisWillResetYourProgress": "Esto reiniciará tu progreso."
+	},
+
+	"journal": {
+		"title": "Diario"
+	},
+
+	"health": {
+		"title": "Salud"
+	},
+
+	"goal": {
+		"title": "Objetivo"
+	},
+
+	"profile": {
+		"title": "Perfil",
+
+		"motivation": "Motivación",
+		"motivations": "Motivaciones",
+		"addATextOrImageToRemindYouWhyYouQuit": "Añade un texto o imagen para recordarte por qué dejaste de fumar"
+	},
+
+	"settings": {
+		"title": "Ajustes",
+
+		"appearance": "Apariencia",
+		"theme": "Tema",
+		"light": "Claro",
+		"dark": "Oscuro",
+		"preferences": "Preferencias",
+		"language": "Idioma",
+		"currency": "Moneda",
+		"statistics": "Estadísticas",
+		"cigarettesPerDay": "Cigarros por día",
+		"pricePerCigarette": "Precio por cigarro",
+		"wipeAllData": "Borrar todos los datos"
+	},
+
+	"achievements": {
+		"title": "Logros",
+
+		"gettingStarted": "Empezando",
+		"gettingStartedDescription": "Deja de fumar por primera vez.",
+
+		"firstDay": "Primer día",
+		"firstDayDescription": "Cumple un día sin fumar.",
+
+		"firstWeek": "Primera semana",
+		"firstWeekDescription": "Cumple una semana sin fumar.",
+
+		"firstMonth": "Primer mes",
+		"firstMonthDescription": "Cumple un mes sin fumar.",
+
+		"firstYear": "Primer año",
+		"firstYearDescription": "Cumple un año sin fumar."
+	}
+}
