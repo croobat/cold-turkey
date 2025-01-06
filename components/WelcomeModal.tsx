@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useCallback, useState } from 'react';
 import { View } from 'react-native';
 import { Modal, Portal, Text, TextInput, Button, Card, useTheme } from 'react-native-paper';
 import { useTranslation } from 'react-i18next';
@@ -6,6 +6,7 @@ import { useTranslation } from 'react-i18next';
 import { useAppDispatch } from '@/store';
 import { setCigarettesPerDay, setPricePerCigarette } from '@/store/settingsSlice';
 import { style } from '@/constants/Styles';
+import { useFocusEffect } from 'expo-router';
 
 export default function WelcomeModal({ visible, onDismiss }: { visible: boolean; onDismiss: () => void }) {
 	const dispatch = useAppDispatch();
@@ -17,22 +18,33 @@ export default function WelcomeModal({ visible, onDismiss }: { visible: boolean;
 	const [error, setError] = useState('');
 
 	const handleSave = () => {
-		const cigarettesPerDay = parseInt(cigarettesPerDayInput);
-		if (isNaN(cigarettesPerDay) || cigarettesPerDay <= 0) {
+		const pricePerCigarette = pricePerCigaretteInput.trim();
+		// Regular expression to match valid numbers (up to two decimal places)
+		const pricePerCigaretteValid = /^(\d+(\.\d{1,2})?)$/.test(pricePerCigarette);
+
+		if (!pricePerCigaretteValid || isNaN(parseFloat(pricePerCigarette)) || parseFloat(pricePerCigarette) <= 0) {
 			setError(t('error.mustBeAnEntireNumberGreaterThanZero'));
 			return;
 		}
 
 		setError('');
 		dispatch(setCigarettesPerDay(parseInt(cigarettesPerDayInput) || 0));
-		dispatch(setPricePerCigarette(parseFloat(pricePerCigaretteInput) || 0));
+		dispatch(setPricePerCigarette(parseFloat(pricePerCigarette) || 0));
 		onDismiss();
 	};
+
+	useFocusEffect(
+		useCallback(() => {
+			setCigarettesPerDayInput('');
+			setPricePerCigaretteInput('');
+			setError('');
+		}, []),
+	);
 
 	return (
 		<Portal>
 			<Modal visible={visible} dismissable={false} onDismiss={onDismiss} contentContainerStyle={style.lgMargin}>
-				<Card style={style.lgPadding}>
+				<Card style={[style.lgPadding, style.xxxlMarginBottom]}>
 					<Text variant="titleLarge" style={[style.lgMarginBottom, { textAlign: 'center' }]}>
 						{t('welcome.welcomeToColdTurkey')}
 					</Text>
@@ -41,26 +53,27 @@ export default function WelcomeModal({ visible, onDismiss }: { visible: boolean;
 					</Text>
 
 					<View style={style.lgMarginBottom}>
-						<View style={style.marginBottom}>
-							<TextInput
-								label={t('common.cigarettesPerDay')}
-								value={cigarettesPerDayInput}
-								onChangeText={setCigarettesPerDayInput}
-								keyboardType="numeric"
-								mode="outlined"
-								style={style.xsMarginBottom}
-								error={Boolean(error)}
-							/>
-							{error ? <Text style={[style.xsMarginBottom, { color: theme.colors.error }]}>{error}</Text> : null}
-						</View>
-
 						<TextInput
-							label={t('common.pricePerCigarette')}
-							value={pricePerCigaretteInput}
-							onChangeText={setPricePerCigaretteInput}
+							label={t('common.cigarettesPerDay')}
+							value={cigarettesPerDayInput}
+							onChangeText={setCigarettesPerDayInput}
 							keyboardType="numeric"
 							mode="outlined"
+							style={style.xsMarginBottom}
 						/>
+
+						<View style={style.marginBottom}>
+							<TextInput
+								label={t('common.pricePerCigarette')}
+								value={pricePerCigaretteInput}
+								onChangeText={setPricePerCigaretteInput}
+								keyboardType="numeric"
+								mode="outlined"
+								error={Boolean(error)}
+							/>
+
+							{error ? <Text style={[style.xsMarginBottom, { color: theme.colors.error }]}>{error}</Text> : null}
+						</View>
 					</View>
 
 					<Button mode="contained" onPress={handleSave} disabled={!cigarettesPerDayInput || !pricePerCigaretteInput}>
