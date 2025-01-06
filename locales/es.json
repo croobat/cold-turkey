@@ -1,11 +1,12 @@
 {
 	"common": {
 		"backToHome": "Volver a inicio",
-
 		"relapse": "Recaída",
 		"relapses": "Recaídas",
 		"cigarettesPerDay": "Cigarros por día",
-		"pricePerCigarette": "Precio por cigarro"
+		"pricePerCigarette": "Precio por cigarro",
+		"noRelapsesFound": "No se encontraron recaídas",
+		"pleaseAddARelapseToStartTrackingYourProgress": "Por favor, añade una recaída para comenzar a rastrear tu progreso."
 	},
 
 	"error": {
@@ -42,7 +43,9 @@
 		"seconds": "Segundos",
 		"day": "Día",
 		"month": "Mes",
-		"year": "Año"
+		"year": "Año",
+
+		"thisActionCannotBeUndone": "Esta acción no se puede deshacer."
 	},
 
 	"welcome": {
@@ -92,6 +95,7 @@
 		"currency": "Moneda",
 		"statistics": "Estadísticas",
 		"dangerZone": "Zona de peligro",
+		"areYouSureYouWantToWipeAllData": "¿Estás seguro de que quieres borrar todos los datos?",
 		"wipeAllData": "Borrar todos los datos"
 	},
 

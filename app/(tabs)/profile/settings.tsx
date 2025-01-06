@@ -174,7 +174,7 @@ export default function SettingsScreen() {
 					<Dialog.Icon icon="alert" />
 					<Dialog.Title>{t('settings.areYouSureYouWantToWipeAllData')}</Dialog.Title>
 					<Dialog.Content>
-						<Text>{t('settings.thisActionCannotBeUndone')}</Text>
+						<Text>{t('form.thisActionCannotBeUndone')}</Text>
 					</Dialog.Content>
 					<Dialog.Actions>
 						<Button onPress={() => setIsDialogVisible(false)}>{t('form.cancel')}</Button>

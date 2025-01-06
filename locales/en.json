@@ -1,11 +1,12 @@
 {
 	"common": {
 		"backToHome": "Back to home",
-
 		"relapse": "Relapse",
 		"relapses": "Relapses",
 		"cigarettesPerDay": "Cigarettes per day",
-		"pricePerCigarette": "Price per cigarette"
+		"pricePerCigarette": "Price per cigarette",
+		"noRelapsesFound": "No relapses found",
+		"pleaseAddARelapseToStartTrackingYourProgress": "Please add a relapse to start tracking your progress."
 	},
 
 	"error": {
@@ -42,7 +43,9 @@
 		"seconds": "Seconds",
 		"day": "Day",
 		"month": "Month",
-		"year": "Year"
+		"year": "Year",
+
+		"thisActionCannotBeUndone": "This action cannot be undone."
 	},
 
 	"welcome": {
@@ -93,7 +96,6 @@
 		"statistics": "Statistics",
 		"dangerZone": "Danger zone",
 		"areYouSureYouWantToWipeAllData": "Are you sure you want to wipe all data?",
-		"thisActionCannotBeUndone": "This action cannot be undone.",
 		"wipeAllData": "Wipe all data"
 	},
 

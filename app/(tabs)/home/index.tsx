@@ -102,9 +102,9 @@ export default function HomeScreen() {
 						<RefreshControl refreshing={isRefreshing} onRefresh={handleRefresh} tintColor={theme.colors.primary} />
 					}
 				>
-					<Text variant="titleLarge">No data found</Text>
+					<Text variant="titleLarge">{t('common.noRelapsesFound')}</Text>
 					<Text variant="bodyLarge" style={{ textAlign: 'center' }}>
-						Please add a relapse to start tracking your progress.
+						{t('common.pleaseAddARelapseToStartTrackingYourProgress')}
 					</Text>
 					<IconButton icon="plus" mode="contained" onPress={() => router.navigate('/(tabs)/home/relapse-add')} />
 				</ScrollView>
