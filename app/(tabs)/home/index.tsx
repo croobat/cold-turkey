@@ -16,6 +16,7 @@ import { METRICS } from '@/constants/Metrics';
 import motivationalQuotes from '@/data/motivational-quotes.json';
 
 import WelcomeModal from '@/components/WelcomeModal';
+import EmptyRelapsesState from '@/components/EmptyRelapsesState';
 
 export default function HomeScreen() {
 	const dispatch = useAppDispatch();
@@ -93,22 +94,9 @@ export default function HomeScreen() {
 	// empty state
 	if (lastRelapse === undefined) {
 		return (
-			<SafeAreaView style={style.container}>
-				{/* welcome screen if no settings data found */}
+			<EmptyRelapsesState isRefreshing={isRefreshing} onRefresh={handleRefresh}>
 				<WelcomeModal visible={isWelcomeModalVisible} onDismiss={handleDismissWelcomeModal} />
-				<ScrollView
-					contentContainerStyle={[style.paddingHorizontal, style.centered, style.fullHeight, style.rowGap]}
-					refreshControl={
-						<RefreshControl refreshing={isRefreshing} onRefresh={handleRefresh} tintColor={theme.colors.primary} />
-					}
-				>
-					<Text variant="titleLarge">{t('common.noRelapsesFound')}</Text>
-					<Text variant="bodyLarge" style={{ textAlign: 'center' }}>
-						{t('common.pleaseAddARelapseToStartTrackingYourProgress')}
-					</Text>
-					<IconButton icon="plus" mode="contained" onPress={() => router.navigate('/(tabs)/home/relapse-add')} />
-				</ScrollView>
-			</SafeAreaView>
+			</EmptyRelapsesState>
 		);
 	}
 
