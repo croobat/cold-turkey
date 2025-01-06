@@ -13,6 +13,7 @@ import {
 import { KeyboardAvoidingView, Platform, SafeAreaView, ScrollView, View } from 'react-native';
 import { useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
+import { router } from 'expo-router';
 
 import { resetAllSlices, useAppDispatch } from '@/store';
 import {
@@ -28,8 +29,9 @@ import {
 	setCigarettesPerDay,
 } from '@/store/settingsSlice';
 
+import i18n from '@/locales';
+
 import { style } from '@/constants/Styles';
-import { router } from 'expo-router';
 
 interface SettingsForm {
 	theme: any;
@@ -84,6 +86,9 @@ export default function SettingsScreen() {
 			setError('Values cannot be negative.');
 			return;
 		}
+
+		i18n.changeLanguage(form.language);
+
 		dispatch(setTheme(form.theme));
 		dispatch(setLanguage(form.language));
 		dispatch(setCurrency(form.currency));
@@ -175,7 +180,6 @@ export default function SettingsScreen() {
 
 					{/* danger zone */}
 					<Card style={{ backgroundColor: paperTheme.colors.errorContainer }}>
-						<Card.Title title={t('settings.dangerZone')} />
 						<Card.Content>
 							<Button
 								icon="delete"
