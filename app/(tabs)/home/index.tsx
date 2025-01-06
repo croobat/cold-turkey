@@ -8,12 +8,12 @@ import { useTranslation } from 'react-i18next';
 import { useAppDispatch, useAppSelector } from '@/store';
 import { selectLastQuote, updateLastQuote } from '@/store/motivationalSlice';
 import { selectLastRelapse } from '@/store/logsSlice';
+import { selectCigarettesPerDay } from '@/store/settingsSlice';
+
 import { style } from '@/constants/Styles';
-import motivationalQuotes from '@/data/motivational-quotes.json';
 import { METRICS } from '@/constants/Metrics';
 
-const CIGARETTE_COST = 10;
-const CIGARETTES_PER_DAY = 10;
+import motivationalQuotes from '@/data/motivational-quotes.json';
 
 export default function HomeScreen() {
 	const dispatch = useAppDispatch();
@@ -26,6 +26,8 @@ export default function HomeScreen() {
 
 	const lastQuote = useAppSelector(selectLastQuote);
 	const lastRelapse = useAppSelector(selectLastRelapse);
+	const cigaretesPerDay = useAppSelector(selectCigarettesPerDay);
+	const pricePerCigarette = useAppSelector(selectCigarettesPerDay);
 
 	const quitDate = parseISO(lastRelapse?.datetime ?? new Date().toISOString());
 	const duration = intervalToDuration({ start: quitDate, end: currentTime });
@@ -33,8 +35,8 @@ export default function HomeScreen() {
 	const hoursSinceQuit = duration.hours ?? 0;
 	const minutesSinceQuit = duration.minutes ?? 0;
 
-	const cigarettesNotSmoked = Math.round((daysSinceQuit + hoursSinceQuit / 24) * CIGARETTES_PER_DAY);
-	const moneySaved = cigarettesNotSmoked * CIGARETTE_COST;
+	const cigarettesNotSmoked = Math.round((daysSinceQuit + hoursSinceQuit / 24) * cigaretesPerDay);
+	const moneySaved = cigarettesNotSmoked * pricePerCigarette;
 	const dateSinceQuit = format(quitDate, 'MMMM d, yyyy');
 	const timeSinceQuit = format(quitDate, 'p');
 
