@@ -7,12 +7,12 @@ type MotivationalQuote = {
 };
 
 export interface MotivationalState {
-	lastTime: number;
+	lastChange: number;
 	lastQuote: MotivationalQuote;
 }
 
 const initialState: MotivationalState = {
-	lastTime: 0,
+	lastChange: 0,
 	lastQuote: { quote: '', author: '' },
 };
 
@@ -20,15 +20,15 @@ const motivationalSlice = createSlice({
 	name: 'motivational',
 	initialState,
 	reducers: {
-		setLastTime: (state: MotivationalState, action: PayloadAction<number>) => {
-			state.lastTime = action.payload;
+		setLastChange: (state: MotivationalState, action: PayloadAction<number>) => {
+			state.lastChange = action.payload;
 		},
 		setLastQuote: (state: MotivationalState, action: PayloadAction<MotivationalQuote>) => {
 			state.lastQuote = action.payload;
 		},
 		updateLastQuote: (state: MotivationalState, action: PayloadAction<MotivationalQuote>) => {
 			state.lastQuote = action.payload;
-			state.lastTime = Date.now();
+			state.lastChange = Date.now();
 		},
 		resetMotivationalSlice: () => {
 			return initialState;
@@ -36,12 +36,12 @@ const motivationalSlice = createSlice({
 	},
 });
 
-export const { setLastTime, setLastQuote, updateLastQuote, resetMotivationalSlice } = motivationalSlice.actions;
+export const { setLastChange, setLastQuote, updateLastQuote, resetMotivationalSlice } = motivationalSlice.actions;
 
-export const selectLastTime = (state: RootState) => state.motivational.lastTime;
+export const selectLastChange = (state: RootState) => state.motivational.lastChange;
 export const selectLastQuote = (state: RootState) => state.motivational.lastQuote;
 
-export type SetLastTimeAction = ReturnType<typeof setLastTime>;
+export type SetLastChangeAction = ReturnType<typeof setLastChange>;
 export type SetLastQuoteAction = ReturnType<typeof setLastQuote>;
 export type UpdateLastQuoteAction = ReturnType<typeof updateLastQuote>;
 export type ResetMotivationalSliceAction = ReturnType<typeof resetMotivationalSlice>;
