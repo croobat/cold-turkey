@@ -6,11 +6,14 @@ import { useSelector } from 'react-redux';
 import { selectRelapses } from '@/store/logsSlice';
 
 import { style } from '@/constants/Styles';
+import EmptyRelapsesState from '@/components/EmptyRelapsesState';
 
 export default function JournalScreen() {
 	const theme = useTheme();
 
 	const relapses = useSelector(selectRelapses);
+
+	if (relapses.length === 0) return <EmptyRelapsesState />;
 
 	return (
 		<SafeAreaView style={[style.container]}>

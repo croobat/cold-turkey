@@ -8,12 +8,27 @@ import { useTranslation } from 'react-i18next';
 import { useAppDispatch, useAppSelector } from '@/store';
 import { selectLastQuote, updateLastQuote } from '@/store/motivationalSlice';
 import { selectLastRelapse } from '@/store/logsSlice';
+import { selectCigarettesPerDay, selectPricePerCigarette } from '@/store/settingsSlice';
+
 import { style } from '@/constants/Styles';
-import motivationalQuotes from '@/constants/MotivationalQuotes.json';
 import { METRICS } from '@/constants/Metrics';
 
-const CIGARETTE_COST = 10;
-const CIGARETTES_PER_DAY = 10;
+import motivationalQuotes from '@/data/motivational-quotes.json';
+
+import WelcomeModal from '@/components/WelcomeModal';
+import EmptyRelapsesState from '@/components/EmptyRelapsesState';
+
+const HomeCardTitle = ({ title }: { title: string }) => {
+	const theme = useTheme();
+
+	return (
+		<Card.Title
+			title={title}
+			titleVariant="titleMedium"
+			titleStyle={{ color: theme.colors.primary, textAlign: 'center' }}
+		/>
+	);
+};
 
 export default function HomeScreen() {
 	const dispatch = useAppDispatch();
@@ -23,36 +38,23 @@ export default function HomeScreen() {
 	const [isResetConfirmVisible, setIsResetConfirmVisible] = useState(false);
 	const [isRefreshing, setIsRefreshing] = useState(false);
 	const [currentTime, setCurrentTime] = useState(new Date());
-
-	const getRandomQuote = useCallback(() => {
-		const randomIndex = Math.floor(Math.random() * motivationalQuotes.length);
-		const selectedQuote = motivationalQuotes[randomIndex];
-		dispatch(updateLastQuote(selectedQuote));
-	}, [dispatch]);
-
-	useEffect(() => {
-		getRandomQuote();
-		const intervalId = setInterval(getRandomQuote, 10 * 1000 * 60);
-		return () => clearInterval(intervalId);
-	}, [dispatch, getRandomQuote]);
-
-	const handleRefresh = () => {
-		setIsRefreshing(true);
-		setCurrentTime(new Date());
-		setTimeout(() => setIsRefreshing(false), 500);
-	};
+	const [isWelcomeModalVisible, setIsWelcomeModalVisible] = useState(false);
 
 	const lastQuote = useAppSelector(selectLastQuote);
 	const lastRelapse = useAppSelector(selectLastRelapse);
+	const cigaretesPerDay = useAppSelector(selectCigarettesPerDay);
+	const pricePerCigarette = useAppSelector(selectPricePerCigarette);
 
-	const quitDate = parseISO(lastRelapse?.datetime ?? new Date().toISOString());
+	const isoString = lastRelapse?.datetime || new Date().toISOString();
+	const quitDate = parseISO(isoString);
+
 	const duration = intervalToDuration({ start: quitDate, end: currentTime });
 	const daysSinceQuit = duration.days ?? 0;
 	const hoursSinceQuit = duration.hours ?? 0;
 	const minutesSinceQuit = duration.minutes ?? 0;
 
-	const cigarettesNotSmoked = Math.round((daysSinceQuit + hoursSinceQuit / 24) * CIGARETTES_PER_DAY);
-	const moneySaved = cigarettesNotSmoked * CIGARETTE_COST;
+	const cigarettesNotSmoked = Math.round((daysSinceQuit + hoursSinceQuit / 24) * cigaretesPerDay);
+	const moneySaved = cigarettesNotSmoked * pricePerCigarette;
 	const dateSinceQuit = format(quitDate, 'MMMM d, yyyy');
 	const timeSinceQuit = format(quitDate, 'p');
 
@@ -70,46 +72,64 @@ export default function HomeScreen() {
 		},
 	];
 
+	const getRandomQuote = useCallback(() => {
+		const randomIndex = Math.floor(Math.random() * motivationalQuotes.length);
+		const selectedQuote = motivationalQuotes[randomIndex];
+		dispatch(updateLastQuote(selectedQuote));
+	}, [dispatch]);
+
+	const handleRefresh = () => {
+		setIsRefreshing(true);
+		setCurrentTime(new Date());
+		setTimeout(() => setIsRefreshing(false), 500);
+	};
+
+	const handleDismissWelcomeModal = () => {
+		setIsWelcomeModalVisible(false);
+	};
+
+	useEffect(() => {
+		getRandomQuote();
+		const intervalId = setInterval(getRandomQuote, 10 * 1000 * 60);
+		return () => clearInterval(intervalId);
+	}, [dispatch, getRandomQuote]);
+
+	useEffect(() => {
+		console.log(cigaretesPerDay, pricePerCigarette);
+		if (!cigaretesPerDay && !pricePerCigarette) {
+			setIsWelcomeModalVisible(true);
+		}
+	}, [cigaretesPerDay, pricePerCigarette]);
+
 	// fetch new quote on focus
 	useFocusEffect(useCallback(() => getRandomQuote(), [getRandomQuote]));
 
+	// empty state
 	if (lastRelapse === undefined) {
 		return (
-			<SafeAreaView style={style.container}>
-				<ScrollView
-					contentContainerStyle={[style.paddingHorizontal, style.centered, style.fullHeight, style.rowGap]}
-					refreshControl={
-						<RefreshControl refreshing={isRefreshing} onRefresh={handleRefresh} tintColor={theme.colors.primary} />
-					}
-				>
-					<Text variant="titleLarge">No data found</Text>
-					<Text variant="bodyLarge" style={{ textAlign: 'center' }}>
-						Please add a relapse to start tracking your progress.
-					</Text>
-					<IconButton icon="plus" mode="contained" onPress={() => router.navigate('/(tabs)/home/relapse-add')} />
-				</ScrollView>
-			</SafeAreaView>
+			<EmptyRelapsesState isRefreshing={isRefreshing} onRefresh={handleRefresh}>
+				<WelcomeModal visible={isWelcomeModalVisible} onDismiss={handleDismissWelcomeModal} />
+			</EmptyRelapsesState>
 		);
 	}
 
 	return (
 		<SafeAreaView style={style.container}>
-			{/* Confirmation Banner */}
-			<Banner visible={isResetConfirmVisible} icon="alert" actions={resetConfirmActions}>
-				{/* <Text>Are you sure you want to add a relapse? This will reset your progress.</Text> */}
+			{/* confirmation Banner */}
+			<Banner visible={isResetConfirmVisible} icon="alert" actions={resetConfirmActions} style={style.marginBottom}>
 				<Text>
 					{t('home.areYouSureYouWantToAddARelapse')} {t('home.thisWillResetYourProgress')}
 				</Text>
 			</Banner>
 
 			<ScrollView
-				contentContainerStyle={style.paddingHorizontal}
+				contentContainerStyle={[style.paddingHorizontal, style.rowGap]}
 				refreshControl={
 					<RefreshControl refreshing={isRefreshing} onRefresh={handleRefresh} tintColor={theme.colors.primary} />
 				}
 			>
-				{/* Motivational Quote Section */}
-				<Card style={[style.card, style.xsMarginBottom]}>
+				{/* motivational quote section */}
+				<Card style={style.padding}>
 					<View style={[style.centered]}>
 						<Text variant="bodyLarge" style={{ fontStyle: 'italic', textAlign: 'center' }}>
 							{lastQuote.quote}
@@ -121,22 +141,18 @@ export default function HomeScreen() {
 					</View>
 				</Card>
 
-				{/* Progress Overview Section */}
-				<Card style={[style.card, style.xsMarginBottom]}>
-					<Text variant="titleMedium" style={{ color: theme.colors.primary, textAlign: 'center' }}>
-						{t('home.timeSinceQuitting')}
-					</Text>
+				{/* progress overview section */}
+				<Card style={style.paddingBottom}>
+					<HomeCardTitle title={t('home.timeSinceQuitting')} />
 					<View style={[style.centered]}>
 						<Text variant="titleMedium">{dateSinceQuit}</Text>
 						<Text variant="titleMedium">At {timeSinceQuit}</Text>
 					</View>
 				</Card>
 
-				{/* Not Smoked Since Section */}
-				<Card style={[style.card, style.xsMarginBottom]}>
-					<Text variant="titleMedium" style={{ color: theme.colors.primary, textAlign: 'center', marginBottom: 10 }}>
-						{t('home.notSmokedSince')}
-					</Text>
+				{/* not smoked since section */}
+				<Card style={style.paddingBottom}>
+					<HomeCardTitle title={t('home.notSmokedSince')} />
 					<View style={[style.centered]}>
 						{Boolean(daysSinceQuit) && <Text variant="titleMedium">{daysSinceQuit} days</Text>}
 						{Boolean(hoursSinceQuit) && <Text variant="titleMedium">{hoursSinceQuit} hours</Text>}
@@ -148,12 +164,10 @@ export default function HomeScreen() {
 					</View>
 				</Card>
 
-				{/* Statistics Section */}
-				<Card style={[style.card, style.xsMarginBottom]}>
-					<Text variant="titleMedium" style={{ color: theme.colors.primary, textAlign: 'center', marginBottom: 10 }}>
-						{t('home.keyStatistics')}
-					</Text>
-					<View style={[style.row, { justifyContent: 'space-around' }]}>
+				{/* statistics section */}
+				<Card style={style.paddingBottom}>
+					<HomeCardTitle title={t('home.keyStatistics')} />
+					<View style={[style.row, style.marginBottom, { justifyContent: 'space-around' }]}>
 						<View style={[style.centered, style.smRowGap]}>
 							<Icon source="smoking-off" size={METRICS.icon} />
 							<Text>{cigarettesNotSmoked}</Text>
@@ -176,7 +190,6 @@ export default function HomeScreen() {
 				</Card>
 			</ScrollView>
 
-			{/* Reset FAB */}
 			<AnimatedFAB
 				icon="plus"
 				label="Reset"
