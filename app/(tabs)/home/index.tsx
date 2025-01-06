@@ -32,7 +32,9 @@ export default function HomeScreen() {
 	const cigaretesPerDay = useAppSelector(selectCigarettesPerDay);
 	const pricePerCigarette = useAppSelector(selectCigarettesPerDay);
 
-	const quitDate = parseISO(lastRelapse?.datetime ?? new Date().toISOString());
+	const isoString = lastRelapse?.datetime || new Date().toISOString();
+	const quitDate = parseISO(isoString);
+
 	const duration = intervalToDuration({ start: quitDate, end: currentTime });
 	const daysSinceQuit = duration.days ?? 0;
 	const hoursSinceQuit = duration.hours ?? 0;

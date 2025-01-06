@@ -91,6 +91,9 @@
 		"language": "Language",
 		"currency": "Currency",
 		"statistics": "Statistics",
+		"dangerZone": "Danger zone",
+		"areYouSureYouWantToWipeAllData": "Are you sure you want to wipe all data?",
+		"thisActionCannotBeUndone": "This action cannot be undone.",
 		"wipeAllData": "Wipe all data"
 	},
 

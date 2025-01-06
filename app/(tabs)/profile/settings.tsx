@@ -1,4 +1,5 @@
-import { Text, Button, SegmentedButtons, TextInput, Card } from 'react-native-paper';
+import { useState } from 'react';
+import { Text, Button, SegmentedButtons, TextInput, Card, useTheme, Dialog, Portal } from 'react-native-paper';
 import { SafeAreaView, ScrollView, View } from 'react-native';
 import { useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
@@ -20,16 +21,21 @@ import {
 import i18n from '@/locales';
 
 import { style } from '@/constants/Styles';
+import { router } from 'expo-router';
 
 export default function SettingsScreen() {
 	const dispatch = useAppDispatch();
 	const { t } = useTranslation();
+
+	const paperTheme = useTheme();
 
 	const theme = useSelector(selectTheme);
 	const language = useSelector(selectLanguage);
 	const currency = useSelector(selectCurrency);
 	const cigarettesPerDay = useSelector(selectCigarettesPerDay);
 	const pricePerCigarette = useSelector(selectPricePerCigarette);
+
+	const [isDialogVisible, setIsDialogVisible] = useState(false);
 
 	const handleThemeChange = (theme: string) => {
 		if (theme === 'light' || theme === 'dark') {
@@ -58,8 +64,14 @@ export default function SettingsScreen() {
 		dispatch(setPricePerCigarette(parseFloat(text) || 0));
 	};
 
-	const handleConfirmWipeData = () => {
+	const handleWipeData = () => {
 		resetAllSlices();
+		router.replace('/');
+		setIsDialogVisible(false);
+	};
+
+	const handleConfirmWipeData = () => {
+		setIsDialogVisible(true);
 	};
 
 	return (
@@ -140,10 +152,38 @@ export default function SettingsScreen() {
 				</Card>
 
 				{/* Wipe Data Button */}
-				<Button icon="delete" mode="contained-tonal" onPress={handleConfirmWipeData}>
-					{t('settings.wipeAllData').toUpperCase()}
-				</Button>
+				<Card style={{ backgroundColor: paperTheme.colors.errorContainer }}>
+					<Card.Title title={t('settings.dangerZone')} />
+					<Card.Content>
+						<Button
+							icon="delete"
+							mode="contained-tonal"
+							onPress={handleConfirmWipeData}
+							buttonColor={paperTheme.colors.error}
+							textColor={paperTheme.colors.errorContainer}
+						>
+							{t('settings.wipeAllData').toUpperCase()}
+						</Button>
+					</Card.Content>
+				</Card>
 			</ScrollView>
+
+			{/* Confirmation Dialog */}
+			<Portal>
+				<Dialog visible={isDialogVisible} onDismiss={() => setIsDialogVisible(false)}>
+					<Dialog.Icon icon="alert" />
+					<Dialog.Title>{t('settings.areYouSureYouWantToWipeAllData')}</Dialog.Title>
+					<Dialog.Content>
+						<Text>{t('settings.thisActionCannotBeUndone')}</Text>
+					</Dialog.Content>
+					<Dialog.Actions>
+						<Button onPress={() => setIsDialogVisible(false)}>{t('form.cancel')}</Button>
+						<Button onPress={handleWipeData} textColor={paperTheme.colors.error}>
+							{t('form.confirm')}
+						</Button>
+					</Dialog.Actions>
+				</Dialog>
+			</Portal>
 		</SafeAreaView>
 	);
 }
