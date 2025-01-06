@@ -1,4 +1,40 @@
 {
+	"test1Second": {
+		"en": {
+			"title": "Test 1 Second",
+			"description": "This is a test milestone that lasts 1 second."
+		},
+		"es": {
+			"title": "Prueba 1 Segundo",
+			"description": "Esta es una prueba de hito que dura 1 segundo."
+		},
+		"timeAmount": 1,
+		"timeMeasure": "seconds"
+	},
+	"test1Minute": {
+		"en": {
+			"title": "Test 1 Minute",
+			"description": "This is a test milestone that lasts 1 minute."
+		},
+		"es": {
+			"title": "Prueba 1 Minuto",
+			"description": "Esta es una prueba de hito que dura 1 minuto."
+		},
+		"timeAmount": 1,
+		"timeMeasure": "minutes"
+	},
+	"test5Minutes": {
+		"en": {
+			"title": "Test 5 Minutes",
+			"description": "This is a test milestone that lasts 5 minutes."
+		},
+		"es": {
+			"title": "Prueba 5 Minutos",
+			"description": "Esta es una prueba de hito que dura 5 minutos."
+		},
+		"timeAmount": 5,
+		"timeMeasure": "minutes"
+	},
 	"bloodPressure": {
 		"en": {
 			"title": "Blood Pressure",
@@ -80,8 +116,8 @@
 			"title": "Capacidad Pulmonar",
 			"description": "Toda la circulación sanguínea mejora. La capacidad pulmonar aumentada ya se puede sentir. Los pulmones pueden absorber más oxígeno, aumentando el rendimiento físico."
 		},
-		"timeAmount": 1,
-		"timeMeasure": "month"
+		"timeAmount": 4,
+		"timeMeasure": "weeks"
 	},
 	"lungHairs": {
 		"en": {
@@ -104,8 +140,8 @@
 			"title": "Arterias Coronarias",
 			"description": "El riesgo de enfermedades de los vasos coronarios se reduce a la mitad."
 		},
-		"timeAmount": 1,
-		"timeMeasure": "year"
+		"timeAmount": 12,
+		"timeMeasure": "months"
 	},
 	"heartAttackRisk": {
 		"en": {
