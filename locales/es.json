@@ -6,7 +6,21 @@
 		"cigarettesPerDay": "Cigarros por día",
 		"pricePerCigarette": "Precio por cigarro",
 		"noRelapsesFound": "No se encontraron recaídas",
-		"pleaseAddARelapseToStartTrackingYourProgress": "Por favor, añade una recaída para comenzar a rastrear tu progreso."
+		"pleaseAddARelapseToStartTrackingYourProgress": "Por favor, añade una recaída para comenzar a rastrear tu progreso.",
+		"second": "Segundo",
+		"seconds": "Segundos",
+		"minute": "Minuto",
+		"minutes": "Minutos",
+		"hour": "Hora",
+		"hours": "Horas",
+		"day": "Día",
+		"days": "Días",
+		"week": "Semana",
+		"weeks": "Semanas",
+		"month": "Mes",
+		"months": "Meses",
+		"year": "Año",
+		"years": "Años"
 	},
 
 	"error": {
@@ -38,12 +52,6 @@
 		"requiredField": "Campo requerido",
 		"date": "Fecha",
 		"time": "Hora",
-		"hours": "Horas",
-		"minutes": "Minutos",
-		"seconds": "Segundos",
-		"day": "Día",
-		"month": "Mes",
-		"year": "Año",
 
 		"thisActionCannotBeUndone": "Esta acción no se puede deshacer."
 	},

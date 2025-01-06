@@ -6,7 +6,21 @@
 		"cigarettesPerDay": "Cigarettes per day",
 		"pricePerCigarette": "Price per cigarette",
 		"noRelapsesFound": "No relapses found",
-		"pleaseAddARelapseToStartTrackingYourProgress": "Please add a relapse to start tracking your progress."
+		"pleaseAddARelapseToStartTrackingYourProgress": "Please add a relapse to start tracking your progress.",
+		"second": "Second",
+		"seconds": "Seconds",
+		"minute": "Minute",
+		"minutes": "Minutes",
+		"hour": "Hour",
+		"hours": "Hours",
+		"day": "Day",
+		"days": "Days",
+		"week": "Week",
+		"weeks": "Weeks",
+		"month": "Month",
+		"months": "Months",
+		"year": "Year",
+		"years": "Years"
 	},
 
 	"error": {
@@ -38,12 +52,6 @@
 		"requiredField": "Required field",
 		"date": "Date",
 		"time": "Time",
-		"hours": "Hours",
-		"minutes": "Minutes",
-		"seconds": "Seconds",
-		"day": "Day",
-		"month": "Month",
-		"year": "Year",
 
 		"thisActionCannotBeUndone": "This action cannot be undone."
 	},
@@ -68,7 +76,9 @@
 	},
 
 	"health": {
-		"title": "Health"
+		"title": "Health",
+		"completed": "Completed",
+		"congratulationsYouDidIt": "You did it! 🎉"
 	},
 
 	"goal": {
