@@ -24,24 +24,6 @@ export default function HomeScreen() {
 	const [isRefreshing, setIsRefreshing] = useState(false);
 	const [currentTime, setCurrentTime] = useState(new Date());
 
-	const getRandomQuote = useCallback(() => {
-		const randomIndex = Math.floor(Math.random() * motivationalQuotes.length);
-		const selectedQuote = motivationalQuotes[randomIndex];
-		dispatch(updateLastQuote(selectedQuote));
-	}, [dispatch]);
-
-	useEffect(() => {
-		getRandomQuote();
-		const intervalId = setInterval(getRandomQuote, 10 * 1000 * 60);
-		return () => clearInterval(intervalId);
-	}, [dispatch, getRandomQuote]);
-
-	const handleRefresh = () => {
-		setIsRefreshing(true);
-		setCurrentTime(new Date());
-		setTimeout(() => setIsRefreshing(false), 500);
-	};
-
 	const lastQuote = useAppSelector(selectLastQuote);
 	const lastRelapse = useAppSelector(selectLastRelapse);
 
@@ -70,9 +52,30 @@ export default function HomeScreen() {
 		},
 	];
 
+	const getRandomQuote = useCallback(() => {
+		const randomIndex = Math.floor(Math.random() * motivationalQuotes.length);
+		const selectedQuote = motivationalQuotes[randomIndex];
+		dispatch(updateLastQuote(selectedQuote));
+	}, [dispatch]);
+
+	useEffect(() => {
+		getRandomQuote();
+		const intervalId = setInterval(getRandomQuote, 10 * 1000 * 60);
+		return () => clearInterval(intervalId);
+	}, [dispatch, getRandomQuote]);
+
+	const handleRefresh = () => {
+		setIsRefreshing(true);
+		setCurrentTime(new Date());
+		setTimeout(() => setIsRefreshing(false), 500);
+	};
+
 	// fetch new quote on focus
 	useFocusEffect(useCallback(() => getRandomQuote(), [getRandomQuote]));
 
+	// welcome screen if no settings data found
+
+	// empty state
 	if (lastRelapse === undefined) {
 		return (
 			<SafeAreaView style={style.container}>
