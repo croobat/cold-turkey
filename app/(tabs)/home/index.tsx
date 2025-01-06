@@ -8,7 +8,7 @@ import { useTranslation } from 'react-i18next';
 import { useAppDispatch, useAppSelector } from '@/store';
 import { selectLastQuote, updateLastQuote } from '@/store/motivationalSlice';
 import { selectLastRelapse } from '@/store/logsSlice';
-import { selectCigarettesPerDay } from '@/store/settingsSlice';
+import { selectCigarettesPerDay, selectPricePerCigarette } from '@/store/settingsSlice';
 
 import { style } from '@/constants/Styles';
 import { METRICS } from '@/constants/Metrics';
@@ -17,6 +17,18 @@ import motivationalQuotes from '@/data/motivational-quotes.json';
 
 import WelcomeModal from '@/components/WelcomeModal';
 import EmptyRelapsesState from '@/components/EmptyRelapsesState';
+
+const HomeCardTitle = ({ title }: { title: string }) => {
+	const theme = useTheme();
+
+	return (
+		<Card.Title
+			title={title}
+			titleVariant="titleMedium"
+			titleStyle={{ color: theme.colors.primary, textAlign: 'center' }}
+		/>
+	);
+};
 
 export default function HomeScreen() {
 	const dispatch = useAppDispatch();
@@ -31,7 +43,7 @@ export default function HomeScreen() {
 	const lastQuote = useAppSelector(selectLastQuote);
 	const lastRelapse = useAppSelector(selectLastRelapse);
 	const cigaretesPerDay = useAppSelector(selectCigarettesPerDay);
-	const pricePerCigarette = useAppSelector(selectCigarettesPerDay);
+	const pricePerCigarette = useAppSelector(selectPricePerCigarette);
 
 	const isoString = lastRelapse?.datetime || new Date().toISOString();
 	const quitDate = parseISO(isoString);
@@ -83,7 +95,8 @@ export default function HomeScreen() {
 	}, [dispatch, getRandomQuote]);
 
 	useEffect(() => {
-		if (!cigaretesPerDay || !pricePerCigarette) {
+		console.log(cigaretesPerDay, pricePerCigarette);
+		if (!cigaretesPerDay && !pricePerCigarette) {
 			setIsWelcomeModalVisible(true);
 		}
 	}, [cigaretesPerDay, pricePerCigarette]);
@@ -103,20 +116,20 @@ export default function HomeScreen() {
 	return (
 		<SafeAreaView style={style.container}>
 			{/* confirmation Banner */}
-			<Banner visible={isResetConfirmVisible} icon="alert" actions={resetConfirmActions}>
+			<Banner visible={isResetConfirmVisible} icon="alert" actions={resetConfirmActions} style={style.marginBottom}>
 				<Text>
 					{t('home.areYouSureYouWantToAddARelapse')} {t('home.thisWillResetYourProgress')}
 				</Text>
 			</Banner>
 
 			<ScrollView
-				contentContainerStyle={style.paddingHorizontal}
+				contentContainerStyle={[style.paddingHorizontal, style.rowGap]}
 				refreshControl={
 					<RefreshControl refreshing={isRefreshing} onRefresh={handleRefresh} tintColor={theme.colors.primary} />
 				}
 			>
 				{/* motivational quote section */}
-				<Card style={[style.card, style.xsMarginBottom]}>
+				<Card style={style.padding}>
 					<View style={[style.centered]}>
 						<Text variant="bodyLarge" style={{ fontStyle: 'italic', textAlign: 'center' }}>
 							{lastQuote.quote}
@@ -129,10 +142,8 @@ export default function HomeScreen() {
 				</Card>
 
 				{/* progress overview section */}
-				<Card style={[style.card, style.xsMarginBottom]}>
-					<Text variant="titleMedium" style={{ color: theme.colors.primary, textAlign: 'center' }}>
-						{t('home.timeSinceQuitting')}
-					</Text>
+				<Card style={style.paddingBottom}>
+					<HomeCardTitle title={t('home.timeSinceQuitting')} />
 					<View style={[style.centered]}>
 						<Text variant="titleMedium">{dateSinceQuit}</Text>
 						<Text variant="titleMedium">At {timeSinceQuit}</Text>
@@ -140,10 +151,8 @@ export default function HomeScreen() {
 				</Card>
 
 				{/* not smoked since section */}
-				<Card style={[style.card, style.xsMarginBottom]}>
-					<Text variant="titleMedium" style={{ color: theme.colors.primary, textAlign: 'center', marginBottom: 10 }}>
-						{t('home.notSmokedSince')}
-					</Text>
+				<Card style={style.paddingBottom}>
+					<HomeCardTitle title={t('home.notSmokedSince')} />
 					<View style={[style.centered]}>
 						{Boolean(daysSinceQuit) && <Text variant="titleMedium">{daysSinceQuit} days</Text>}
 						{Boolean(hoursSinceQuit) && <Text variant="titleMedium">{hoursSinceQuit} hours</Text>}
@@ -156,11 +165,9 @@ export default function HomeScreen() {
 				</Card>
 
 				{/* statistics section */}
-				<Card style={[style.card, style.xsMarginBottom]}>
-					<Text variant="titleMedium" style={{ color: theme.colors.primary, textAlign: 'center', marginBottom: 10 }}>
-						{t('home.keyStatistics')}
-					</Text>
-					<View style={[style.row, { justifyContent: 'space-around' }]}>
+				<Card style={style.paddingBottom}>
+					<HomeCardTitle title={t('home.keyStatistics')} />
+					<View style={[style.row, style.marginBottom, { justifyContent: 'space-around' }]}>
 						<View style={[style.centered, style.smRowGap]}>
 							<Icon source="smoking-off" size={METRICS.icon} />
 							<Text>{cigarettesNotSmoked}</Text>
