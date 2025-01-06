@@ -1,75 +1,61 @@
+import React from 'react';
 import { Tabs } from 'expo-router';
-import { Feather } from '@expo/vector-icons';
-import { Icon } from 'react-native-paper';
-import { View } from 'react-native';
+import { Icon, useTheme } from 'react-native-paper';
+import { useTranslation } from 'react-i18next';
+
+type TabBarIconProps = {
+	focused: boolean;
+	color: string;
+	size: number;
+};
 
 export default function NavigationLayout() {
+	const theme = useTheme();
+	const { t } = useTranslation();
+
 	return (
 		<Tabs
-			screenOptions={{
-				headerShown: true,
-				headerTitleAlign: 'left',
-				headerTitleStyle: {
-					fontSize: 24,
-					fontWeight: 'bold',
-				},
-				headerStyle: {
-					backgroundColor: 'transparent',
-					borderBottomWidth: 0,
-					shadowColor: 'transparent',
-					shadowOffset: { width: 0, height: 0 },
-					shadowOpacity: 0,
-					shadowRadius: 0,
-					elevation: 0,
-				},
-				tabBarStyle: {
-					borderTopWidth: 0,
-				},
-			}}
+			screenOptions={{ headerShown: false, tabBarStyle: { backgroundColor: theme.colors.surface, borderTopWidth: 0 } }}
 		>
+			<Tabs.Screen name="index" options={{ href: null }} />
 			<Tabs.Screen
-				name="index"
+				name="home"
 				options={{
-					title: 'Home',
-					tabBarLabel: 'Home',
-					tabBarIcon: ({ color, size }) => <Feather name="home" color={color} size={size} />,
-					headerRight: () => (
-						<View style={{ marginRight: 16 }}>
-							<Icon source="bell" size={24} />
-						</View>
-					),
+					title: t('home.title'),
+					tabBarLabel: t('home.title'),
+					tabBarIcon: ({ color, size }: TabBarIconProps) => <Icon source="home" color={color} size={size} />,
 				}}
 			/>
 			<Tabs.Screen
 				name="journal"
 				options={{
-					title: 'Journal',
-					tabBarLabel: 'Journal',
-					tabBarIcon: ({ color, size }) => <Feather name="book" color={color} size={size} />,
+					title: t('journal.title'),
+					tabBarLabel: t('journal.title'),
+					tabBarIcon: ({ color, size }: TabBarIconProps) => <Icon source="book" color={color} size={size} />,
 				}}
 			/>
 			<Tabs.Screen
 				name="health"
 				options={{
-					title: 'Health',
-					tabBarLabel: 'Health',
-					tabBarIcon: ({ color, size }) => <Feather name="activity" color={color} size={size} />,
+					title: t('health.title'),
+					tabBarLabel: t('health.title'),
+					tabBarIcon: ({ color, size }: TabBarIconProps) => <Icon source="heart" color={color} size={size} />,
 				}}
 			/>
 			<Tabs.Screen
 				name="goal"
 				options={{
-					title: 'Goal',
-					tabBarLabel: 'Goal',
-					tabBarIcon: ({ color, size }) => <Feather name="target" color={color} size={size} />,
+					title: t('goal.title'),
+					tabBarLabel: t('goal.title'),
+					tabBarIcon: ({ color, size }: TabBarIconProps) => <Icon source="target" color={color} size={size} />,
 				}}
 			/>
 			<Tabs.Screen
 				name="profile"
 				options={{
-					title: 'Profile',
-					tabBarLabel: 'Profile',
-					tabBarIcon: ({ color, size }) => <Feather name="user" color={color} size={size} />,
+					title: t('profile.title'),
+					tabBarLabel: t('profile.title'),
+					tabBarIcon: ({ color, size }: TabBarIconProps) => <Icon source="account" color={color} size={size} />,
 				}}
 			/>
 		</Tabs>
