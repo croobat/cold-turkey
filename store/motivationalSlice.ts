@@ -1,4 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { formatISO } from 'date-fns';
 import type { RootState } from '@/store';
 
 type MotivationalQuote = {
@@ -7,12 +8,12 @@ type MotivationalQuote = {
 };
 
 export interface MotivationalState {
-	lastChange: number;
+	lastChange: string;
 	lastQuote: MotivationalQuote;
 }
 
 const initialState: MotivationalState = {
-	lastChange: 0,
+	lastChange: '',
 	lastQuote: { quote: '', author: '' },
 };
 
@@ -20,7 +21,7 @@ const motivationalSlice = createSlice({
 	name: 'motivational',
 	initialState,
 	reducers: {
-		setLastChange: (state: MotivationalState, action: PayloadAction<number>) => {
+		setLastChange: (state: MotivationalState, action: PayloadAction<string>) => {
 			state.lastChange = action.payload;
 		},
 		setLastQuote: (state: MotivationalState, action: PayloadAction<MotivationalQuote>) => {
@@ -28,7 +29,7 @@ const motivationalSlice = createSlice({
 		},
 		updateLastQuote: (state: MotivationalState, action: PayloadAction<MotivationalQuote>) => {
 			state.lastQuote = action.payload;
-			state.lastChange = Date.now();
+			state.lastChange = formatISO(new Date());
 		},
 		resetMotivationalSlice: () => {
 			return initialState;
