@@ -9,7 +9,7 @@ import { useAppDispatch, useAppSelector } from '@/store';
 import { selectLastQuote, updateLastQuote } from '@/store/motivationalSlice';
 import { selectLastRelapse } from '@/store/logsSlice';
 import { style } from '@/constants/Styles';
-import motivationalQuotes from '@/constants/MotivationalQuotes.json';
+import motivationalQuotes from '@/data/motivational-quotes.json';
 import { METRICS } from '@/constants/Metrics';
 
 const CIGARETTE_COST = 10;
