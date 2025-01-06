@@ -3,12 +3,15 @@
 		"backToHome": "Back to home",
 
 		"relapse": "Relapse",
-		"relapses": "Relapses"
+		"relapses": "Relapses",
+		"cigarettesPerDay": "Cigarettes per day",
+		"pricePerCigarette": "Price per cigarette"
 	},
 
 	"error": {
 		"somethingWentWrong": "Something went wrong.",
-		"screenNotFound": "Screen not found."
+		"screenNotFound": "Screen not found.",
+		"mustBeAnEntireNumberGreaterThanZero": "Must be an entire number greater than zero."
 	},
 
 	"form": {
@@ -40,6 +43,11 @@
 		"day": "Day",
 		"month": "Month",
 		"year": "Year"
+	},
+
+	"welcome": {
+		"welcomeToColdTurkey": "Welcome to Cold Turkey!",
+		"beforeStartingYourJourneyTellUsAboutYourSmokingHabits": "Before starting your journey, tell us about your smoking habits, so we can help you track your progress."
 	},
 
 	"home": {
@@ -83,8 +91,6 @@
 		"language": "Language",
 		"currency": "Currency",
 		"statistics": "Statistics",
-		"cigarettesPerDay": "Cigarettes per day",
-		"pricePerCigarette": "Price per cigarette",
 		"wipeAllData": "Wipe all data"
 	},
 

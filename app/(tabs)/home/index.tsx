@@ -15,6 +15,8 @@ import { METRICS } from '@/constants/Metrics';
 
 import motivationalQuotes from '@/data/motivational-quotes.json';
 
+import WelcomeModal from '@/components/WelcomeModal';
+
 export default function HomeScreen() {
 	const dispatch = useAppDispatch();
 	const { t } = useTranslation();
@@ -23,6 +25,7 @@ export default function HomeScreen() {
 	const [isResetConfirmVisible, setIsResetConfirmVisible] = useState(false);
 	const [isRefreshing, setIsRefreshing] = useState(false);
 	const [currentTime, setCurrentTime] = useState(new Date());
+	const [isWelcomeModalVisible, setIsWelcomeModalVisible] = useState(false);
 
 	const lastQuote = useAppSelector(selectLastQuote);
 	const lastRelapse = useAppSelector(selectLastRelapse);
@@ -60,27 +63,37 @@ export default function HomeScreen() {
 		dispatch(updateLastQuote(selectedQuote));
 	}, [dispatch]);
 
-	useEffect(() => {
-		getRandomQuote();
-		const intervalId = setInterval(getRandomQuote, 10 * 1000 * 60);
-		return () => clearInterval(intervalId);
-	}, [dispatch, getRandomQuote]);
-
 	const handleRefresh = () => {
 		setIsRefreshing(true);
 		setCurrentTime(new Date());
 		setTimeout(() => setIsRefreshing(false), 500);
 	};
 
+	const handleDismissWelcomeModal = () => {
+		setIsWelcomeModalVisible(false);
+	};
+
+	useEffect(() => {
+		getRandomQuote();
+		const intervalId = setInterval(getRandomQuote, 10 * 1000 * 60);
+		return () => clearInterval(intervalId);
+	}, [dispatch, getRandomQuote]);
+
+	useEffect(() => {
+		if (!cigaretesPerDay || !pricePerCigarette) {
+			setIsWelcomeModalVisible(true);
+		}
+	}, [cigaretesPerDay, pricePerCigarette]);
+
 	// fetch new quote on focus
 	useFocusEffect(useCallback(() => getRandomQuote(), [getRandomQuote]));
-
-	// welcome screen if no settings data found
 
 	// empty state
 	if (lastRelapse === undefined) {
 		return (
 			<SafeAreaView style={style.container}>
+				{/* welcome screen if no settings data found */}
+				<WelcomeModal visible={isWelcomeModalVisible} onDismiss={handleDismissWelcomeModal} />
 				<ScrollView
 					contentContainerStyle={[style.paddingHorizontal, style.centered, style.fullHeight, style.rowGap]}
 					refreshControl={
@@ -99,9 +112,8 @@ export default function HomeScreen() {
 
 	return (
 		<SafeAreaView style={style.container}>
-			{/* Confirmation Banner */}
+			{/* confirmation Banner */}
 			<Banner visible={isResetConfirmVisible} icon="alert" actions={resetConfirmActions}>
-				{/* <Text>Are you sure you want to add a relapse? This will reset your progress.</Text> */}
 				<Text>
 					{t('home.areYouSureYouWantToAddARelapse')} {t('home.thisWillResetYourProgress')}
 				</Text>
@@ -113,7 +125,7 @@ export default function HomeScreen() {
 					<RefreshControl refreshing={isRefreshing} onRefresh={handleRefresh} tintColor={theme.colors.primary} />
 				}
 			>
-				{/* Motivational Quote Section */}
+				{/* motivational quote section */}
 				<Card style={[style.card, style.xsMarginBottom]}>
 					<View style={[style.centered]}>
 						<Text variant="bodyLarge" style={{ fontStyle: 'italic', textAlign: 'center' }}>
@@ -126,7 +138,7 @@ export default function HomeScreen() {
 					</View>
 				</Card>
 
-				{/* Progress Overview Section */}
+				{/* progress overview section */}
 				<Card style={[style.card, style.xsMarginBottom]}>
 					<Text variant="titleMedium" style={{ color: theme.colors.primary, textAlign: 'center' }}>
 						{t('home.timeSinceQuitting')}
@@ -137,7 +149,7 @@ export default function HomeScreen() {
 					</View>
 				</Card>
 
-				{/* Not Smoked Since Section */}
+				{/* not smoked since section */}
 				<Card style={[style.card, style.xsMarginBottom]}>
 					<Text variant="titleMedium" style={{ color: theme.colors.primary, textAlign: 'center', marginBottom: 10 }}>
 						{t('home.notSmokedSince')}
@@ -153,7 +165,7 @@ export default function HomeScreen() {
 					</View>
 				</Card>
 
-				{/* Statistics Section */}
+				{/* statistics section */}
 				<Card style={[style.card, style.xsMarginBottom]}>
 					<Text variant="titleMedium" style={{ color: theme.colors.primary, textAlign: 'center', marginBottom: 10 }}>
 						{t('home.keyStatistics')}
@@ -181,7 +193,6 @@ export default function HomeScreen() {
 				</Card>
 			</ScrollView>
 
-			{/* Reset FAB */}
 			<AnimatedFAB
 				icon="plus"
 				label="Reset"

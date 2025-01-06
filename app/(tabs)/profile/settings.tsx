@@ -28,7 +28,7 @@ export default function SettingsScreen() {
 	const theme = useSelector(selectTheme);
 	const language = useSelector(selectLanguage);
 	const currency = useSelector(selectCurrency);
-	const chigarettesPerDay = useSelector(selectCigarettesPerDay);
+	const cigarettesPerDay = useSelector(selectCigarettesPerDay);
 	const pricePerCigarette = useSelector(selectPricePerCigarette);
 
 	const handleThemeChange = (theme: string) => {
@@ -120,16 +120,16 @@ export default function SettingsScreen() {
 					<Card.Title title={t('settings.statistics')} />
 					<Card.Content style={[style.rowGap]}>
 						<TextInput
-							label={t('settings.cigarettesPerDay')}
-							value={chigarettesPerDay.toString()}
+							label={t('common.cigarettesPerDay')}
+							value={cigarettesPerDay.toString()}
 							onChangeText={handleChangeCigarettesPerDay}
 							keyboardType="numeric"
 							mode="outlined"
-							error={chigarettesPerDay < 0}
+							error={cigarettesPerDay < 0}
 						/>
 
 						<TextInput
-							label={t('settings.pricePerCigarette')}
+							label={t('common.pricePerCigarette')}
 							value={pricePerCigarette.toString()}
 							onChangeText={handleChangePricePerCigarette}
 							keyboardType="numeric"
