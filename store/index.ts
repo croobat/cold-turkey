@@ -1,37 +1,23 @@
 import { configureStore } from '@reduxjs/toolkit';
 import devtoolsEnhancer from 'redux-devtools-expo-dev-plugin';
-import { persistStore, persistReducer, createMigrate } from 'redux-persist';
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import { persistReducer, initStore, PersistConfig } from 'react-native-redux-persist2';
 import { useDispatch, useSelector } from 'react-redux';
-import { combineReducers } from 'redux';
-
-import migrations from '@/store/migrations';
 
 import logsReducer, { resetLogsSlice } from '@/store/logsSlice';
 import motivationalReducer, { resetMotivationalSlice } from '@/store/motivationalSlice';
 import motivationsReducer, { resetMotivationsSlice } from '@/store/motivationsSlice';
 import settingsReducer, { resetSettingsSlice } from '@/store/settingsSlice';
-import archivementsReducer, { resetArchivementsSlice } from '@/store/archivementsSlice';
 
-const persistConfig = {
-	key: 'root',
-	version: 1,
-	storage: AsyncStorage,
-	migrate: createMigrate(migrations, { debug: false }),
-};
-
-const rootReducer = combineReducers({
+const reducers = {
 	logs: logsReducer,
 	motivational: motivationalReducer,
 	settings: settingsReducer,
-	motivations: motivationsReducer,
-	archivements: archivementsReducer,
-});
+};
 
-const persistedReducer = persistReducer(persistConfig, rootReducer);
+const rootReducer = persistReducer(reducers);
 
 export const store = configureStore({
-	reducer: persistedReducer,
+	reducer: rootReducer,
 	devTools: false,
 	enhancers: (getDefaultEnhancers: any) => getDefaultEnhancers().concat(devtoolsEnhancer()),
 	middleware: (getDefaultMiddleware) =>
@@ -42,7 +28,14 @@ export const store = configureStore({
 		}),
 });
 
-export const persistor = persistStore(store);
+const persistConfig: PersistConfig = {
+	key: 'root',
+	storage: {
+		type: 'AsyncStorage',
+	},
+};
+
+initStore(store, persistConfig);
 
 export const resetAllSlices = () => {
 	store.dispatch(resetLogsSlice());
@@ -58,3 +51,5 @@ export type AppStore = typeof store;
 
 export const useAppDispatch = useDispatch.withTypes<AppDispatch>();
 export const useAppSelector = useSelector.withTypes<RootState>();
+
+export default store;

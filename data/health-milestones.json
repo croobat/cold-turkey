@@ -1,0 +1,194 @@
+{
+	"test1Second": {
+		"en": {
+			"title": "Test 1 Second",
+			"description": "This is a test milestone that lasts 1 second."
+		},
+		"es": {
+			"title": "Prueba 1 Segundo",
+			"description": "Esta es una prueba de hito que dura 1 segundo."
+		},
+		"timeAmount": 1,
+		"timeMeasure": "seconds"
+	},
+	"test1Minute": {
+		"en": {
+			"title": "Test 1 Minute",
+			"description": "This is a test milestone that lasts 1 minute."
+		},
+		"es": {
+			"title": "Prueba 1 Minuto",
+			"description": "Esta es una prueba de hito que dura 1 minuto."
+		},
+		"timeAmount": 1,
+		"timeMeasure": "minutes"
+	},
+	"test5Minutes": {
+		"en": {
+			"title": "Test 5 Minutes",
+			"description": "This is a test milestone that lasts 5 minutes."
+		},
+		"es": {
+			"title": "Prueba 5 Minutos",
+			"description": "Esta es una prueba de hito que dura 5 minutos."
+		},
+		"timeAmount": 5,
+		"timeMeasure": "minutes"
+	},
+	"bloodPressure": {
+		"en": {
+			"title": "Blood Pressure",
+			"description": "Blood pressure, body temperature, and pulse rate return to normal."
+		},
+		"es": {
+			"title": "Presión Arterial",
+			"description": "La presión arterial, la temperatura corporal y la frecuencia cardíaca vuelven a la normalidad."
+		},
+		"timeAmount": 20,
+		"timeMeasure": "minutes"
+	},
+	"carbonMonoxide": {
+		"en": {
+			"title": "Carbon Monoxide",
+			"description": "The smoker breath disappears. The poisonous gas carbon monoxide blocks for a smoker about 10% of the red blood cells. These cells are now available again for the transport of oxygen."
+		},
+		"es": {
+			"title": "Monóxido de Carbono",
+			"description": "La respiración del fumador desaparece. El venenoso gas monóxido de carbono bloquea para un fumador alrededor del 10% de los glóbulos rojos. Estas células ahora están disponibles nuevamente para el transporte de oxígeno."
+		},
+		"timeAmount": 8,
+		"timeMeasure": "hours"
+	},
+	"slightHearthAttackRisk": {
+		"en": {
+			"title": "Slight Heart Attack Risk",
+			"description": "The risk of sudden cardiac death is reduced slightly."
+		},
+		"es": {
+			"title": "Riesgo de Ataque Cardíaco Leve",
+			"description": "El riesgo de muerte cardíaca súbita se reduce ligeramente."
+		},
+		"timeAmount": 24,
+		"timeMeasure": "hours"
+	},
+	"senseOfSmellAndTaste": {
+		"en": {
+			"title": "Sense of Smell and Taste",
+			"description": "The sense of smell is improved, and the taste bugs start becoming more sensitive."
+		},
+		"es": {
+			"title": "Sentido del Olfato y del Gusto",
+			"description": "El sentido del olfato se mejora y las papilas gustativas comienzan a volverse más sensibles."
+		},
+		"timeAmount": 2,
+		"timeMeasure": "days"
+	},
+	"breathing": {
+		"en": {
+			"title": "Breathing",
+			"description": "The bronchial tubes relax, and the lung capacity increases."
+		},
+		"es": {
+			"title": "Respiración",
+			"description": "Los tubos bronquiales se relajan y la capacidad pulmonar aumenta."
+		},
+		"timeAmount": 7,
+		"timeMeasure": "days"
+	},
+	"nicotineWithdrawal": {
+		"en": {
+			"title": "Nicotine Withdrawal",
+			"description": "The physical withdrawal symptoms peak."
+		},
+		"es": {
+			"title": "Abstinencia de Nicotina",
+			"description": "Los síntomas físicos de abstinencia alcanzan su punto máximo."
+		},
+		"timeAmount": 2,
+		"timeMeasure": "weeks"
+	},
+	"lungCapacity": {
+		"en": {
+			"title": "Lung Capacity",
+			"description": "The entire blood circulation improves. The increased lung capacity can be felt already. The lungs can absorb more oxygen, increasing physical performance."
+		},
+		"es": {
+			"title": "Capacidad Pulmonar",
+			"description": "Toda la circulación sanguínea mejora. La capacidad pulmonar aumentada ya se puede sentir. Los pulmones pueden absorber más oxígeno, aumentando el rendimiento físico."
+		},
+		"timeAmount": 4,
+		"timeMeasure": "weeks"
+	},
+	"lungHairs": {
+		"en": {
+			"title": "Lung Hairs",
+			"description": "The fine hairs in the bronchial tubes are regenerated. They are responsible for the self-cleaning of the lungs. Breathing becomes easier."
+		},
+		"es": {
+			"title": "Vellos Pulmonares",
+			"description": "Los finos pelos en los tubos bronquiales se regeneran. Son responsables de la autolimpieza de los pulmones. La respiración se vuelve más fácil."
+		},
+		"timeAmount": 6,
+		"timeMeasure": "months"
+	},
+	"coronaryArteries": {
+		"en": {
+			"title": "Coronary Arteries",
+			"description": "The risk of diseases of the coronary vessels is reduced by half."
+		},
+		"es": {
+			"title": "Arterias Coronarias",
+			"description": "El riesgo de enfermedades de los vasos coronarios se reduce a la mitad."
+		},
+		"timeAmount": 12,
+		"timeMeasure": "months"
+	},
+	"heartAttackRisk": {
+		"en": {
+			"title": "Heart Attack Risk",
+			"description": "The risk of heart attack drops significantly."
+		},
+		"es": {
+			"title": "Riesgo de Ataque Cardíaco",
+			"description": "El riesgo de ataque cardíaco disminuye significativamente."
+		},
+		"timeAmount": 2,
+		"timeMeasure": "years"
+	},
+	"strokeRisk": {
+		"en": {
+			"title": "Stroke Risk",
+			"description": "The risk of stroke is reduced to that of a non-smoker. The risk of mouth, throat, esophagus, and bladder cancer is halved."
+		},
+		"es": {
+			"title": "Riesgo de Accidente Cerebrovascular",
+			"description": "El riesgo de accidente cerebrovascular se reduce al de un no fumador. El riesgo de cáncer de boca, garganta, esófago y vejiga se reduce a la mitad."
+		},
+		"timeAmount": 5,
+		"timeMeasure": "years"
+	},
+	"lungCancerRisk": {
+		"en": {
+			"title": "Lung Cancer Risk",
+			"description": "The risk of lung cancer is as low as that of a non-smoker. The lungs have almost completely regenerated. There are no more pre-cancerous cells within the body."
+		},
+		"es": {
+			"title": "Riesgo de Cáncer de Pulmón",
+			"description": "El riesgo de cáncer de pulmón es tan bajo como el de un no fumador. Los pulmones se han regenerado casi por completo. Ya no hay más células precancerosas en el cuerpo."
+		},
+		"timeAmount": 10,
+		"timeMeasure": "years"
+	},
+	"fullRecovery": {
+		"en": {
+			"title": "Full Recovery",
+			"description": "The organism has completely regenerated. The risk of a heart attack is barely higher than that of a non-smoker. You are finally free from the addiction."
+		},
+		"es": {
+			"title": "Recuperación Completa",
+			"description": "El organismo se ha regenerado por completo. El riesgo de un ataque cardíaco es apenas mayor que el de un no fumador. Finalmente estás libre de la adicción."
+		},
+		"timeAmount": 15,
+		"timeMeasure": "years"
+	}
+}

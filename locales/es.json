@@ -1,0 +1,128 @@
+{
+	"common": {
+		"backToHome": "Volver a inicio",
+		"relapse": "Recaída",
+		"relapses": "Recaídas",
+		"cigarettesPerDay": "Cigarros por día",
+		"pricePerCigarette": "Precio por cigarro",
+		"noRelapsesFound": "No se encontraron recaídas",
+		"pleaseAddARelapseToStartTrackingYourProgress": "Por favor, añade una recaída para comenzar a rastrear tu progreso.",
+		"second": "Segundo",
+		"seconds": "Segundos",
+		"minute": "Minuto",
+		"minutes": "Minutos",
+		"hour": "Hora",
+		"hours": "Horas",
+		"day": "Día",
+		"days": "Días",
+		"week": "Semana",
+		"weeks": "Semanas",
+		"month": "Mes",
+		"months": "Meses",
+		"year": "Año",
+		"years": "Años"
+	},
+
+	"error": {
+		"somethingWentWrong": "Algo salió mal.",
+		"screenNotFound": "Pantalla no encontrada.",
+		"mustBeAnEntireNumberGreaterThanZero": "Debe ser un número entero mayor que cero."
+	},
+
+	"form": {
+		"cancel": "Cancelar",
+		"save": "Guardar",
+		"yes": "Sí",
+		"no": "No",
+		"delete": "Eliminar",
+		"edit": "Editar",
+		"add": "Añadir",
+		"back": "Atrás",
+		"next": "Siguiente",
+		"done": "Hecho",
+		"loading": "Cargando",
+		"error": "Error",
+		"warning": "Advertencia",
+		"info": "Información",
+		"success": "Éxito",
+		"confirm": "Confirmar",
+		"close": "Cerrar",
+		"title": "Título",
+		"content": "Contenido",
+		"requiredField": "Campo requerido",
+		"date": "Fecha",
+		"time": "Hora",
+
+		"thisActionCannotBeUndone": "Esta acción no se puede deshacer."
+	},
+
+	"welcome": {
+		"welcomeToColdTurkey": "¡Bienvenido a Cold Turkey!",
+		"beforeStartingYourJourneyTellUsAboutYourSmokingHabits": "Antes de comenzar tu viaje, cuéntanos sobre tus hábitos de fumar, para que podamos ayudarte a rastrear tu progreso."
+	},
+
+	"home": {
+		"title": "Inicio",
+
+		"timeSinceQuitting": "Tiempo sin fumar",
+		"notSmokedSince": "Sin fumar desde",
+		"keyStatistics": "Estadísticas clave",
+		"areYouSureYouWantToAddARelapse": "¿Estás seguro de que quieres añadir una recaída?",
+		"thisWillResetYourProgress": "Esto reiniciará tu progreso."
+	},
+
+	"journal": {
+		"title": "Diario"
+	},
+
+	"health": {
+		"title": "Salud"
+	},
+
+	"goal": {
+		"title": "Objetivo"
+	},
+
+	"profile": {
+		"title": "Perfil",
+
+		"motivation": "Motivación",
+		"motivations": "Motivaciones",
+		"addATextOrImageToRemindYouWhyYouQuit": "Añade un texto o imagen para recordarte por qué dejaste de fumar"
+	},
+
+	"settings": {
+		"title": "Ajustes",
+
+		"appearance": "Apariencia",
+		"theme": "Tema",
+		"light": "Claro",
+		"dark": "Oscuro",
+		"preferences": "Preferencias",
+		"language": "Idioma",
+		"currency": "Moneda",
+		"statistics": "Estadísticas",
+		"dangerZone": "Zona de peligro",
+		"areYouSureYouWantToWipeAllData": "¿Estás seguro de que quieres borrar todos los datos?",
+		"wipeAllData": "Borrar todos los datos"
+	},
+
+	"achievements": {
+		"title": "Logros",
+
+		"gettingStarted": "Empezando",
+		"gettingStartedDescription": "Deja de fumar por primera vez.",
+
+		"firstDay": "Primer día",
+		"firstDayDescription": "Cumple un día sin fumar.",
+
+		"firstWeek": "Primera semana",
+		"firstWeekDescription": "Cumple una semana sin fumar.",
+
+		"firstMonth": "Primer mes",
+		"firstMonthDescription": "Cumple un mes sin fumar.",
+
+		"firstYear": "Primer año",
+		"firstYearDescription": "Cumple un año sin fumar."
+	}
+}

@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
-import { SafeAreaView, View, Text } from 'react-native';
+import { SafeAreaView, View, Text, KeyboardAvoidingView, Platform } from 'react-native';
 import { AnimatedFAB, TextInput, useTheme } from 'react-native-paper';
 import { router } from 'expo-router';
 import { formatISO } from 'date-fns';
+import { useTranslation } from 'react-i18next';
 
 import { useAppDispatch } from '@/store';
 import { addRelapse } from '@/store/logsSlice';
@@ -22,6 +23,7 @@ const INITIAL_FORM: Form = {
 export default function RelapseAddScreen() {
 	const dispatch = useAppDispatch();
 	const theme = useTheme();
+	const { t } = useTranslation();
 
 	const [form, setForm] = useState<Form>(INITIAL_FORM);
 	const [error, setError] = useState<string | null>(null);
@@ -45,38 +47,44 @@ export default function RelapseAddScreen() {
 	};
 
 	return (
-		<SafeAreaView style={[style.container]}>
-			<View style={[style.lgMargin, style.lgRowGap]}>
-				<View style={style.smRowGap}>
+		<KeyboardAvoidingView
+			style={style.container}
+			behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+			keyboardVerticalOffset={100}
+		>
+			<SafeAreaView style={[style.container]}>
+				<View style={[style.lgMargin, style.lgRowGap]}>
+					<View style={style.smRowGap}>
+						<TextInput
+							label={t('form.title')}
+							value={form.title}
+							mode="outlined"
+							onChangeText={(text) => {
+								setForm({ ...form, title: text });
+								if (error) setError(null);
+							}}
+							error={!!error}
+						/>
+						{error && <Text style={{ color: theme.colors.error }}>{error}</Text>}
+					</View>
+
 					<TextInput
-						label="Title"
-						value={form.title}
+						label={t('form.content')}
+						value={form.content}
 						mode="outlined"
-						onChangeText={(text) => {
-							setForm({ ...form, title: text });
-							if (error) setError(null);
-						}}
-						error={!!error}
+						onChangeText={(text) => setForm({ ...form, content: text })}
 					/>
-					{error && <Text style={{ color: theme.colors.error }}>{error}</Text>}
 				</View>
 
-				<TextInput
-					label="Content"
-					value={form.content}
-					mode="outlined"
-					onChangeText={(text) => setForm({ ...form, content: text })}
+				<AnimatedFAB
+					icon="check"
+					label="Save"
+					extended={false}
+					onPress={handleSubmit}
+					disabled={!!error}
+					style={style.fabStyle}
 				/>
-			</View>
-
-			<AnimatedFAB
-				icon="check"
-				label="Save"
-				extended={false}
-				onPress={handleSubmit}
-				disabled={!!error}
-				style={style.fabStyle}
-			/>
-		</SafeAreaView>
+			</SafeAreaView>
+		</KeyboardAvoidingView>
 	);
 }

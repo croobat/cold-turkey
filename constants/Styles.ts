@@ -7,10 +7,6 @@ export const style = StyleSheet.create({
 	container: {
 		flex: 1,
 	},
-	card: {
-		marginVertical: METRICS.sm,
-		padding: METRICS.md,
-	},
 	centered: {
 		justifyContent: 'center',
 		alignItems: 'center',
@@ -62,6 +58,18 @@ export const style = StyleSheet.create({
 	lgMargin: { margin: METRICS.lg },
 	lgMarginTop: { marginTop: METRICS.lg },
 	lgMarginBottom: { marginBottom: METRICS.lg },
+
+	xlMargin: { margin: METRICS.xl },
+	xlMarginTop: { marginTop: METRICS.xl },
+	xlMarginBottom: { marginBottom: METRICS.xl },
+
+	xxlMargin: { margin: METRICS.xxl },
+	xxlMarginTop: { marginTop: METRICS.xxl },
+	xxlMarginBottom: { marginBottom: METRICS.xxl },
+
+	xxxlMargin: { margin: METRICS.xxxl },
+	xxxlMarginTop: { marginTop: METRICS.xxxl },
+	xxxlMarginBottom: { marginBottom: METRICS.xxxl },
 
 	smPadding: { padding: METRICS.sm },
 

@@ -1,16 +1,63 @@
 import { View, ScrollView, SafeAreaView } from 'react-native';
 import { Card, Text, useTheme, Avatar, List, IconButton } from 'react-native-paper';
 import { router } from 'expo-router';
+import { useTranslation } from 'react-i18next';
 
 import { style } from '@/constants/Styles';
-import { selectArchivements } from '@/store/archivementsSlice';
-import { useSelector } from 'react-redux';
-import { selectMotivations } from '@/store/motivationsSlice';
+
+type Motivation = {
+	id: number;
+	media: 'image' | 'text';
+	title: string;
+	description: string;
+};
+
+type Achievement = {
+	id: number;
+	icon: string;
+	title: string;
+	description: string;
+};
 
 export default function ProfileScreen() {
 	const theme = useTheme();
-	const archivements = useSelector(selectArchivements);
-	const motivations = useSelector(selectMotivations);
+	const { t } = useTranslation();
+
+	const motivations: Motivation[] = [
+		{
+			id: 1,
+			media: 'image',
+			title: t('profile.motivation'),
+			description: t('profile.addATextOrImageToRemindYouWhyYouQuit'),
+		},
+	];
+
+	const achievements: Achievement[] = [
+		{
+			id: 1,
+			icon: 'flag-checkered',
+			title: t('achievements.gettingStarted'),
+			description: t('achievements.gettingStartedDescription'),
+		},
+		{
+			id: 2,
+			icon: 'calendar-today',
+			title: t('achievements.firstDay'),
+			description: t('achievements.firstDayDescription'),
+		},
+		{
+			id: 3,
+			icon: 'progress-clock',
+			title: t('achievements.firstWeek'),
+			description: t('achievements.firstWeekDescription'),
+		},
+		{
+			id: 4,
+			icon: 'calendar-month',
+			title: t('achievements.firstMonth'),
+			description: t('achievements.firstMonthDescription'),
+		},
+	];
 
 	return (
 		<SafeAreaView style={style.container}>
@@ -19,7 +66,7 @@ export default function ProfileScreen() {
 				<View>
 					<View style={style.row}>
 						<Text variant="titleMedium" style={{ color: theme.colors.primary }}>
-							Motivations
+							{t('profile.motivations')}
 						</Text>
 						<IconButton icon="chevron-right" onPress={() => router.navigate('/profile/motivations')} />
 					</View>
@@ -36,7 +83,7 @@ export default function ProfileScreen() {
 				<View>
 					<View style={style.row}>
 						<Text variant="titleMedium" style={{ color: theme.colors.primary }}>
-							Achievements
+							{t('achievements.title')}
 						</Text>
 						<IconButton icon="chevron-right" onPress={() => router.navigate('/profile/archivements')} />
 					</View>
@@ -45,8 +92,8 @@ export default function ProfileScreen() {
 						<List.Item
 							key={index}
 							title={achievement.title}
-							description={achievement.content}
-							left={() => <Avatar.Icon icon={achievement.icon} size={42} />}
+							description={achievement.description}
+							left={() => <Avatar.Icon icon={achievement.icon} />}
 						/>
 					))}
 				</View>
