@@ -1,6 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import type { RootState } from '@/store';
-import { archivementList } from '@/constants/achievements';
 type Archivement = {
 	title: string;
 	content: string;
@@ -10,11 +9,11 @@ type Archivement = {
 };
 
 export interface AchievementsState {
-	achievements: Archivement[];
+	completed: Archivement[];
 }
 
 const initialState: AchievementsState = {
-	achievements: archivementList,
+	completed: [],
 };
 
 const achievementsSlice = createSlice({
@@ -22,7 +21,7 @@ const achievementsSlice = createSlice({
 	initialState,
 	reducers: {
 		addArchivement: (state: AchievementsState, action: PayloadAction<Archivement>) => {
-			state.achievements.push(action.payload);
+			state.completed.push(action.payload);
 		},
 		resetAchievementsSlice: () => {
 			return initialState;
@@ -31,5 +30,5 @@ const achievementsSlice = createSlice({
 });
 
 export const { addArchivement, resetAchievementsSlice } = achievementsSlice.actions;
-export const selectAchievements = (state: RootState) => state.achievements.achievements;
+export const selectAchievements = (state: RootState) => state.achievements.completed;
 export default achievementsSlice.reducer;

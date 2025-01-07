@@ -1,27 +1,28 @@
 import { style } from '@/constants/Styles';
-import { selectAchievements } from '@/store/achievementsSlice';
 import { SafeAreaView, View } from 'react-native';
 import { Avatar, List, useTheme } from 'react-native-paper';
-import { useSelector } from 'react-redux';
+import achievements from '@/data/achievements.json';
 
 export default function Achievements() {
-	const achievements = useSelector(selectAchievements);
+	// const achievements = useSelector(selectAchievements);
 	const theme = useTheme();
 
 	return (
 		<SafeAreaView style={[style.container]}>
 			<View style={[style.padding]}>
-				{achievements.map((achievement, index) => (
+				{Object.keys(achievements).map((achievement, index) => (
 					<List.Item
 						key={index}
-						title={achievement.title}
-						description={achievement.content}
+						title={achievements[achievement].title}
+						description={achievements[achievement].content}
 						left={() => (
 							<Avatar.Icon
-								icon={achievement.icon}
+								icon={achievements[achievement].icon}
 								size={42}
 								style={{
-									backgroundColor: !achievement.date ? theme.colors.surfaceDisabled : theme.colors.primary,
+									backgroundColor: !achievements[achievement].date
+										? theme.colors.surfaceDisabled
+										: theme.colors.primary,
 								}}
 							/>
 						)}

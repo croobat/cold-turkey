@@ -4,32 +4,18 @@ import { router } from 'expo-router';
 import { useTranslation } from 'react-i18next';
 
 import { style } from '@/constants/Styles';
-import { selectAchievements } from '@/store/achievementsSlice';
 import { useSelector } from 'react-redux';
 import { selectMotivations } from '@/store/motivationsSlice';
-
-type Motivation = {
-	id: number;
-	media: 'image' | 'text';
-	title: string;
-	description: string;
-};
-
-type Achievement = {
-	id: number;
-	icon: string;
-	title: string;
-	description: string;
-};
+import achievements from '@/data/achievements.json';
 
 export default function ProfileScreen() {
 	const theme = useTheme();
-	const achievements = useSelector(selectAchievements);
+	// const achievements = useSelector(selectAchievements);
 	const motivations = useSelector(selectMotivations);
 
 	const { t } = useTranslation();
 
-	const activeAchievements = achievements.filter((achievement) => achievement.date !== null);
+	const activeAchievements = achievements;
 	return (
 		<SafeAreaView style={style.container}>
 			<ScrollView contentContainerStyle={[style.paddingHorizontal, style.rowGap]}>
@@ -59,12 +45,12 @@ export default function ProfileScreen() {
 						<IconButton icon="chevron-right" onPress={() => router.navigate('/profile/achievements')} />
 					</View>
 
-					{activeAchievements.map((achievement, index) => (
+					{Object.keys(activeAchievements).map((achievement, index) => (
 						<List.Item
 							key={index}
-							title={achievement.title}
-							description={achievement.content}
-							left={() => <Avatar.Icon icon={achievement.icon} />}
+							title={activeAchievements[achievement].title}
+							description={activeAchievements[achievement].content}
+							left={() => <Avatar.Icon icon={activeAchievements[achievement].icon} />}
 						/>
 					))}
 				</View>
