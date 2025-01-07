@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { SafeAreaView, View, Text, KeyboardAvoidingView, Platform } from 'react-native';
+import { SafeAreaView, View, Text, KeyboardAvoidingView, Platform, ScrollView } from 'react-native';
 import { AnimatedFAB, TextInput, useTheme } from 'react-native-paper';
 import { router } from 'expo-router';
 import { formatISO } from 'date-fns';
@@ -47,34 +47,36 @@ export default function RelapseAddScreen() {
 	};
 
 	return (
-		<KeyboardAvoidingView
-			style={style.container}
-			behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
-			keyboardVerticalOffset={100}
-		>
-			<SafeAreaView style={[style.container]}>
-				<View style={[style.lgMargin, style.lgRowGap]}>
-					<View style={style.smRowGap}>
-						<TextInput
-							label={t('form.title')}
-							value={form.title}
-							mode="outlined"
-							onChangeText={(text) => {
-								setForm({ ...form, title: text });
-								if (error) setError(null);
-							}}
-							error={!!error}
-						/>
-						{error && <Text style={{ color: theme.colors.error }}>{error}</Text>}
-					</View>
+		<SafeAreaView style={[style.container]}>
+			<KeyboardAvoidingView
+				style={style.container}
+				behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+				keyboardVerticalOffset={100}
+			>
+				<ScrollView>
+					<View style={[style.lgMargin, style.lgRowGap]}>
+						<View style={style.smRowGap}>
+							<TextInput
+								label={t('form.title')}
+								value={form.title}
+								mode="outlined"
+								onChangeText={(text) => {
+									setForm({ ...form, title: text });
+									if (error) setError(null);
+								}}
+								error={!!error}
+							/>
+							{error && <Text style={{ color: theme.colors.error }}>{error}</Text>}
+						</View>
 
-					<TextInput
-						label={t('form.content')}
-						value={form.content}
-						mode="outlined"
-						onChangeText={(text) => setForm({ ...form, content: text })}
-					/>
-				</View>
+						<TextInput
+							label={t('form.content')}
+							value={form.content}
+							mode="outlined"
+							onChangeText={(text) => setForm({ ...form, content: text })}
+						/>
+					</View>
+				</ScrollView>
 
 				<AnimatedFAB
 					icon="check"
@@ -84,7 +86,7 @@ export default function RelapseAddScreen() {
 					disabled={!!error}
 					style={style.fabStyle}
 				/>
-			</SafeAreaView>
-		</KeyboardAvoidingView>
+			</KeyboardAvoidingView>
+		</SafeAreaView>
 	);
 }
