@@ -4,61 +4,18 @@ import { router } from 'expo-router';
 import { useTranslation } from 'react-i18next';
 
 import { style } from '@/constants/Styles';
-
-type Motivation = {
-	id: number;
-	media: 'image' | 'text';
-	title: string;
-	description: string;
-};
-
-type Achievement = {
-	id: number;
-	icon: string;
-	title: string;
-	description: string;
-};
+import { useSelector } from 'react-redux';
+import { selectMotivations } from '@/store/motivationsSlice';
+import achievements from '@/data/achievements.json';
 
 export default function ProfileScreen() {
 	const theme = useTheme();
+	// const achievements = useSelector(selectAchievements);
+	const motivations = useSelector(selectMotivations);
+
 	const { t } = useTranslation();
 
-	const motivations: Motivation[] = [
-		{
-			id: 1,
-			media: 'image',
-			title: t('profile.motivation'),
-			description: t('profile.addATextOrImageToRemindYouWhyYouQuit'),
-		},
-	];
-
-	const achievements: Achievement[] = [
-		{
-			id: 1,
-			icon: 'flag-checkered',
-			title: t('achievements.gettingStarted'),
-			description: t('achievements.gettingStartedDescription'),
-		},
-		{
-			id: 2,
-			icon: 'calendar-today',
-			title: t('achievements.firstDay'),
-			description: t('achievements.firstDayDescription'),
-		},
-		{
-			id: 3,
-			icon: 'progress-clock',
-			title: t('achievements.firstWeek'),
-			description: t('achievements.firstWeekDescription'),
-		},
-		{
-			id: 4,
-			icon: 'calendar-month',
-			title: t('achievements.firstMonth'),
-			description: t('achievements.firstMonthDescription'),
-		},
-	];
-
+	const activeAchievements = achievements;
 	return (
 		<SafeAreaView style={style.container}>
 			<ScrollView contentContainerStyle={[style.paddingHorizontal, style.rowGap]}>
@@ -71,12 +28,12 @@ export default function ProfileScreen() {
 						<IconButton icon="chevron-right" onPress={() => router.navigate('/profile/motivations')} />
 					</View>
 
-					{motivations.map((item) => (
-						<Card key={item.id}>
+					{motivations.length > 0 && (
+						<Card>
 							<Card.Cover source={{ uri: 'https://picsum.photos/700' }} />
-							<Card.Title title={item.title} subtitle={item.description} />
+							<Card.Title title={motivations[0].title} subtitle={motivations[0].content} />
 						</Card>
-					))}
+					)}
 				</View>
 
 				{/* achievements */}
@@ -88,14 +45,26 @@ export default function ProfileScreen() {
 						<IconButton icon="chevron-right" onPress={() => router.navigate('/profile/achievements')} />
 					</View>
 
-					{achievements.map((achievement) => (
+					{Object.keys(activeAchievements).map((achievement, index) => (
 						<List.Item
-							key={achievement.id}
-							title={achievement.title}
-							description={achievement.description}
-							left={() => <Avatar.Icon icon={achievement.icon} />}
+							key={index}
+							title={activeAchievements[achievement].title}
+							description={activeAchievements[achievement].content}
+							left={() => <Avatar.Icon icon={activeAchievements[achievement].icon} />}
 						/>
 					))}
+				</View>
+				<View style={style.row}>
+					<Text variant="titleMedium" style={{ color: theme.colors.primary }}>
+						Feedback
+					</Text>
+					<IconButton icon="chevron-right" onPress={() => console.log('Pressed')} />
+				</View>
+				<View>
+					<Text variant="titleMedium" style={{ color: theme.colors.primary }}>
+						Donations
+					</Text>
+					<Text variant="bodyMedium">Support the development of this app.</Text>
 				</View>
 			</ScrollView>
 		</SafeAreaView>

@@ -5,12 +5,16 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import logsReducer, { resetLogsSlice } from '@/store/logsSlice';
 import motivationalReducer, { resetMotivationalSlice } from '@/store/motivationalSlice';
+import motivationsReducer, { resetMotivationsSlice } from '@/store/motivationsSlice';
 import settingsReducer, { resetSettingsSlice } from '@/store/settingsSlice';
+import achievementsReducer, { resetAchievementsSlice } from '@/store/achievementsSlice';
 
 const reducers = {
 	logs: logsReducer,
 	motivational: motivationalReducer,
 	settings: settingsReducer,
+	motivations: motivationsReducer,
+	achievements: achievementsReducer,
 };
 
 const rootReducer = persistReducer(reducers);
@@ -40,6 +44,8 @@ export const resetAllSlices = () => {
 	store.dispatch(resetLogsSlice());
 	store.dispatch(resetMotivationalSlice());
 	store.dispatch(resetSettingsSlice());
+	store.dispatch(resetMotivationsSlice());
+	store.dispatch(resetAchievementsSlice());
 };
 
 export type RootState = ReturnType<typeof store.getState>;

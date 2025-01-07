@@ -1,29 +1,29 @@
 import React, { useState } from 'react';
-import { SafeAreaView, View, Text, KeyboardAvoidingView, Platform, ScrollView } from 'react-native';
-import { AnimatedFAB, TextInput, useTheme } from 'react-native-paper';
+import { Platform, KeyboardAvoidingView, SafeAreaView, View, ScrollView } from 'react-native';
+import { AnimatedFAB, TextInput, useTheme, Text } from 'react-native-paper';
 import { router } from 'expo-router';
 import { formatISO } from 'date-fns';
-import { useTranslation } from 'react-i18next';
 
 import { useAppDispatch } from '@/store';
-import { addRelapse } from '@/store/logsSlice';
+import { addMotivation } from '@/store/motivationsSlice';
 
 import { style } from '@/constants/Styles';
 
 interface Form {
 	title: string;
 	content: string;
+	image: string;
 }
 
 const INITIAL_FORM: Form = {
 	title: '',
 	content: '',
+	image: '',
 };
 
-export default function RelapseAddScreen() {
+export default function MotivationAddScreen() {
 	const dispatch = useAppDispatch();
 	const theme = useTheme();
-	const { t } = useTranslation();
 
 	const [form, setForm] = useState<Form>(INITIAL_FORM);
 	const [error, setError] = useState<string | null>(null);
@@ -36,13 +36,13 @@ export default function RelapseAddScreen() {
 
 		const datetime = formatISO(new Date());
 
-		const relapse = {
+		const motivation = {
 			datetime,
 			title: form.title,
 			content: form.content,
 		};
 
-		dispatch(addRelapse(relapse));
+		dispatch(addMotivation(motivation));
 		router.back();
 	};
 
@@ -57,7 +57,7 @@ export default function RelapseAddScreen() {
 					<View style={[style.lgMargin, style.lgRowGap]}>
 						<View style={style.smRowGap}>
 							<TextInput
-								label={t('form.title')}
+								label="Title"
 								value={form.title}
 								mode="outlined"
 								onChangeText={(text) => {
@@ -70,7 +70,7 @@ export default function RelapseAddScreen() {
 						</View>
 
 						<TextInput
-							label={t('form.content')}
+							label="Content"
 							value={form.content}
 							mode="outlined"
 							onChangeText={(text) => setForm({ ...form, content: text })}
