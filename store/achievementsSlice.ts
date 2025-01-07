@@ -4,7 +4,7 @@ type Archivement = {
 	title: string;
 	content: string;
 	icon: string;
-	iconColor: string;
+	isCompleted: boolean;
 	date: string | null;
 };
 

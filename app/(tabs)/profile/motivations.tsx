@@ -15,7 +15,7 @@ export default function MotivationsScreen() {
 			<NoDataView
 				title="No data found"
 				subtitle="You have not added any motivations yet."
-				onPress={() => router.navigate('/(tabs)/profile/motivation_add')}
+				onPress={() => router.navigate('/(tabs)/profile/motivation-add')}
 			/>
 		);
 	}
@@ -38,7 +38,7 @@ export default function MotivationsScreen() {
 				icon="plus"
 				label="Add"
 				extended={false}
-				onPress={() => router.navigate('/profile/motivation_add')}
+				onPress={() => router.navigate('/profile/motivation-add')}
 				style={style.fabStyle}
 			/>
 		</SafeAreaView>

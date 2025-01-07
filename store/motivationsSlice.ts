@@ -4,7 +4,6 @@ import type { RootState } from '@/store';
 type Motivation = {
 	title: string;
 	content: string;
-	// image: string;
 };
 
 export interface MotivationsState {
