@@ -4,6 +4,9 @@ import { router } from 'expo-router';
 import { useTranslation } from 'react-i18next';
 
 import { style } from '@/constants/Styles';
+import { selectAchievements } from '@/store/achievementsSlice';
+import { useSelector } from 'react-redux';
+import { selectMotivations } from '@/store/motivationsSlice';
 
 type Motivation = {
 	id: number;
@@ -21,44 +24,12 @@ type Achievement = {
 
 export default function ProfileScreen() {
 	const theme = useTheme();
+	const achievements = useSelector(selectAchievements);
+	const motivations = useSelector(selectMotivations);
+
 	const { t } = useTranslation();
 
-	const motivations: Motivation[] = [
-		{
-			id: 1,
-			media: 'image',
-			title: t('profile.motivation'),
-			description: t('profile.addATextOrImageToRemindYouWhyYouQuit'),
-		},
-	];
-
-	const achievements: Achievement[] = [
-		{
-			id: 1,
-			icon: 'flag-checkered',
-			title: t('achievements.gettingStarted'),
-			description: t('achievements.gettingStartedDescription'),
-		},
-		{
-			id: 2,
-			icon: 'calendar-today',
-			title: t('achievements.firstDay'),
-			description: t('achievements.firstDayDescription'),
-		},
-		{
-			id: 3,
-			icon: 'progress-clock',
-			title: t('achievements.firstWeek'),
-			description: t('achievements.firstWeekDescription'),
-		},
-		{
-			id: 4,
-			icon: 'calendar-month',
-			title: t('achievements.firstMonth'),
-			description: t('achievements.firstMonthDescription'),
-		},
-	];
-
+	const activeAchievements = achievements.filter((achievement) => achievement.date !== null);
 	return (
 		<SafeAreaView style={style.container}>
 			<ScrollView contentContainerStyle={[style.paddingHorizontal, style.rowGap]}>
@@ -85,14 +56,14 @@ export default function ProfileScreen() {
 						<Text variant="titleMedium" style={{ color: theme.colors.primary }}>
 							{t('achievements.title')}
 						</Text>
-						<IconButton icon="chevron-right" onPress={() => router.navigate('/profile/archivements')} />
+						<IconButton icon="chevron-right" onPress={() => router.navigate('/profile/achievements')} />
 					</View>
 
-					{archivements.map((achievement, index) => (
+					{activeAchievements.map((achievement, index) => (
 						<List.Item
 							key={index}
 							title={achievement.title}
-							description={achievement.description}
+							description={achievement.content}
 							left={() => <Avatar.Icon icon={achievement.icon} />}
 						/>
 					))}
