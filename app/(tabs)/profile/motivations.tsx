@@ -20,14 +20,15 @@ export default function MotivationsScreen() {
 		);
 	}
 
+	console.log(motivations);
 	return (
 		<SafeAreaView style={[style.container]}>
 			<View style={[style.padding, style.fullHeight]}>
 				<FlatList
 					data={motivations}
 					renderItem={({ item, index }) => (
-						<Card key={index}>
-							<Card.Cover source={{ uri: 'https://picsum.photos/700' }} />
+						<Card key={index} style={style.marginBottom}>
+							{item.image && <Card.Cover source={{ uri: item.image }} />}
 							<Card.Title title={item.title} subtitle={item.content} />
 						</Card>
 					)}
