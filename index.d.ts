@@ -1,10 +1,8 @@
 export type Motivation = {
-	id: number;
-	media: 'image' | 'text';
 	title: string;
-	description: string;
+	content: string;
+	image: string;
 };
-
 export type Achievement = {
 	id: number;
 	icon: string;

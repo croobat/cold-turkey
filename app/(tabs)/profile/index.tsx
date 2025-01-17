@@ -2,6 +2,8 @@ import { View, ScrollView, SafeAreaView } from 'react-native';
 import { Card, Text, useTheme, Avatar, List, IconButton } from 'react-native-paper';
 import { router } from 'expo-router';
 import { useTranslation } from 'react-i18next';
+import { useFocusEffect } from '@react-navigation/native';
+import { useCallback, useState } from 'react';
 
 import { style } from '@/constants/Styles';
 import { useSelector } from 'react-redux';
@@ -9,11 +11,21 @@ import { selectMotivations } from '@/store/motivationsSlice';
 import { useAppSelector } from '@/store';
 import { selectAchievementsOrderedByCompletionDate } from '@/store/achievementsSlice';
 import { Achievement } from '@/store/achievementsSlice';
+import { Motivation } from '@/index';
 
 export default function ProfileScreen() {
 	const theme = useTheme();
-	// const achievements = useSelector(selectAchievements);
+	const [randomMotivation, setRandomMotivation] = useState<Motivation>();
 	const motivations = useSelector(selectMotivations);
+
+	useFocusEffect(
+		useCallback(() => {
+			if (motivations.length > 0) {
+				const randomMotivation = motivations[Math.floor(Math.random() * motivations.length)];
+				setRandomMotivation(randomMotivation);
+			}
+		}, [motivations]),
+	);
 
 	const { t } = useTranslation();
 
@@ -34,8 +46,8 @@ export default function ProfileScreen() {
 					{motivations.length === 0 && <Text variant="bodyMedium">{t('profile.noMotivationsAdded')}</Text>}
 					{motivations.length > 0 && (
 						<Card>
-							<Card.Cover source={{ uri: 'https://picsum.photos/700' }} />
-							<Card.Title title={motivations[0].title} subtitle={motivations[0].content} />
+							{randomMotivation?.image && <Card.Cover source={{ uri: randomMotivation.image }} />}
+							<Card.Title title={randomMotivation?.title} subtitle={randomMotivation?.content} />
 						</Card>
 					)}
 				</View>
