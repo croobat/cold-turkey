@@ -1,14 +1,14 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Platform, KeyboardAvoidingView, SafeAreaView, View, ScrollView, Image } from 'react-native';
 import { AnimatedFAB, TextInput, useTheme, Text, Button } from 'react-native-paper';
-import { router } from 'expo-router';
-import { formatISO } from 'date-fns';
+import { router, useLocalSearchParams } from 'expo-router';
 import * as ImagePicker from 'expo-image-picker';
 
-import { useAppDispatch } from '@/store';
-import { addMotivation } from '@/store/motivationsSlice';
+import { useAppDispatch, useAppSelector } from '@/store';
+import { addMotivation, selectMotivationById, updateMotivation } from '@/store/motivationsSlice';
 
 import { style } from '@/constants/Styles';
+import { Motivation } from '@/index';
 
 interface Form {
 	title: string;
@@ -24,11 +24,22 @@ const INITIAL_FORM: Form = {
 
 export default function MotivationAddScreen() {
 	const dispatch = useAppDispatch();
+
 	const theme = useTheme();
 	const [image, setImage] = useState<string | null>(null);
 	const [form, setForm] = useState<Form>(INITIAL_FORM);
 	const [status, requestPermission] = ImagePicker.useCameraPermissions();
 	const [error, setError] = useState<string | null>(null);
+
+	const { id } = useLocalSearchParams<{ id: string }>();
+	const motivation = useAppSelector((state) => selectMotivationById(state, parseInt(id)));
+
+	useEffect(() => {
+		if (motivation) {
+			setForm({ ...motivation });
+			setImage(motivation.image);
+		}
+	}, [motivation]);
 
 	const handleSubmit = () => {
 		if (!form.title.trim()) {
@@ -36,16 +47,17 @@ export default function MotivationAddScreen() {
 			return;
 		}
 
-		const datetime = formatISO(new Date());
-
-		const motivation = {
-			datetime,
+		const motivation: Motivation = {
 			title: form.title,
 			content: form.content,
 			image: form.image,
 		};
-		console.log(motivation);
-		dispatch(addMotivation(motivation));
+
+		if (id) {
+			dispatch(updateMotivation({ ...motivation, id: parseInt(id) }));
+		} else {
+			dispatch(addMotivation(motivation));
+		}
 		router.back();
 	};
 
