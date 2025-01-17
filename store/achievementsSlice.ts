@@ -42,4 +42,11 @@ export const selectAchievements = (state: RootState) => state.achievements.achie
 export const selectAchievementsIds = (state: RootState) => state.achievements.completed_ids;
 export const selectCompletedAchievements = (state: RootState) =>
 	state.achievements.achievements.filter((achievement) => state.achievements.completed_ids.includes(achievement.id));
+export const selectAchievementsOrderedByCompletionDate = (state: RootState) =>
+	state.achievements.achievements.sort((a, b) => {
+		if (a.completedAt && b.completedAt) {
+			return new Date(a.completedAt).getTime() - new Date(b.completedAt).getTime();
+		}
+		return 0;
+	});
 export default achievementsSlice.reducer;

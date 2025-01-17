@@ -7,7 +7,7 @@ import { style } from '@/constants/Styles';
 import { useSelector } from 'react-redux';
 import { selectMotivations } from '@/store/motivationsSlice';
 import { useAppSelector } from '@/store';
-import { selectAchievements } from '@/store/achievementsSlice';
+import { selectAchievementsOrderedByCompletionDate } from '@/store/achievementsSlice';
 import { Achievement } from '@/store/achievementsSlice';
 
 export default function ProfileScreen() {
@@ -17,7 +17,9 @@ export default function ProfileScreen() {
 
 	const { t } = useTranslation();
 
-	const activeAchievements: Achievement[] = useAppSelector(selectAchievements);
+	const achievements: Achievement[] = useAppSelector(selectAchievementsOrderedByCompletionDate);
+	const firstThreeAchievements = achievements.slice(0, 3);
+
 	return (
 		<SafeAreaView style={style.container}>
 			<ScrollView contentContainerStyle={[style.paddingHorizontal, style.rowGap]}>
@@ -29,7 +31,7 @@ export default function ProfileScreen() {
 						</Text>
 						<IconButton icon="chevron-right" onPress={() => router.navigate('/profile/motivations')} />
 					</View>
-
+					{motivations.length === 0 && <Text variant="bodyMedium">{t('profile.noMotivationsAdded')}</Text>}
 					{motivations.length > 0 && (
 						<Card>
 							<Card.Cover source={{ uri: 'https://picsum.photos/700' }} />
@@ -47,9 +49,9 @@ export default function ProfileScreen() {
 						<IconButton icon="chevron-right" onPress={() => router.navigate('/profile/achievements')} />
 					</View>
 
-					{activeAchievements &&
-						activeAchievements.length > 0 &&
-						activeAchievements.map((achievement, index) => (
+					{firstThreeAchievements &&
+						firstThreeAchievements.length > 0 &&
+						firstThreeAchievements.map((achievement, index) => (
 							<List.Item
 								key={index}
 								title={achievement.title}
