@@ -1,21 +1,12 @@
 import { useState } from 'react';
-import {
-	Text,
-	Button,
-	SegmentedButtons,
-	TextInput,
-	Card,
-	useTheme,
-	Dialog,
-	Portal,
-	AnimatedFAB,
-} from 'react-native-paper';
+import { Text, Button, SegmentedButtons, TextInput, Card, useTheme, AnimatedFAB } from 'react-native-paper';
 import { KeyboardAvoidingView, Platform, SafeAreaView, ScrollView, View } from 'react-native';
 import { useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import { router } from 'expo-router';
-
 import { resetAllSlices, useAppDispatch } from '@/store';
+import AlertDialog from '@/components/AlertDialog';
+
 import {
 	setTheme,
 	setLanguage,
@@ -196,21 +187,15 @@ export default function SettingsScreen() {
 			</KeyboardAvoidingView>
 
 			{/* confirmation dialog */}
-			<Portal>
-				<Dialog visible={isDialogVisible} onDismiss={() => setIsDialogVisible(false)}>
-					<Dialog.Icon icon="alert" />
-					<Dialog.Title>{t('settings.areYouSureYouWantToWipeAllData')}</Dialog.Title>
-					<Dialog.Content>
-						<Text>{t('form.thisActionCannotBeUndone')}</Text>
-					</Dialog.Content>
-					<Dialog.Actions>
-						<Button onPress={() => setIsDialogVisible(false)}>{t('form.cancel')}</Button>
-						<Button onPress={handleWipeData} textColor={paperTheme.colors.error}>
-							{t('form.confirm')}
-						</Button>
-					</Dialog.Actions>
-				</Dialog>
-			</Portal>
+			<AlertDialog
+				show={isDialogVisible}
+				setShow={setIsDialogVisible}
+				title={t('settings.areYouSureYouWantToWipeAllData')}
+				message={t('form.thisActionCannotBeUndone')}
+				onConfirm={() => handleWipeData()}
+				confirmText={t('form.confirm')}
+				cancelText={t('form.cancel')}
+			/>
 
 			<AnimatedFAB
 				icon="check"
