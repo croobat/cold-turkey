@@ -6,7 +6,9 @@ import { useTranslation } from 'react-i18next';
 import { style } from '@/constants/Styles';
 import { useSelector } from 'react-redux';
 import { selectMotivations } from '@/store/motivationsSlice';
-import achievements from '@/data/achievements.json';
+import { useAppSelector } from '@/store';
+import { selectAchievements } from '@/store/achievementsSlice';
+import { Achievement } from '@/store/achievementsSlice';
 
 export default function ProfileScreen() {
 	const theme = useTheme();
@@ -15,7 +17,7 @@ export default function ProfileScreen() {
 
 	const { t } = useTranslation();
 
-	const activeAchievements = achievements;
+	const activeAchievements: Achievement[] = useAppSelector(selectAchievements);
 	return (
 		<SafeAreaView style={style.container}>
 			<ScrollView contentContainerStyle={[style.paddingHorizontal, style.rowGap]}>
@@ -45,14 +47,24 @@ export default function ProfileScreen() {
 						<IconButton icon="chevron-right" onPress={() => router.navigate('/profile/achievements')} />
 					</View>
 
-					{Object.keys(activeAchievements).map((achievement, index) => (
-						<List.Item
-							key={index}
-							title={activeAchievements[achievement].title}
-							description={activeAchievements[achievement].content}
-							left={() => <Avatar.Icon icon={activeAchievements[achievement].icon} />}
-						/>
-					))}
+					{activeAchievements &&
+						activeAchievements.length > 0 &&
+						activeAchievements.map((achievement, index) => (
+							<List.Item
+								key={index}
+								title={achievement.title}
+								description={achievement.content}
+								left={() => (
+									<Avatar.Icon
+										icon={achievement.icon}
+										size={42}
+										style={{
+											backgroundColor: achievement.completedAt ? theme.colors.primary : theme.colors.surfaceDisabled,
+										}}
+									/>
+								)}
+							/>
+						))}
 				</View>
 				<View style={style.row}>
 					<Text variant="titleMedium" style={{ color: theme.colors.primary }}>
