@@ -44,8 +44,9 @@ export default function HealthScreen() {
 		const timeDifference = differenceInMilliseconds(currentTime, relapseDate);
 		const timeMeasureInMs = timeUnitToMs[timeMeasure] || timeUnitToMs.minutes;
 
-		const progress = timeDifference >= 0 ? Math.min(timeDifference / (timeAmount * timeMeasureInMs), 1) : 0;
-		return Math.round(progress * 100) / 100;
+		const rawProgress = timeDifference >= 0 ? Math.min(timeDifference / (timeAmount * timeMeasureInMs), 1) : 0;
+		// Round to 2 decimal places to avoid floating point precision issues
+		return Math.floor(rawProgress * 100) / 100;
 	};
 
 	const renderItem = ({ item }: { item: Milestone }) => {
