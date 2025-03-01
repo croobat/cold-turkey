@@ -9,6 +9,7 @@ export default function GoalLayout() {
 	return (
 		<Stack screenOptions={{ headerShadowVisible: false, headerStyle: { backgroundColor: theme.colors.background } }}>
 			<Stack.Screen name="index" options={{ title: t('goal.title') }} />
+			<Stack.Screen name="goal-add" options={{ presentation: 'modal', title: t('goal.setNewGoal') }} />
 		</Stack>
 	);
 }
