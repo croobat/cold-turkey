@@ -59,7 +59,7 @@ export default function HealthScreen() {
 				<Card.Title title={title} />
 				<Card.Content style={style.smRowGap}>
 					<Text style={style.smMarginBottom}>{description}</Text>
-					<ProgressBar progress={progress} color={isCompleted ? undefined : theme.colors.tertiary} />
+					<ProgressBar animatedValue={progress} color={isCompleted ? undefined : theme.colors.tertiary} />
 					<View style={style.row}>
 						<Text>
 							{item.timeAmount} {t(`common.${item.timeMeasure}`).toLowerCase()}

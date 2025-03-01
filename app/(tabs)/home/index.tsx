@@ -107,9 +107,10 @@ export default function HomeScreen() {
 	// empty state
 	if (lastRelapse === undefined) {
 		return (
-			<EmptyRelapsesState isRefreshing={isRefreshing} onRefresh={handleRefresh}>
+			<>
+				<EmptyRelapsesState></EmptyRelapsesState>
 				<WelcomeModal visible={isWelcomeModalVisible} onDismiss={handleDismissWelcomeModal} />
-			</EmptyRelapsesState>
+			</>
 		);
 	}
 
