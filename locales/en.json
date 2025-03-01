@@ -82,7 +82,22 @@
 	},
 
 	"goal": {
-		"title": "Goal"
+		"title": "Goal",
+		"setNewGoal": "Set New Savings Goal",
+		"goalName": "Goal Name",
+		"targetAmount": "Target Amount",
+		"currentAmount": "Current Amount",
+		"additionalAmount": "Additional Savings",
+		"progress": "{{current}} of {{target}}",
+		"editGoal": "Edit Goal",
+		"defaultGoalName": "My Savings Goal",
+		"addNewGoal": "Add New Goal",
+		"cigaretteSavings": "Savings from Not Smoking",
+		"cigaretteSavingsAmount": "You've saved {{amount}} by not smoking!",
+		"noGoalsFound": "No Savings Goals Yet",
+		"addAGoalToStartTracking": "Add a savings goal to start tracking your progress towards it",
+		"addFirstGoal": "Add Your First Goal",
+		"areYouSureYouWantToDeleteGoal": "Are you sure you want to delete this goal?"
 	},
 
 	"profile": {

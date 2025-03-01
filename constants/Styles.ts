@@ -39,13 +39,18 @@ export const style = StyleSheet.create({
 		position: 'absolute',
 	},
 
+	// margins
+	noMargin: { margin: 0 },
+
 	xsMargin: { margin: METRICS.xs },
 	xsMarginTop: { marginTop: METRICS.xs },
 	xsMarginBottom: { marginBottom: METRICS.xs },
 
 	smMargin: { margin: METRICS.sm },
 	smMarginTop: { marginTop: METRICS.sm },
+	smMarginRight: { marginRight: METRICS.sm },
 	smMarginBottom: { marginBottom: METRICS.sm },
+	smMarginLeft: { marginLeft: METRICS.sm },
 
 	margin: { margin: METRICS.md },
 	marginHorizontal: { marginHorizontal: METRICS.md },
@@ -70,6 +75,9 @@ export const style = StyleSheet.create({
 	xxxlMargin: { margin: METRICS.xxxl },
 	xxxlMarginTop: { marginTop: METRICS.xxxl },
 	xxxlMarginBottom: { marginBottom: METRICS.xxxl },
+
+	// paddings
+	noPadding: { padding: 0 },
 
 	smPadding: { padding: METRICS.sm },
 
