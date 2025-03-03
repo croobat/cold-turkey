@@ -3,6 +3,9 @@ import { Tabs } from 'expo-router';
 import { Icon, useTheme } from 'react-native-paper';
 import { useTranslation } from 'react-i18next';
 
+import { useAppSelector } from '@/store';
+import { selectLastRelapse } from '@/store/logsSlice';
+
 type TabBarIconProps = {
 	focused: boolean;
 	color: string;
@@ -12,6 +15,9 @@ type TabBarIconProps = {
 export default function NavigationLayout() {
 	const theme = useTheme();
 	const { t } = useTranslation();
+
+	const lastRelapse = useAppSelector(selectLastRelapse);
+	console.log(lastRelapse);
 
 	return (
 		<Tabs
@@ -32,6 +38,7 @@ export default function NavigationLayout() {
 					title: t('journal.title'),
 					tabBarLabel: t('journal.title'),
 					tabBarIcon: ({ color, size }: TabBarIconProps) => <Icon source="book" color={color} size={size} />,
+					href: lastRelapse ? undefined : null,
 				}}
 			/>
 			<Tabs.Screen
@@ -40,6 +47,7 @@ export default function NavigationLayout() {
 					title: t('health.title'),
 					tabBarLabel: t('health.title'),
 					tabBarIcon: ({ color, size }: TabBarIconProps) => <Icon source="heart" color={color} size={size} />,
+					href: lastRelapse ? undefined : null,
 				}}
 			/>
 			<Tabs.Screen
@@ -48,6 +56,7 @@ export default function NavigationLayout() {
 					title: t('goal.title'),
 					tabBarLabel: t('goal.title'),
 					tabBarIcon: ({ color, size }: TabBarIconProps) => <Icon source="target" color={color} size={size} />,
+					href: lastRelapse ? undefined : null,
 				}}
 			/>
 			<Tabs.Screen
