@@ -1,35 +1,38 @@
+import React from 'react';
 import { style } from '@/constants/Styles';
-import { selectMotivations } from '@/store/motivationsSlice';
+import { deleteMotivation, selectMotivations } from '@/store/motivationsSlice';
 import { useAppSelector } from '@/store';
 import { useRouter } from 'expo-router';
-import { FlatList, SafeAreaView, View } from 'react-native';
-import { AnimatedFAB, Card, IconButton } from 'react-native-paper';
+import { RefreshControl, ScrollView, View } from 'react-native';
+import { AnimatedFAB, Card, IconButton, useTheme } from 'react-native-paper';
 import EmptyState from '@/components/EmptyState';
 import { useState } from 'react';
-import AlertDialog from '@/components/AlertDialog';
 import { useAppDispatch } from '@/store';
-import { deleteMotivation } from '@/store/motivationsSlice';
 import { useTranslation } from 'react-i18next';
+import { Motivation } from '@/index';
+import DeleteAlertBanner from '@/components/DeleteAlertBanner';
 
 export default function MotivationsScreen() {
+	const { t } = useTranslation();
+	const theme = useTheme();
+
 	const router = useRouter();
 	const motivations = useAppSelector(selectMotivations);
-	const { t } = useTranslation();
-	const [isDialogVisible, setIsDialogVisible] = useState(false);
-	const [selectedMotivationId, setSelectedMotivationId] = useState<number | null>(null);
+
+	const [selectedMotivation, setSelectedMotivation] = useState<Motivation | null>(null);
+
+	const [refreshing, setRefreshing] = useState(false);
+
 	const dispatch = useAppDispatch();
 
-	const handleDeleteMotivation = (id: number | null) => {
-		if (!id) return;
-		dispatch(deleteMotivation(id));
-		setSelectedMotivationId(null);
-		setIsDialogVisible(false);
+	const handleRefresh = () => {
+		setRefreshing(true);
+		setTimeout(() => setRefreshing(false), 500);
 	};
 
-	const handleClickDelete = (id: number | null) => {
-		if (!id) return;
-		setSelectedMotivationId(id);
-		setIsDialogVisible(true);
+	const handleDeleteMotivation = () => {
+		if (!selectedMotivation || !selectedMotivation.id) return;
+		dispatch(deleteMotivation(selectedMotivation.id));
 	};
 
 	if (motivations.length === 0) {
@@ -43,52 +46,53 @@ export default function MotivationsScreen() {
 	}
 
 	return (
-		<SafeAreaView style={[style.container]}>
-			<View style={[style.padding, style.fullHeight]}>
-				<FlatList
-					data={motivations}
-					renderItem={({ item, index }) => (
+		<>
+			<DeleteAlertBanner
+				title={t('motivations.areYouSureYouWantToDeleteThisMotivation')}
+				onDelete={() => handleDeleteMotivation()}
+				selectedItem={selectedMotivation}
+				setSelectedItem={setSelectedMotivation}
+			/>
+			<ScrollView
+				style={style.container}
+				refreshControl={
+					<RefreshControl refreshing={refreshing} onRefresh={handleRefresh} tintColor={theme.colors.primary} />
+				}
+			>
+				<View style={style.paddingHorizontal}>
+					{motivations.map((motivation, index) => (
 						<Card key={index} style={style.marginBottom}>
-							{item.image && <Card.Cover source={{ uri: item.image }} />}
+							{motivation.image && <Card.Cover source={{ uri: motivation.image }} />}
 							<Card.Title
-								title={item.title}
-								subtitle={item.content}
+								title={motivation.title}
+								subtitle={motivation.content}
 								right={() => (
 									<View style={style.row}>
 										<IconButton
 											icon="pencil"
 											onPress={() =>
 												router.navigate({
-													pathname: '/profile/motivation-form',
-													params: { id: item.id },
+													pathname: '/profile/motivation-add',
+													params: { id: motivation.id },
 												})
 											}
 										/>
-										<IconButton icon="delete" onPress={() => handleClickDelete(item.id ?? null)} />
+										<IconButton icon="delete" onPress={() => setSelectedMotivation(motivation)} />
 									</View>
 								)}
 							/>
 						</Card>
-					)}
-				/>
-			</View>
+					))}
+				</View>
+			</ScrollView>
 
 			<AnimatedFAB
 				icon="plus"
 				label={t('form.add')}
 				extended={false}
-				onPress={() => router.navigate('/profile/motivation-form')}
+				onPress={() => router.navigate('/profile/motivation-add')}
 				style={style.fabStyle}
 			/>
-			<AlertDialog
-				show={isDialogVisible}
-				setShow={setIsDialogVisible}
-				title={t('profile.areYouSureYouWantToDeleteThisMotivation')}
-				message={t('form.thisActionCannotBeUndone')}
-				onConfirm={() => handleDeleteMotivation(selectedMotivationId)}
-				confirmText={t('form.delete')}
-				cancelText={t('form.cancel')}
-			/>
-		</SafeAreaView>
+		</>
 	);
 }
