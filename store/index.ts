@@ -8,6 +8,7 @@ import motivationalReducer, { resetMotivationalSlice } from '@/store/motivationa
 import motivationsReducer, { resetMotivationsSlice } from '@/store/motivationsSlice';
 import settingsReducer, { resetSettingsSlice } from '@/store/settingsSlice';
 import achievementsReducer, { resetAchievementsSlice } from '@/store/achievementsSlice';
+import goalsReducer from '@/store/goalsSlice';
 
 const reducers = {
 	logs: logsReducer,
@@ -15,6 +16,7 @@ const reducers = {
 	settings: settingsReducer,
 	motivations: motivationsReducer,
 	achievements: achievementsReducer,
+	goals: goalsReducer,
 };
 
 const rootReducer = persistReducer(reducers);

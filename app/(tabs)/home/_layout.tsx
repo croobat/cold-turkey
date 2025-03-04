@@ -9,7 +9,10 @@ export default function HomeLayout() {
 	return (
 		<Stack screenOptions={{ headerShadowVisible: false, headerStyle: { backgroundColor: theme.colors.background } }}>
 			<Stack.Screen name="index" options={{ title: t('home.title') }} />
-			<Stack.Screen name="relapse-add" options={{ title: `${t('form.add')} ${t('common.relapse')}` }} />
+			<Stack.Screen
+				name="relapse-add"
+				options={{ title: `${t('form.add')} ${t('common.relapse')}`, presentation: 'modal' }}
+			/>
 		</Stack>
 	);
 }

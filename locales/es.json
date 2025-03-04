@@ -80,7 +80,22 @@
 	},
 
 	"goal": {
-		"title": "Objetivo"
+		"title": "Objetivos",
+		"setNewGoal": "Establecer Nueva Meta de Ahorro",
+		"goalName": "Nombre de la Meta",
+		"targetAmount": "Cantidad Objetivo",
+		"currentAmount": "Cantidad Actual",
+		"additionalAmount": "Ahorros Adicionales",
+		"progress": "{{current}} de {{target}}",
+		"editGoal": "Editar Meta",
+		"defaultGoalName": "Mi Meta de Ahorro",
+		"addNewGoal": "Agregar Nueva Meta",
+		"cigaretteSavings": "Ahorros por No Fumar",
+		"cigaretteSavingsAmount": "¡Has ahorrado {{amount}} por no fumar!",
+		"noGoalsFound": "Aún No Hay Metas de Ahorro",
+		"addAGoalToStartTracking": "Agrega una meta de ahorro para comenzar a seguir tu progreso",
+		"addFirstGoal": "Agrega Tu Primera Meta",
+		"areYouSureYouWantToDeleteGoal": "¿Estás seguro de que quieres eliminar esta meta?"
 	},
 
 	"profile": {

@@ -44,8 +44,9 @@ export default function HealthScreen() {
 		const timeDifference = differenceInMilliseconds(currentTime, relapseDate);
 		const timeMeasureInMs = timeUnitToMs[timeMeasure] || timeUnitToMs.minutes;
 
-		const progress = timeDifference >= 0 ? Math.min(timeDifference / (timeAmount * timeMeasureInMs), 1) : 0;
-		return Math.round(progress * 100) / 100;
+		const rawProgress = timeDifference >= 0 ? Math.min(timeDifference / (timeAmount * timeMeasureInMs), 1) : 0;
+		// Round to 2 decimal places to avoid floating point precision issues
+		return Math.floor(rawProgress * 100) / 100;
 	};
 
 	const renderItem = ({ item }: { item: Milestone }) => {
@@ -58,7 +59,7 @@ export default function HealthScreen() {
 				<Card.Title title={title} />
 				<Card.Content style={style.smRowGap}>
 					<Text style={style.smMarginBottom}>{description}</Text>
-					<ProgressBar progress={progress} color={isCompleted ? undefined : theme.colors.tertiary} />
+					<ProgressBar animatedValue={progress} color={isCompleted ? undefined : theme.colors.tertiary} />
 					<View style={style.row}>
 						<Text>
 							{item.timeAmount} {t(`common.${item.timeMeasure}`).toLowerCase()}
