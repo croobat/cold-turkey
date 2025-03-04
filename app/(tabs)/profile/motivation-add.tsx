@@ -6,6 +6,7 @@ import * as ImagePicker from 'expo-image-picker';
 
 import { useAppDispatch, useAppSelector } from '@/store';
 import { addMotivation, selectMotivationById, updateMotivation } from '@/store/motivationsSlice';
+import { useTranslation } from 'react-i18next';
 
 import { style } from '@/constants/Styles';
 import { Motivation } from '@/index';
@@ -26,6 +27,7 @@ export default function MotivationAddScreen() {
 	const dispatch = useAppDispatch();
 
 	const theme = useTheme();
+	const { t } = useTranslation();
 	const [image, setImage] = useState<string | null>(null);
 	const [form, setForm] = useState<Form>(INITIAL_FORM);
 	const [status, requestPermission] = ImagePicker.useCameraPermissions();
@@ -103,7 +105,7 @@ export default function MotivationAddScreen() {
 					<View style={[style.lgMargin, style.lgRowGap]}>
 						<View style={style.smRowGap}>
 							<TextInput
-								label="Title"
+								label={t('form.title')}
 								value={form.title}
 								mode="outlined"
 								onChangeText={(text) => {
@@ -116,18 +118,18 @@ export default function MotivationAddScreen() {
 						</View>
 
 						<TextInput
-							label="Content"
+							label={t('form.content')}
 							value={form.content}
 							mode="outlined"
 							onChangeText={(text) => setForm({ ...form, content: text })}
 						/>
 						<View style={[style.container, style.centered]}>
 							<Button icon="image" onPress={pickImage}>
-								{'Pick an image from camera roll'}
+								{t('form.pickAnImageFromTheCameraRoll')}
 							</Button>
-							<Text>{'or'}</Text>
+							<Text>{t('common.or')}</Text>
 							<Button icon="camera" onPress={takePhoto}>
-								{'Take a photo'}
+								{t('form.takeAPicture')}
 							</Button>
 							{image && <Image source={{ uri: image }} style={[style.fullWidth, { aspectRatio: 1 }]} />}
 						</View>

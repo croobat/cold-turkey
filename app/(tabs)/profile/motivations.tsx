@@ -35,9 +35,9 @@ export default function MotivationsScreen() {
 	if (motivations.length === 0) {
 		return (
 			<EmptyState
-				title="No data found"
-				subtitle="You have not added any motivations yet."
-				onPress={() => router.navigate('/profile/motivation-form')}
+				title={t('motivations.noMotivationsAdded')}
+				subtitle={t('motivations.addATextOrImageToRemindYouWhyYouQuit')}
+				onPress={() => router.navigate('/profile/motivation-add')}
 			/>
 		);
 	}

@@ -1,26 +1,23 @@
 import { View } from 'react-native';
-import { SafeAreaView } from 'react-native';
-import { style } from '@/constants/Styles';
-import { IconButton, Text } from 'react-native-paper';
+import { IconButton, Text, useTheme } from 'react-native-paper';
 
-export default function EmptyState({
-	title,
-	subtitle,
-	onPress,
-}: {
-	title: string;
-	subtitle: string;
-	onPress: () => void;
-}) {
+import { style } from '@/constants/Styles';
+
+export default function EmptyState({ title, subtitle, onPress }: { title: string; subtitle: string; onPress: () => void }) {
+	const theme = useTheme();
+
 	return (
-		<SafeAreaView style={style.container}>
-			<View style={[style.paddingHorizontal, style.centered, style.fullHeight, style.rowGap]}>
-				<Text variant="titleLarge">{title}</Text>
-				<Text variant="bodyLarge" style={{ textAlign: 'center' }}>
+		<View style={[style.container, style.centered, style.paddingHorizontal]}>
+			<View style={[style.centered, style.smRowGap]}>
+				<IconButton icon="clipboard-text" size={48} />
+				<Text variant="titleMedium" style={{ textAlign: 'center' }}>
+					{title}
+				</Text>
+				<Text variant="bodyMedium" style={{ textAlign: 'center', color: theme.colors.onSurfaceVariant }}>
 					{subtitle}
 				</Text>
 				<IconButton icon="plus" mode="contained" onPress={onPress} />
 			</View>
-		</SafeAreaView>
+		</View>
 	);
 }
