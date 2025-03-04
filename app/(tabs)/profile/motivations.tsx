@@ -4,7 +4,7 @@ import { useAppSelector } from '@/store';
 import { useRouter } from 'expo-router';
 import { FlatList, SafeAreaView, View } from 'react-native';
 import { AnimatedFAB, Card, IconButton } from 'react-native-paper';
-import NoDataView from '@/components/EmptyState';
+import EmptyState from '@/components/EmptyState';
 import { useState } from 'react';
 import AlertDialog from '@/components/AlertDialog';
 import { useAppDispatch } from '@/store';
@@ -14,7 +14,6 @@ import { useTranslation } from 'react-i18next';
 export default function MotivationsScreen() {
 	const router = useRouter();
 	const motivations = useAppSelector(selectMotivations);
-	console.log(motivations);
 	const { t } = useTranslation();
 	const [isDialogVisible, setIsDialogVisible] = useState(false);
 	const [selectedMotivationId, setSelectedMotivationId] = useState<number | null>(null);
@@ -35,7 +34,7 @@ export default function MotivationsScreen() {
 
 	if (motivations.length === 0) {
 		return (
-			<NoDataView
+			<EmptyState
 				title="No data found"
 				subtitle="You have not added any motivations yet."
 				onPress={() => router.navigate('/profile/motivation-form')}

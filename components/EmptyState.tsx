@@ -3,7 +3,7 @@ import { SafeAreaView } from 'react-native';
 import { style } from '@/constants/Styles';
 import { IconButton, Text } from 'react-native-paper';
 
-export default function NoDataView({
+export default function EmptyState({
 	title,
 	subtitle,
 	onPress,
