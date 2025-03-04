@@ -10,3 +10,10 @@ export type Achievement = {
 	title: string;
 	description: string;
 };
+export type Objective = {
+	id: number;
+	title: string;
+	description: string;
+	cost: number;
+	archivedAt: string;
+};
