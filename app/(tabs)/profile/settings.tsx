@@ -24,6 +24,11 @@ import i18n from '@/locales';
 
 import { style } from '@/constants/Styles';
 
+interface SettingsForm {
+	cigarettesPerDay: number;
+	pricePerCigarette: string;
+}
+
 export default function SettingsScreen() {
 	const dispatch = useAppDispatch();
 	const { t } = useTranslation();
@@ -37,6 +42,25 @@ export default function SettingsScreen() {
 	const pricePerCigarette = useSelector(selectPricePerCigarette);
 	const [isDialogVisible, setIsDialogVisible] = useState(false);
 
+	const [form, setForm] = useState<SettingsForm>({
+		cigarettesPerDay: cigarettesPerDay,
+		pricePerCigarette: pricePerCigarette.toString(),
+	});
+
+	const disableButton = !form.cigarettesPerDay || 
+		!form.pricePerCigarette || 
+		form.cigarettesPerDay === 0 || 
+		form.pricePerCigarette === '0' ||
+		(form.cigarettesPerDay == cigarettesPerDay && form.pricePerCigarette == pricePerCigarette.toString()); 
+
+	const handleChangeCigarettesPerDay = (text: string) =>
+		setForm((prev) => ({ ...prev, cigarettesPerDay: parseInt(text) || 0}));
+
+	const handleChangePricePerCigarette = (text: string) => {
+		setForm((prev) => ({ ...prev, pricePerCigarette: text}));
+	}
+		
+
 	const handleThemeChange = (theme: any) => dispatch(setTheme(theme));
 
 	const handleLanguageChange = (language: any) => {
@@ -45,14 +69,6 @@ export default function SettingsScreen() {
 	};
 
 	const handleCurrencyChange = (currency: any) => dispatch(setCurrency(currency));
-
-	const handleChangeCigarettesPerDay = (text: string) => {
-		dispatch(setCigarettesPerDay(parseInt(text) || 0));
-	};
-
-	const handleChangePricePerCigarette = (text: string) => {
-		dispatch(setPricePerCigarette(parseFloat(text) || 0));
-	};
 
 	const handleWipeData = () => {
 		resetAllSlices();
@@ -64,6 +80,14 @@ export default function SettingsScreen() {
 		setIsDialogVisible(true);
 	};
 
+	const handleSubmit = () => {
+		dispatch(setCigarettesPerDay(form.cigarettesPerDay));
+		dispatch(setPricePerCigarette(parseFloat(form.pricePerCigarette)));
+		setForm((prev) => ({ ...prev, 
+			cigarettesPerDay: form.cigarettesPerDay, 
+			pricePerCigarette: parseFloat(form.pricePerCigarette).toString()
+		}));
+	};
 
 	return (
 		<SafeAreaView style={style.container}>
@@ -129,21 +153,29 @@ export default function SettingsScreen() {
 						<Card.Content style={[style.rowGap]}>
 							<TextInput
 								label={t('common.cigarettesPerDay')}
-								value={cigarettesPerDay.toString()}
+								value={form.cigarettesPerDay.toString()}
 								onChangeText={handleChangeCigarettesPerDay}
 								keyboardType="numeric"
 								mode="outlined"
-								error={cigarettesPerDay === 0}
+								error={form.cigarettesPerDay === 0}
 							/>
 
 							<TextInput
 								label={t('common.pricePerCigarette')}
-								value={pricePerCigarette.toString()}
+								value={form.pricePerCigarette.toString()}
 								onChangeText={handleChangePricePerCigarette}
-								keyboardType="numeric"
+								keyboardType="decimal-pad"
 								mode="outlined"
-								error={pricePerCigarette === 0}
+								error={parseFloat(form.pricePerCigarette) === 0}
+								right={<TextInput.Affix text={currency.toUpperCase()} />}
 							/>
+							<Button 
+								disabled={disableButton} 
+								icon="content-save" 
+								mode="contained" 
+								onPress={handleSubmit}>
+									{t('common.save')}
+							</Button>
 						</Card.Content>
 					</Card>
 
