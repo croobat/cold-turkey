@@ -8,6 +8,7 @@ import motivationalReducer, { resetMotivationalSlice } from '@/store/motivationa
 import motivationsReducer, { resetMotivationsSlice } from '@/store/motivationsSlice';
 import settingsReducer, { resetSettingsSlice } from '@/store/settingsSlice';
 import achievementsReducer, { resetAchievementsSlice } from '@/store/achievementsSlice';
+import objectivesReducer, { resetObjectivesSlice } from '@/store/objectivesSlice';
 import goalsReducer from '@/store/goalsSlice';
 
 const reducers = {
@@ -16,6 +17,7 @@ const reducers = {
 	settings: settingsReducer,
 	motivations: motivationsReducer,
 	achievements: achievementsReducer,
+	objectives: objectivesReducer,
 	goals: goalsReducer,
 };
 
@@ -48,6 +50,7 @@ export const resetAllSlices = () => {
 	store.dispatch(resetSettingsSlice());
 	store.dispatch(resetMotivationsSlice());
 	store.dispatch(resetAchievementsSlice());
+	store.dispatch(resetObjectivesSlice());
 };
 
 export type RootState = ReturnType<typeof store.getState>;

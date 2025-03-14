@@ -1,6 +1,6 @@
-import React, { useState, useEffect, useRef } from 'react';
-import { View, ScrollView, RefreshControl, TouchableOpacity, Animated } from 'react-native';
-import { Text, ProgressBar, Card, IconButton, AnimatedFAB, useTheme, Icon, Banner } from 'react-native-paper';
+import React, { useState} from 'react';
+import { View, ScrollView, RefreshControl, TouchableOpacity} from 'react-native';
+import { Text, ProgressBar, Card, IconButton, AnimatedFAB, useTheme, Icon } from 'react-native-paper';
 import { useTranslation } from 'react-i18next';
 import { router } from 'expo-router';
 
@@ -10,6 +10,7 @@ import { selectLastRelapse } from '@/store/logsSlice';
 import { selectCigarettesPerDay, selectPricePerCigarette } from '@/store/settingsSlice';
 import { style } from '@/constants/Styles';
 import { differenceInDays, parseISO } from 'date-fns';
+import DeleteAlertBanner from '@/components/DeleteAlertBanner';
 
 const EmptyGoalsState = ({ onPress }: { onPress: () => void }) => {
 	const { t } = useTranslation();
@@ -42,29 +43,11 @@ export default function GoalScreen() {
 
 	const [refreshing, setRefreshing] = useState(false);
 	const [selectedGoal, setSelectedGoal] = useState<SavingsGoal | null>(null);
-	const fadeAnim = useRef(new Animated.Value(0)).current;
 
-	// smooth screen flicker when deleting a goal
-	useEffect(() => {
-		Animated.timing(fadeAnim, {
-			toValue: selectedGoal ? 1 : 0,
-			duration: 200,
-			useNativeDriver: true,
-		}).start();
-	}, [selectedGoal]);
-
-	const goalResetConfirmActions = [
-		{ label: t('form.cancel'), onPress: () => setSelectedGoal(null) },
-		{
-			label: t('form.confirm'),
-			onPress: () => {
-				if (!selectedGoal) return;
-
-				dispatch(deleteSavingsGoal(selectedGoal.id));
-				setSelectedGoal(null);
-			},
-		},
-	];
+	const handleDeleteGoal = () => {
+		if (!selectedGoal) return;
+		dispatch(deleteSavingsGoal(selectedGoal.id));
+	};
 
 	const calculateCigaretteSavings = () => {
 		if (!lastRelapse?.datetime || !cigarettesPerDay || !pricePerCigarette) return 0;
@@ -90,16 +73,12 @@ export default function GoalScreen() {
 
 	return (
 		<>
-			<Animated.View style={{ opacity: fadeAnim }}>
-				<Banner
-					visible={Boolean(selectedGoal)}
-					icon="alert"
-					actions={goalResetConfirmActions}
-					style={[style.marginBottom, { elevation: 4 }]}
-				>
-					<Text>{t('goal.areYouSureYouWantToDeleteGoal')}</Text>
-				</Banner>
-			</Animated.View>
+			<DeleteAlertBanner
+				title={t('goal.areYouSureYouWantToDeleteGoal')}
+				onDelete={() => handleDeleteGoal()}
+				selectedItem={selectedGoal}
+				setSelectedItem={setSelectedGoal}
+			/>
 
 			<ScrollView
 				style={style.container}
