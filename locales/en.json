@@ -3,6 +3,7 @@
 		"backToHome": "Back to home",
 		"relapse": "Relapse",
 		"relapses": "Relapses",
+		"motivation": "Motivation",
 		"cigarettesPerDay": "Cigarettes per day",
 		"pricePerCigarette": "Price per cigarette",
 		"noRelapsesFound": "No relapses found",
@@ -20,7 +21,8 @@
 		"month": "Month",
 		"months": "Months",
 		"year": "Year",
-		"years": "Years"
+		"years": "Years",
+		"or": "or"
 	},
 
 	"error": {
@@ -52,7 +54,8 @@
 		"requiredField": "Required field",
 		"date": "Date",
 		"time": "Time",
-
+		"pickAnImageFromTheCameraRoll": "Pick an image from camera roll",
+		"takeAPicture": "Take a picture",
 		"thisActionCannotBeUndone": "This action cannot be undone."
 	},
 
@@ -105,7 +108,9 @@
 
 		"motivation": "Motivation",
 		"motivations": "Motivations",
-		"addATextOrImageToRemindYouWhyYouQuit": "Add a text or image to remind you why you quit"
+		"noMotivationsAdded": "No motivations added",
+		"addATextOrImageToRemindYouWhyYouQuit": "Add a text or image to remind you why you quit",
+		"areYouSureYouWantToDeleteThisMotivation": "Are you sure you want to delete this motivation?"
 	},
 
 	"settings": {
@@ -122,6 +127,12 @@
 		"dangerZone": "Danger zone",
 		"areYouSureYouWantToWipeAllData": "Are you sure you want to wipe all data?",
 		"wipeAllData": "Wipe all data"
+	},
+
+	"motivations": {
+		"noMotivationsAdded": "No motivations added",
+		"addATextOrImageToRemindYouWhyYouQuit": "Add a text or image to remind you why you quit",
+		"areYouSureYouWantToDeleteThisMotivation": "Are you sure you want to delete this motivation?"
 	},
 
 	"achievements": {

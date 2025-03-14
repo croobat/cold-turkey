@@ -1,21 +1,12 @@
 import { useState } from 'react';
-import {
-	Text,
-	Button,
-	SegmentedButtons,
-	TextInput,
-	Card,
-	useTheme,
-	Dialog,
-	Portal,
-	AnimatedFAB,
-} from 'react-native-paper';
+import { Text, Button, SegmentedButtons, TextInput, Card, useTheme, AnimatedFAB } from 'react-native-paper';
 import { KeyboardAvoidingView, Platform, SafeAreaView, ScrollView, View } from 'react-native';
 import { useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import { router } from 'expo-router';
-
 import { resetAllSlices, useAppDispatch } from '@/store';
+import AlertDialog from '@/components/AlertDialog';
+
 import {
 	setTheme,
 	setLanguage,
@@ -33,14 +24,6 @@ import i18n from '@/locales';
 
 import { style } from '@/constants/Styles';
 
-interface SettingsForm {
-	theme: any;
-	language: any;
-	currency: any;
-	cigarettesPerDay: number;
-	pricePerCigarette: number;
-}
-
 export default function SettingsScreen() {
 	const dispatch = useAppDispatch();
 	const { t } = useTranslation();
@@ -52,24 +35,24 @@ export default function SettingsScreen() {
 	const currency = useSelector(selectCurrency);
 	const cigarettesPerDay = useSelector(selectCigarettesPerDay);
 	const pricePerCigarette = useSelector(selectPricePerCigarette);
-
-	const [form, setForm] = useState<SettingsForm>({
-		theme,
-		language,
-		currency,
-		cigarettesPerDay,
-		pricePerCigarette,
-	});
 	const [isDialogVisible, setIsDialogVisible] = useState(false);
-	const [error, setError] = useState<string | null>(null);
 
-	const handleThemeChange = (theme: string) => setForm((prev) => ({ ...prev, theme }));
-	const handleLanguageChange = (language: string) => setForm((prev) => ({ ...prev, language }));
-	const handleCurrencyChange = (currency: string) => setForm((prev) => ({ ...prev, currency }));
-	const handleChangeCigarettesPerDay = (text: string) =>
-		setForm((prev) => ({ ...prev, cigarettesPerDay: parseInt(text) || 0 }));
-	const handleChangePricePerCigarette = (text: string) =>
-		setForm((prev) => ({ ...prev, pricePerCigarette: parseFloat(text) || 0 }));
+	const handleThemeChange = (theme: any) => dispatch(setTheme(theme));
+
+	const handleLanguageChange = (language: any) => {
+		dispatch(setLanguage(language));
+		i18n.changeLanguage(language);
+	};
+
+	const handleCurrencyChange = (currency: any) => dispatch(setCurrency(currency));
+
+	const handleChangeCigarettesPerDay = (text: string) => {
+		dispatch(setCigarettesPerDay(parseInt(text) || 0));
+	};
+
+	const handleChangePricePerCigarette = (text: string) => {
+		dispatch(setPricePerCigarette(parseFloat(text) || 0));
+	};
 
 	const handleWipeData = () => {
 		resetAllSlices();
@@ -81,20 +64,6 @@ export default function SettingsScreen() {
 		setIsDialogVisible(true);
 	};
 
-	const handleSubmit = () => {
-		if (form.cigarettesPerDay < 0 || form.pricePerCigarette < 0) {
-			setError('Values cannot be negative.');
-			return;
-		}
-
-		i18n.changeLanguage(form.language);
-
-		dispatch(setTheme(form.theme));
-		dispatch(setLanguage(form.language));
-		dispatch(setCurrency(form.currency));
-		dispatch(setCigarettesPerDay(form.cigarettesPerDay));
-		dispatch(setPricePerCigarette(form.pricePerCigarette));
-	};
 
 	return (
 		<SafeAreaView style={style.container}>
@@ -111,7 +80,7 @@ export default function SettingsScreen() {
 							<Text variant="bodyMedium">{t('settings.theme')}</Text>
 							<SegmentedButtons
 								density="regular"
-								value={form.theme}
+								value={theme}
 								onValueChange={handleThemeChange}
 								buttons={[
 									{ value: 'light', label: t('settings.light'), icon: 'white-balance-sunny' },
@@ -129,7 +98,7 @@ export default function SettingsScreen() {
 								<Text variant="bodyMedium">{t('settings.language')}</Text>
 								<SegmentedButtons
 									density="regular"
-									value={form.language}
+									value={language}
 									onValueChange={handleLanguageChange}
 									buttons={[
 										{ value: 'es', label: 'ES' },
@@ -142,7 +111,7 @@ export default function SettingsScreen() {
 								<Text variant="bodyMedium">{t('settings.currency')}</Text>
 								<SegmentedButtons
 									density="regular"
-									value={form.currency}
+									value={currency}
 									onValueChange={handleCurrencyChange}
 									buttons={[
 										{ value: 'usd', label: 'USD' },
@@ -160,20 +129,20 @@ export default function SettingsScreen() {
 						<Card.Content style={[style.rowGap]}>
 							<TextInput
 								label={t('common.cigarettesPerDay')}
-								value={form.cigarettesPerDay.toString()}
+								value={cigarettesPerDay.toString()}
 								onChangeText={handleChangeCigarettesPerDay}
 								keyboardType="numeric"
 								mode="outlined"
-								error={form.cigarettesPerDay < 0}
+								error={cigarettesPerDay === 0}
 							/>
 
 							<TextInput
 								label={t('common.pricePerCigarette')}
-								value={form.pricePerCigarette.toString()}
+								value={pricePerCigarette.toString()}
 								onChangeText={handleChangePricePerCigarette}
 								keyboardType="numeric"
 								mode="outlined"
-								error={form.pricePerCigarette < 0}
+								error={pricePerCigarette === 0}
 							/>
 						</Card.Content>
 					</Card>
@@ -196,29 +165,14 @@ export default function SettingsScreen() {
 			</KeyboardAvoidingView>
 
 			{/* confirmation dialog */}
-			<Portal>
-				<Dialog visible={isDialogVisible} onDismiss={() => setIsDialogVisible(false)}>
-					<Dialog.Icon icon="alert" />
-					<Dialog.Title>{t('settings.areYouSureYouWantToWipeAllData')}</Dialog.Title>
-					<Dialog.Content>
-						<Text>{t('form.thisActionCannotBeUndone')}</Text>
-					</Dialog.Content>
-					<Dialog.Actions>
-						<Button onPress={() => setIsDialogVisible(false)}>{t('form.cancel')}</Button>
-						<Button onPress={handleWipeData} textColor={paperTheme.colors.error}>
-							{t('form.confirm')}
-						</Button>
-					</Dialog.Actions>
-				</Dialog>
-			</Portal>
-
-			<AnimatedFAB
-				icon="check"
-				label="Save"
-				extended={false}
-				onPress={handleSubmit}
-				disabled={Boolean(error)}
-				style={style.fabStyle}
+			<AlertDialog
+				show={isDialogVisible}
+				setShow={setIsDialogVisible}
+				title={t('settings.areYouSureYouWantToWipeAllData')}
+				message={t('form.thisActionCannotBeUndone')}
+				onConfirm={() => handleWipeData()}
+				confirmText={t('form.confirm')}
+				cancelText={t('form.cancel')}
 			/>
 		</SafeAreaView>
 	);

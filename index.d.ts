@@ -1,13 +1,19 @@
 export type Motivation = {
-	id: number;
-	media: 'image' | 'text';
+	id?: number;
 	title: string;
-	description: string;
+	content: string;
+	image: string;
 };
-
 export type Achievement = {
 	id: number;
 	icon: string;
 	title: string;
 	description: string;
+};
+export type Objective = {
+	id: number;
+	title: string;
+	description: string;
+	cost: number;
+	archivedAt: string;
 };

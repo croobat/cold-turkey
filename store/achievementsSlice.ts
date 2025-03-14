@@ -1,27 +1,35 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import type { RootState } from '@/store';
-type Archivement = {
+
+export type Achievement = {
+	id: string;
 	title: string;
 	content: string;
 	icon: string;
-	isCompleted: boolean;
-	date: string | null;
+	completedAt?: string;
 };
 
 export interface AchievementsState {
-	completed: Archivement[];
+	achievements: Achievement[];
+	completed_ids: string[];
 }
 
 const initialState: AchievementsState = {
-	completed: [],
+	achievements: require('@/data/achievements.json'),
+	completed_ids: [],
 };
 
 const achievementsSlice = createSlice({
 	name: 'achievements',
 	initialState,
 	reducers: {
-		addArchivement: (state: AchievementsState, action: PayloadAction<Archivement>) => {
-			state.completed.push(action.payload);
+		completeAchievement: (state, action: PayloadAction<string>) => {
+			const achievementId = action.payload;
+			state.completed_ids.push(achievementId);
+			const achievement = state.achievements.find((achievement) => achievement.id === achievementId);
+			if (achievement) {
+				achievement.completedAt = new Date().toISOString();
+			}
 		},
 		resetAchievementsSlice: () => {
 			return initialState;
@@ -29,6 +37,16 @@ const achievementsSlice = createSlice({
 	},
 });
 
-export const { addArchivement, resetAchievementsSlice } = achievementsSlice.actions;
-export const selectAchievements = (state: RootState) => state.achievements.completed;
+export const { completeAchievement, resetAchievementsSlice } = achievementsSlice.actions;
+export const selectAchievements = (state: RootState) => state.achievements.achievements;
+export const selectAchievementsIds = (state: RootState) => state.achievements.completed_ids;
+export const selectCompletedAchievements = (state: RootState) =>
+	state.achievements.achievements.filter((achievement) => state.achievements.completed_ids.includes(achievement.id));
+export const selectAchievementsOrderedByCompletionDate = (state: RootState) =>
+	state.achievements.achievements.sort((a, b) => {
+		if (a.completedAt && b.completedAt) {
+			return new Date(a.completedAt).getTime() - new Date(b.completedAt).getTime();
+		}
+		return 0;
+	});
 export default achievementsSlice.reducer;

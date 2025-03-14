@@ -3,6 +3,7 @@
 		"backToHome": "Volver a inicio",
 		"relapse": "Recaída",
 		"relapses": "Recaídas",
+		"motivation": "Motivación",
 		"cigarettesPerDay": "Cigarros por día",
 		"pricePerCigarette": "Precio por cigarro",
 		"noRelapsesFound": "No se encontraron recaídas",
@@ -20,7 +21,8 @@
 		"month": "Mes",
 		"months": "Meses",
 		"year": "Año",
-		"years": "Años"
+		"years": "Años",
+		"or": "o"
 	},
 
 	"error": {
@@ -52,7 +54,8 @@
 		"requiredField": "Campo requerido",
 		"date": "Fecha",
 		"time": "Hora",
-
+		"pickAnImageFromTheCameraRoll": "Selecciona una imagen de la galería",
+		"takeAPicture": "Toma una foto",
 		"thisActionCannotBeUndone": "Esta acción no se puede deshacer."
 	},
 
@@ -103,7 +106,9 @@
 
 		"motivation": "Motivación",
 		"motivations": "Motivaciones",
-		"addATextOrImageToRemindYouWhyYouQuit": "Añade un texto o imagen para recordarte por qué dejaste de fumar"
+		"noMotivationsAdded": "No tienes motivaciones añadidas",
+		"addATextOrImageToRemindYouWhyYouQuit": "Añade un texto o imagen para recordarte por qué dejaste de fumar",
+		"areYouSureYouWantToDeleteThisMotivation": "¿Estás seguro de que quieres eliminar esta motivación?"
 	},
 
 	"settings": {
@@ -120,6 +125,12 @@
 		"dangerZone": "Zona de peligro",
 		"areYouSureYouWantToWipeAllData": "¿Estás seguro de que quieres borrar todos los datos?",
 		"wipeAllData": "Borrar todos los datos"
+	},
+
+	"motivations": {
+		"noMotivationsAdded": "No tienes motivaciones añadidas",
+		"addATextOrImageToRemindYouWhyYouQuit": "Añade un texto o imagen para recordarte por qué dejaste de fumar",
+		"areYouSureYouWantToDeleteThisMotivation": "¿Estás seguro de que quieres eliminar esta motivación?"
 	},
 
 	"achievements": {
