@@ -1,21 +1,25 @@
-import React, { useEffect } from 'react';
-import { completeAchievement, selectAchievementsIds } from '@/store/achievementsSlice';
-import { store, useAppSelector } from '@/store';
-import { selectLastRelapse, selectRelapses } from '@/store/logsSlice';
+import { useEffect } from 'react';
 import { intervalToDuration, parseISO } from 'date-fns';
+
+import { store, useAppSelector } from '@/store';
+import { completeAchievement, selectAchievementsIds } from '@/store/achievementsSlice';
+import { selectLastRelapse, selectRelapses } from '@/store/logsSlice';
 import { selectPricePerCigarette } from '@/store/settingsSlice';
 import { selectCigarettesPerDay } from '@/store/settingsSlice';
-export default function AchievementsProvider({ children }: { children: React.ReactNode }) {
+
+export function useAchievements() {
 	const completedAchievementsIds = useAppSelector(selectAchievementsIds);
-	const cigaretesPerDay = useAppSelector(selectCigarettesPerDay);
+
 	const pricePerCigarette = useAppSelector(selectPricePerCigarette);
 	const relapses = useAppSelector(selectRelapses);
 	const lastRelapse = useAppSelector(selectLastRelapse);
+	const cigaretesPerDay = useAppSelector(selectCigarettesPerDay);
+
 	const isoString = lastRelapse?.datetime || new Date().toISOString();
 	const quitDate = parseISO(isoString);
 	const duration = intervalToDuration({ start: quitDate, end: new Date() });
-	const daysSinceQuit = duration.days ?? 0;
-	const hoursSinceQuit = duration.hours ?? 0;
+	const { days: daysSinceQuit = 0, hours: hoursSinceQuit = 0 } = duration;
+
 	const cigarettesNotSmoked = Math.round((daysSinceQuit + hoursSinceQuit / 24) * cigaretesPerDay);
 	const moneySaved = cigarettesNotSmoked * pricePerCigarette;
 
@@ -39,6 +43,4 @@ export default function AchievementsProvider({ children }: { children: React.Rea
 			store.dispatch(completeAchievement('oneHundredCash'));
 		}
 	}, [moneySaved, completedAchievementsIds]);
-
-	return <>{children}</>;
 }
