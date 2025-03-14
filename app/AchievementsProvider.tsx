@@ -1,13 +1,11 @@
 import React, { useEffect } from 'react';
 import { completeAchievement, selectAchievementsIds } from '@/store/achievementsSlice';
 import { store, useAppSelector } from '@/store';
-import { selectMotivations } from '@/store/motivationsSlice';
 import { selectLastRelapse, selectRelapses } from '@/store/logsSlice';
 import { intervalToDuration, parseISO } from 'date-fns';
 import { selectPricePerCigarette } from '@/store/settingsSlice';
 import { selectCigarettesPerDay } from '@/store/settingsSlice';
-export default function ArchivementsProvider({ children }: { children: React.ReactNode }) {
-	const motivations = useAppSelector(selectMotivations);
+export default function AchievementsProvider({ children }: { children: React.ReactNode }) {
 	const completedAchievementsIds = useAppSelector(selectAchievementsIds);
 	const cigaretesPerDay = useAppSelector(selectCigarettesPerDay);
 	const pricePerCigarette = useAppSelector(selectPricePerCigarette);
@@ -22,7 +20,6 @@ export default function ArchivementsProvider({ children }: { children: React.Rea
 	const moneySaved = cigarettesNotSmoked * pricePerCigarette;
 
 	useEffect(() => {
-		console.log(relapses);
 		if (!completedAchievementsIds) return;
 		if (relapses.length >= 1 && !completedAchievementsIds.includes('gettingStarted')) {
 			store.dispatch(completeAchievement('gettingStarted'));

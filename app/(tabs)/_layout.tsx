@@ -17,7 +17,6 @@ export default function NavigationLayout() {
 	const { t } = useTranslation();
 
 	const lastRelapse = useAppSelector(selectLastRelapse);
-	console.log(lastRelapse);
 
 	return (
 		<Tabs

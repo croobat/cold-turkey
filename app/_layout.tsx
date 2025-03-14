@@ -15,7 +15,7 @@ import '@/locales';
 import { useTheme } from '@/utils/useTheme';
 
 import { Colors } from '@/constants/Colors';
-import ArchivementsProvider from './ArchivementsProvider';
+import AchievementsProvider from './AchievementsProvider';
 
 const { LightTheme, DarkTheme } = adaptNavigationTheme({
 	reactNavigationLight: NavigationDefaultTheme,
@@ -44,7 +44,7 @@ export function RootLayout() {
 		<PaperProvider theme={theme}>
 			{/* @ts-ignore */}
 			<ThemeProvider value={theme}>
-				<ArchivementsProvider>
+				<AchievementsProvider>
 					<StatusBar
 						backgroundColor={theme.colors.background}
 						barStyle={colorScheme === 'dark' ? 'light-content' : 'dark-content'}
@@ -54,7 +54,7 @@ export function RootLayout() {
 						<Stack.Screen name="(tabs)" options={{ headerShown: false }} />
 						<Stack.Screen name="+not-found" options={{ headerShown: false }} />
 					</Stack>
-				</ArchivementsProvider>
+				</AchievementsProvider>
 			</ThemeProvider>
 		</PaperProvider>
 	);
