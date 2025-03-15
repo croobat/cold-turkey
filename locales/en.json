@@ -111,7 +111,8 @@
 		"motivations": "Motivations",
 		"noMotivationsAdded": "No motivations added",
 		"addATextOrImageToRemindYouWhyYouQuit": "Add a text or image to remind you why you quit",
-		"areYouSureYouWantToDeleteThisMotivation": "Are you sure you want to delete this motivation?"
+		"areYouSureYouWantToDeleteThisMotivation": "Are you sure you want to delete this motivation?",
+		"feedback": "Feedback"
 	},
 
 	"settings": {

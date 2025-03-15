@@ -111,7 +111,8 @@
 		"motivations": "Motivaciones",
 		"noMotivationsAdded": "No tienes motivaciones añadidas",
 		"addATextOrImageToRemindYouWhyYouQuit": "Añade un texto o imagen para recordarte por qué dejaste de fumar",
-		"areYouSureYouWantToDeleteThisMotivation": "¿Estás seguro de que quieres eliminar esta motivación?"
+		"areYouSureYouWantToDeleteThisMotivation": "¿Estás seguro de que quieres eliminar esta motivación?",
+		"feedback": "Comentarios"
 	},
 
 	"settings": {
