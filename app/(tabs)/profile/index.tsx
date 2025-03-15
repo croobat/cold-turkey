@@ -10,8 +10,7 @@ import { useSelector } from 'react-redux';
 import { selectMotivations } from '@/store/motivationsSlice';
 import { useAppSelector } from '@/store';
 import { selectAchievementsOrderedByCompletionDate } from '@/store/achievementsSlice';
-import { Achievement } from '@/store/achievementsSlice';
-import { Motivation } from '@/index';
+import { Motivation, Achievement } from '@/index';
 
 export default function ProfileScreen() {
 	const theme = useTheme();

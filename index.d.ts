@@ -5,10 +5,11 @@ export type Motivation = {
 	image: string;
 };
 export type Achievement = {
-	id: number;
-	icon: string;
+	id: string;
 	title: string;
-	description: string;
+	content: string;
+	icon: string;
+	completedAt?: string | null;
 };
 export type Objective = {
 	id: number;
