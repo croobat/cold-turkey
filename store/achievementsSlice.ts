@@ -1,14 +1,7 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import type { RootState } from '@/store';
 import achievementsData from '@/data/achievements.json';
-
-export type Achievement = {
-	id: string;
-	title: string;
-	content: string;
-	icon: string;
-	completedAt?: string | null;
-};
+import { Achievement } from '@/index';
 
 export interface AchievementsState {
 	achievements: Achievement[];

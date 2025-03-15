@@ -3,21 +3,18 @@
 		"id": "gettingStarted",
 		"icon": "smoking-off",
 		"title": "Getting Started",
-		"content": "Quit smoking for the first time",
-		"completedAt": null
+		"content": "Quit smoking for the first time"
 	},
 	{
 		"id": "oneDayStreak",
 		"icon": "numeric-1-circle",
 		"title": "1 Day",
-		"content": "Quit smoking for 1 day",
-		"completedAt": null
+		"content": "Quit smoking for 1 day"
 	},
 	{
 		"id": "oneHundredCash",
 		"icon": "cash-multiple",
 		"title": "Saving Money",
-		"content": "Save $100",
-		"completedAt": null
+		"content": "Save $100"
 	}
 ]
