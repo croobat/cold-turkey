@@ -12,6 +12,7 @@ import { useAppSelector } from '@/store';
 import { selectCompletedAchievementsOrderedByCompletionDate } from '@/store/achievementsSlice';
 import { Motivation } from '@/index';
 import { METRICS } from '@/constants/Metrics';
+import achievementsData from '@/data/achievements.json';
 
 const TitleRow = ({ title, onPress }: { title: string; onPress: () => void }) => {
 	const theme = useTheme();
@@ -25,8 +26,8 @@ const TitleRow = ({ title, onPress }: { title: string; onPress: () => void }) =>
 		</TouchableOpacity>
 	);
 };
-import achievementsData from '@/data/achievements.json';
-import { IconSource } from 'react-native-paper/lib/typescript/components/Icon';
+
+
 export default function ProfileScreen() {
 	const { t } = useTranslation();
 	const theme = useTheme();
@@ -34,9 +35,8 @@ export default function ProfileScreen() {
 	const motivations = useSelector(selectMotivations);
 
 	const [randomMotivation, setRandomMotivation] = useState<Motivation>();
-
-	const achievements: Achievement[] = useAppSelector(selectAchievementsOrderedByCompletionDate);
-	const firstThreeAchievements = achievements.slice(0, 3);
+	const completedAchievements = useAppSelector(selectCompletedAchievementsOrderedByCompletionDate);
+	const firstThreeAchievements = completedAchievements.slice(0, 3);
 
 	useFocusEffect(
 		useCallback(() => {
@@ -47,10 +47,6 @@ export default function ProfileScreen() {
 		}, [motivations]),
 	);
 
-	const { t } = useTranslation();
-
-	const completedAchievements = useAppSelector(selectCompletedAchievementsOrderedByCompletionDate);
-	const firstThreeAchievements = completedAchievements.slice(0, 3);
 	const achievements = firstThreeAchievements.map((achievement) => {
 		const achievementData = achievementsData.find((achievementData) => achievementData.id === achievement.id);
 		return {
@@ -87,7 +83,7 @@ export default function ProfileScreen() {
 								description={achievement.content}
 								left={() => (
 									<Avatar.Icon
-										icon={achievement.icon as IconSource}
+										icon={achievement.icon as any}
 										size={42}
 										style={{
 											backgroundColor: achievement.completedAt ? theme.colors.primary : theme.colors.surfaceDisabled,
