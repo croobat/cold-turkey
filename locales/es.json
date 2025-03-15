@@ -23,7 +23,8 @@
 		"year": "Año",
 		"years": "Años",
 		"or": "o",
-		"save": "Guardar"
+		"save": "Guardar",
+		"completed": "Completado"
 	},
 
 	"error": {
@@ -80,7 +81,8 @@
 	},
 
 	"health": {
-		"title": "Salud"
+		"title": "Salud",
+		"congratulationsYouDidIt": "¡Lo lograste! 🎉"
 	},
 
 	"goal": {

@@ -1,5 +1,5 @@
-import React, { useState} from 'react';
-import { View, ScrollView, RefreshControl, TouchableOpacity} from 'react-native';
+import React, { useState } from 'react';
+import { View, ScrollView, RefreshControl, TouchableOpacity } from 'react-native';
 import { Text, ProgressBar, Card, IconButton, AnimatedFAB, useTheme, Icon } from 'react-native-paper';
 import { useTranslation } from 'react-i18next';
 import { router } from 'expo-router';
@@ -49,10 +49,16 @@ export default function GoalScreen() {
 		dispatch(deleteSavingsGoal(selectedGoal.id));
 	};
 
-	const calculateCigaretteSavings = () => {
+	const calculateGlobalSavings = () => {
 		if (!lastRelapse?.datetime || !cigarettesPerDay || !pricePerCigarette) return 0;
 		const daysSinceQuit = differenceInDays(new Date(), parseISO(lastRelapse.datetime));
 		return daysSinceQuit * cigarettesPerDay * pricePerCigarette;
+	};
+
+	const calculateGoalSavings = (createdAt?: string) => {
+		if (!createdAt || !cigarettesPerDay || !pricePerCigarette) return 0;
+		const daysSinceCreation = differenceInDays(new Date(), parseISO(createdAt));
+		return daysSinceCreation * cigarettesPerDay * pricePerCigarette;
 	};
 
 	const calculateProgress = (amount: number, target: number) => {
@@ -65,9 +71,9 @@ export default function GoalScreen() {
 		setTimeout(() => setRefreshing(false), 500);
 	};
 
-	const cigaretteSavings = calculateCigaretteSavings();
+	const globalSavings = calculateGlobalSavings();
 
-	if (goals.length === 0 && cigaretteSavings === 0) {
+	if (goals.length === 0 && globalSavings === 0) {
 		return <EmptyGoalsState onPress={() => router.push('/goal/goal-add')} />;
 	}
 
@@ -87,13 +93,13 @@ export default function GoalScreen() {
 				}
 			>
 				<View style={style.paddingHorizontal}>
-					{cigaretteSavings > 0 && (
+					{globalSavings > 0 && (
 						<Card style={style.marginBottom}>
 							<Card.Title title={t('goal.cigaretteSavings')} />
 							<Card.Content>
 								<Text>
 									{t('goal.cigaretteSavingsAmount', {
-										amount: cigaretteSavings.toLocaleString('en-US', {
+										amount: globalSavings.toLocaleString('en-US', {
 											style: 'currency',
 											currency: 'USD',
 										}),
@@ -104,8 +110,9 @@ export default function GoalScreen() {
 					)}
 
 					{goals.map((goal) => {
-						const isCompleted = calculateProgress(goal.amount + cigaretteSavings, goal.target) === 1;
-						const progress = calculateProgress(goal.amount + cigaretteSavings, goal.target);
+						const goalSavings = calculateGoalSavings(goal.createdAt);
+						const isCompleted = calculateProgress(goal.amount + goalSavings, goal.target) === 1;
+						const progress = calculateProgress(goal.amount + goalSavings, goal.target);
 
 						return (
 							<Card key={goal.id} style={style.marginBottom}>
@@ -121,7 +128,7 @@ export default function GoalScreen() {
 									<ProgressBar
 										progress={progress}
 										color={
-											calculateProgress(goal.amount + cigaretteSavings, goal.target) === 1
+											calculateProgress(goal.amount + goalSavings, goal.target) === 1
 												? theme.colors.primary
 												: theme.colors.tertiary
 										}
@@ -129,7 +136,7 @@ export default function GoalScreen() {
 									<View style={style.row}>
 										<Text>
 											{t('goal.progress', {
-												current: (goal.amount + cigaretteSavings).toLocaleString('en-US', {
+												current: (goal.amount + goalSavings).toLocaleString('en-US', {
 													style: 'currency',
 													currency: 'USD',
 												}),
@@ -142,7 +149,7 @@ export default function GoalScreen() {
 										<Text>
 											{isCompleted
 												? t('health.congratulationsYouDidIt')
-												: `${Math.round(progress * 100)}% ${t('health.completed')}`}
+												: `${Math.round(progress * 100)}% ${t('common.completed')}`}
 										</Text>
 									</View>
 								</Card.Content>
