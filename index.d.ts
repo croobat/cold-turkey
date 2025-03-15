@@ -6,9 +6,15 @@ export type Motivation = {
 };
 export type Achievement = {
 	id: string;
-	title: string;
-	content: string;
 	icon: string;
+	en: {
+		title: string;
+		content: string;
+	};
+	es: {
+		title: string;
+		content: string;
+	};
 	completedAt?: string | null;
 };
 export type Objective = {

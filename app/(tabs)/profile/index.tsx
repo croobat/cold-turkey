@@ -10,9 +10,13 @@ import { useSelector } from 'react-redux';
 import { selectMotivations } from '@/store/motivationsSlice';
 import { useAppSelector } from '@/store';
 import { selectCompletedAchievementsOrderedByCompletionDate } from '@/store/achievementsSlice';
-import { Motivation } from '@/index';
+import { Motivation, Achievement } from '@/index';
 import { METRICS } from '@/constants/Metrics';
 import achievementsData from '@/data/achievements.json';
+
+type CompletedAchievement = Achievement & {
+	completedAt: string | null;
+};
 
 const TitleRow = ({ title, onPress }: { title: string; onPress: () => void }) => {
 	const theme = useTheme();
@@ -28,7 +32,7 @@ const TitleRow = ({ title, onPress }: { title: string; onPress: () => void }) =>
 };
 
 export default function ProfileScreen() {
-	const { t } = useTranslation();
+	const { t, i18n } = useTranslation();
 	const theme = useTheme();
 
 	const motivations = useSelector(selectMotivations);
@@ -36,6 +40,7 @@ export default function ProfileScreen() {
 	const [randomMotivation, setRandomMotivation] = useState<Motivation>();
 	const completedAchievements = useAppSelector(selectCompletedAchievementsOrderedByCompletionDate);
 	const firstThreeAchievements = completedAchievements.slice(0, 3);
+	const currentLanguage = i18n.language as 'en' | 'es';
 
 	useFocusEffect(
 		useCallback(() => {
@@ -48,11 +53,12 @@ export default function ProfileScreen() {
 
 	const achievements = firstThreeAchievements.map((achievement) => {
 		const achievementData = achievementsData.find((achievementData) => achievementData.id === achievement.id);
+		if (!achievementData) return null;
 		return {
 			...achievementData,
 			completedAt: achievement.completedAt,
-		};
-	});
+		} as CompletedAchievement;
+	}).filter((achievement): achievement is CompletedAchievement => achievement !== null);
 
 	return (
 		<SafeAreaView style={style.container}>
@@ -78,8 +84,8 @@ export default function ProfileScreen() {
 						achievements.map((achievement, index) => (
 							<List.Item
 								key={index}
-								title={achievement.title}
-								description={achievement.content}
+								title={achievement[currentLanguage].title}
+								description={achievement[currentLanguage].content}
 								left={() => (
 									<Avatar.Icon
 										icon={achievement.icon as any}
