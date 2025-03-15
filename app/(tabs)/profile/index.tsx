@@ -9,9 +9,10 @@ import { style } from '@/constants/Styles';
 import { useSelector } from 'react-redux';
 import { selectMotivations } from '@/store/motivationsSlice';
 import { useAppSelector } from '@/store';
-import { selectAchievementsOrderedByCompletionDate } from '@/store/achievementsSlice';
-import { Motivation, Achievement } from '@/index';
-
+import { selectCompletedAchievementsOrderedByCompletionDate } from '@/store/achievementsSlice';
+import { Motivation } from '@/index';
+import achievementsData from '@/data/achievements.json';
+import { IconSource } from 'react-native-paper/lib/typescript/components/Icon';
 export default function ProfileScreen() {
 	const theme = useTheme();
 	const [randomMotivation, setRandomMotivation] = useState<Motivation>();
@@ -28,8 +29,15 @@ export default function ProfileScreen() {
 
 	const { t } = useTranslation();
 
-	const achievements: Achievement[] = useAppSelector(selectAchievementsOrderedByCompletionDate);
-	const firstThreeAchievements = achievements.slice(0, 3);
+	const completedAchievements = useAppSelector(selectCompletedAchievementsOrderedByCompletionDate);
+	const firstThreeAchievements = completedAchievements.slice(0, 3);
+	const achievements = firstThreeAchievements.map((achievement) => {
+		const achievementData = achievementsData.find((achievementData) => achievementData.id === achievement.id);
+		return {
+			...achievementData,
+			completedAt: achievement.completedAt,
+		};
+	});
 
 	return (
 		<SafeAreaView style={style.container}>
@@ -60,16 +68,16 @@ export default function ProfileScreen() {
 						<IconButton icon="chevron-right" onPress={() => router.navigate('/profile/achievements')} />
 					</View>
 
-					{firstThreeAchievements &&
-						firstThreeAchievements.length > 0 &&
-						firstThreeAchievements.map((achievement, index) => (
+					{achievements &&
+						achievements.length > 0 &&
+						achievements.map((achievement, index) => (
 							<List.Item
 								key={index}
 								title={achievement.title}
 								description={achievement.content}
 								left={() => (
 									<Avatar.Icon
-										icon={achievement.icon}
+										icon={achievement.icon as IconSource}
 										size={42}
 										style={{
 											backgroundColor: achievement.completedAt ? theme.colors.primary : theme.colors.surfaceDisabled,
