@@ -26,7 +26,7 @@ export function useAchievements() {
 	const handleCompletion = (achievementId: string) => {
 		const isCompleted = completedAchievements.find((achievement) => achievement.id === achievementId);
 		if (!isCompleted) store.dispatch(completeAchievement(achievementId));
-	}
+	};
 
 	useEffect(() => {
 		if (!completedAchievements) return;

@@ -27,7 +27,6 @@ const TitleRow = ({ title, onPress }: { title: string; onPress: () => void }) =>
 	);
 };
 
-
 export default function ProfileScreen() {
 	const { t } = useTranslation();
 	const theme = useTheme();
