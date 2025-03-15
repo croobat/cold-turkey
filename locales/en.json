@@ -4,6 +4,9 @@
 		"relapse": "Relapse",
 		"relapses": "Relapses",
 		"motivation": "Motivation",
+		"motivations": "Motivations",
+		"journalEntry": "Journal entry",
+		"journalEntries": "Journal entries",
 		"cigarettesPerDay": "Cigarettes per day",
 		"pricePerCigarette": "Price per cigarette",
 		"noRelapsesFound": "No relapses found",
@@ -77,7 +80,9 @@
 	},
 
 	"journal": {
-		"title": "Journal"
+		"title": "Journal",
+		"noJournalEntriesFound": "No journal entries found",
+		"pleaseAddAJournalEntryToStartTrackingYourProgress": "Please add a journal entry to start tracking your progress."
 	},
 
 	"health": {

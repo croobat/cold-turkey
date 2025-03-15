@@ -1,25 +1,23 @@
-import { style } from "@/constants/Styles";
-import { useEffect, useRef, useState } from "react";
-import { useTranslation } from "react-i18next";
-import { Animated } from "react-native";
-import { Banner, Text } from "react-native-paper";
+import { style } from '@/constants/Styles';
+import { useEffect, useRef, useState } from 'react';
+import { useTranslation } from 'react-i18next';
+import { Animated } from 'react-native';
+import { Banner, Text } from 'react-native-paper';
 
-export default function DeleteAlertBanner({ 
-	title, 
-	onDelete, 
-	selectedItem, 
-	setSelectedItem 
-}: { 
-	title: string, 
-	onDelete: () => void, 
-	selectedItem: any | null, 
-	setSelectedItem: (item: any | null) => void 
+export default function DeleteAlertBanner({
+	title,
+	onDelete,
+	selectedItem,
+	setSelectedItem,
+}: {
+	title: string;
+	onDelete: () => void;
+	selectedItem: any | null;
+	setSelectedItem: (item: any | null) => void;
 }) {
-
 	const fadeAnim = useRef(new Animated.Value(0)).current;
 
 	const { t } = useTranslation();
-
 
 	useEffect(() => {
 		Animated.timing(fadeAnim, {

@@ -3,7 +3,15 @@ import { IconButton, Text, useTheme } from 'react-native-paper';
 
 import { style } from '@/constants/Styles';
 
-export default function EmptyState({ title, subtitle, onPress }: { title: string; subtitle: string; onPress: () => void }) {
+export default function EmptyState({
+	title,
+	subtitle,
+	onPress,
+}: {
+	title: string;
+	subtitle: string;
+	onPress: () => void;
+}) {
 	const theme = useTheme();
 
 	return (
