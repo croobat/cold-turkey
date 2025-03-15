@@ -23,7 +23,8 @@
 		"year": "Year",
 		"years": "Years",
 		"or": "or",
-		"save": "Save"
+		"save": "Save",
+		"completed": "Completed"
 	},
 
 	"error": {
@@ -81,7 +82,6 @@
 
 	"health": {
 		"title": "Health",
-		"completed": "Completed",
 		"congratulationsYouDidIt": "You did it! 🎉"
 	},
 
@@ -96,7 +96,7 @@
 		"editGoal": "Edit Goal",
 		"defaultGoalName": "My Savings Goal",
 		"addNewGoal": "Add New Goal",
-		"cigaretteSavings": "Savings from Not Smoking",
+		"cigaretteSavings": "Savings",
 		"cigaretteSavingsAmount": "You've saved {{amount}} by not smoking!",
 		"noGoalsFound": "No Savings Goals Yet",
 		"addAGoalToStartTracking": "Add a savings goal to start tracking your progress towards it",

@@ -1,5 +1,5 @@
-import React, { useState} from 'react';
-import { View, ScrollView, RefreshControl, TouchableOpacity} from 'react-native';
+import React, { useState } from 'react';
+import { View, ScrollView, RefreshControl, TouchableOpacity } from 'react-native';
 import { Text, ProgressBar, Card, IconButton, AnimatedFAB, useTheme, Icon } from 'react-native-paper';
 import { useTranslation } from 'react-i18next';
 import { router } from 'expo-router';
@@ -142,7 +142,7 @@ export default function GoalScreen() {
 										<Text>
 											{isCompleted
 												? t('health.congratulationsYouDidIt')
-												: `${Math.round(progress * 100)}% ${t('health.completed')}`}
+												: `${Math.round(progress * 100)}% ${t('common.completed')}`}
 										</Text>
 									</View>
 								</Card.Content>
