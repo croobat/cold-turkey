@@ -1,8 +1,10 @@
-import { style } from '@/constants/Styles';
 import { SafeAreaView, View } from 'react-native';
 import { Avatar, List, useTheme } from 'react-native-paper';
-import { Achievement, selectAchievements } from '@/store/achievementsSlice';
+
+import { style } from '@/constants/Styles';
+import { selectAchievements } from '@/store/achievementsSlice';
 import { useAppSelector } from '@/store';
+import { Achievement } from '@/index';
 
 export default function Achievements() {
 	const achievements: Achievement[] = useAppSelector(selectAchievements);
