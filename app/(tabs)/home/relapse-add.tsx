@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
-import { SafeAreaView, View, Text, KeyboardAvoidingView, Platform, ScrollView } from 'react-native';
+import React, { useState, useEffect } from 'react';
+import { SafeAreaView, View, Text, KeyboardAvoidingView, Platform, ScrollView, Keyboard } from 'react-native';
 import { AnimatedFAB, TextInput, useTheme } from 'react-native-paper';
+import Animated, { useAnimatedStyle, withTiming, useSharedValue } from 'react-native-reanimated';
 import { router } from 'expo-router';
 import { formatISO } from 'date-fns';
 import { useTranslation } from 'react-i18next';
@@ -27,6 +28,22 @@ export default function RelapseAddScreen() {
 
 	const [form, setForm] = useState<Form>(INITIAL_FORM);
 	const [error, setError] = useState<string | null>(null);
+	const fabTranslateY = useSharedValue(0);
+
+	// move FAB up when keyboard is shown
+	useEffect(() => {
+		const keyboardDidShowListener = Keyboard.addListener('keyboardDidShow', () => {
+			fabTranslateY.value = withTiming(-300, { duration: 200 });
+		});
+		const keyboardDidHideListener = Keyboard.addListener('keyboardDidHide', () => {
+			fabTranslateY.value = withTiming(0, { duration: 200 });
+		});
+
+		return () => {
+			keyboardDidShowListener.remove();
+			keyboardDidHideListener.remove();
+		};
+	}, []);
 
 	const handleSubmit = () => {
 		if (!form.title.trim()) {
@@ -45,6 +62,12 @@ export default function RelapseAddScreen() {
 		dispatch(addRelapse(relapse));
 		router.back();
 	};
+
+	const animatedFabStyle = useAnimatedStyle(() => {
+		return {
+			transform: [{ translateY: fabTranslateY.value }],
+		};
+	});
 
 	return (
 		<SafeAreaView style={[style.container]}>
@@ -77,7 +100,9 @@ export default function RelapseAddScreen() {
 						/>
 					</View>
 				</ScrollView>
+			</KeyboardAvoidingView>
 
+			<Animated.View style={animatedFabStyle}>
 				<AnimatedFAB
 					icon="check"
 					label="Save"
@@ -86,7 +111,7 @@ export default function RelapseAddScreen() {
 					disabled={!!error}
 					style={style.fabStyle}
 				/>
-			</KeyboardAvoidingView>
+			</Animated.View>
 		</SafeAreaView>
 	);
 }
