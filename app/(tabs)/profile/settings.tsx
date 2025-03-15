@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Text, Button, SegmentedButtons, TextInput, Card, useTheme, AnimatedFAB } from 'react-native-paper';
+import { Text, Button, SegmentedButtons, TextInput, Card, useTheme } from 'react-native-paper';
 import { KeyboardAvoidingView, Platform, SafeAreaView, ScrollView, View } from 'react-native';
 import { useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
@@ -47,19 +47,19 @@ export default function SettingsScreen() {
 		pricePerCigarette: pricePerCigarette.toString(),
 	});
 
-	const disableButton = !form.cigarettesPerDay || 
-		!form.pricePerCigarette || 
-		form.cigarettesPerDay === 0 || 
+	const disableButton =
+		!form.cigarettesPerDay ||
+		!form.pricePerCigarette ||
+		form.cigarettesPerDay === 0 ||
 		form.pricePerCigarette === '0' ||
-		(form.cigarettesPerDay == cigarettesPerDay && form.pricePerCigarette == pricePerCigarette.toString()); 
+		(form.cigarettesPerDay === cigarettesPerDay && form.pricePerCigarette === pricePerCigarette.toString());
 
 	const handleChangeCigarettesPerDay = (text: string) =>
-		setForm((prev) => ({ ...prev, cigarettesPerDay: parseInt(text) || 0}));
+		setForm((prev) => ({ ...prev, cigarettesPerDay: parseInt(text) || 0 }));
 
 	const handleChangePricePerCigarette = (text: string) => {
-		setForm((prev) => ({ ...prev, pricePerCigarette: text}));
-	}
-		
+		setForm((prev) => ({ ...prev, pricePerCigarette: text }));
+	};
 
 	const handleThemeChange = (theme: any) => dispatch(setTheme(theme));
 
@@ -83,9 +83,10 @@ export default function SettingsScreen() {
 	const handleSubmit = () => {
 		dispatch(setCigarettesPerDay(form.cigarettesPerDay));
 		dispatch(setPricePerCigarette(parseFloat(form.pricePerCigarette)));
-		setForm((prev) => ({ ...prev, 
-			cigarettesPerDay: form.cigarettesPerDay, 
-			pricePerCigarette: parseFloat(form.pricePerCigarette).toString()
+		setForm((prev) => ({
+			...prev,
+			cigarettesPerDay: form.cigarettesPerDay,
+			pricePerCigarette: parseFloat(form.pricePerCigarette).toString(),
 		}));
 	};
 
@@ -169,12 +170,8 @@ export default function SettingsScreen() {
 								error={parseFloat(form.pricePerCigarette) === 0}
 								right={<TextInput.Affix text={currency.toUpperCase()} />}
 							/>
-							<Button 
-								disabled={disableButton} 
-								icon="content-save" 
-								mode="contained" 
-								onPress={handleSubmit}>
-									{t('common.save')}
+							<Button disabled={disableButton} icon="content-save" mode="contained" onPress={handleSubmit}>
+								{t('common.save')}
 							</Button>
 						</Card.Content>
 					</Card>

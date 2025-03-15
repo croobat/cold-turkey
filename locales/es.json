@@ -4,6 +4,9 @@
 		"relapse": "Recaída",
 		"relapses": "Recaídas",
 		"motivation": "Motivación",
+		"motivations": "Motivaciones",
+		"journalEntry": "Entrada de diario",
+		"journalEntries": "Entradas de diario",
 		"cigarettesPerDay": "Cigarros por día",
 		"pricePerCigarette": "Precio por cigarro",
 		"noRelapsesFound": "No se encontraron recaídas",
@@ -77,7 +80,9 @@
 	},
 
 	"journal": {
-		"title": "Diario"
+		"title": "Diario",
+		"noJournalEntriesFound": "No se encontraron entradas de diario",
+		"pleaseAddAJournalEntryToStartTrackingYourProgress": "Por favor, añade una entrada de diario para comenzar a rastrear tu progreso."
 	},
 
 	"health": {

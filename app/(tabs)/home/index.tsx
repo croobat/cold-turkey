@@ -16,7 +16,6 @@ import { METRICS } from '@/constants/Metrics';
 import motivationalQuotes from '@/data/motivational-quotes.json';
 
 import WelcomeModal from '@/components/WelcomeModal';
-import EmptyRelapsesState from '@/components/EmptyRelapsesState';
 
 const HomeCardTitle = ({ title }: { title: string }) => {
 	const theme = useTheme();
@@ -107,7 +106,18 @@ export default function HomeScreen() {
 	if (lastRelapse === undefined) {
 		return (
 			<>
-				<EmptyRelapsesState></EmptyRelapsesState>
+				<View style={[style.container, style.centered, style.paddingHorizontal]}>
+					<View style={[style.centered, style.smRowGap]}>
+						<IconButton icon="clipboard-text" size={48} />
+						<Text variant="titleMedium" style={{ textAlign: 'center' }}>
+							{t('common.noRelapsesFound')}
+						</Text>
+						<Text variant="bodyMedium" style={{ textAlign: 'center', color: theme.colors.onSurfaceVariant }}>
+							{t('common.pleaseAddARelapseToStartTrackingYourProgress')}
+						</Text>
+						<IconButton icon="plus" mode="contained" onPress={() => router.navigate('/(tabs)/home/relapse-add')} />
+					</View>
+				</View>
 				<WelcomeModal visible={isWelcomeModalVisible} onDismiss={handleDismissWelcomeModal} />
 			</>
 		);
