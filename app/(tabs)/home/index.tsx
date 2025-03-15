@@ -31,8 +31,9 @@ const HomeCardTitle = ({ title }: { title: string }) => {
 
 export default function HomeScreen() {
 	const dispatch = useAppDispatch();
-	const { t } = useTranslation();
+	const { t, i18n } = useTranslation();
 	const theme = useTheme();
+	const currentLanguage = i18n.language as 'en' | 'es';
 
 	const [isResetConfirmVisible, setIsResetConfirmVisible] = useState(false);
 	const [isRefreshing, setIsRefreshing] = useState(false);
@@ -142,7 +143,7 @@ export default function HomeScreen() {
 				<Card style={style.padding}>
 					<View style={[style.centered]}>
 						<Text variant="bodyLarge" style={{ fontStyle: 'italic', textAlign: 'center' }}>
-							{lastQuote.quote}
+							{lastQuote[currentLanguage].quote}
 						</Text>
 						<Text variant="bodyMedium" style={{ color: 'gray', textAlign: 'center', fontStyle: 'italic' }}>
 							- {lastQuote.author}

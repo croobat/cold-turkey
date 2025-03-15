@@ -3,8 +3,9 @@ import { formatISO } from 'date-fns';
 import type { RootState } from '@/store';
 
 type MotivationalQuote = {
-	quote: string;
 	author: string;
+	en: { quote: string };
+	es: { quote: string };
 };
 
 export interface MotivationalState {
@@ -14,7 +15,7 @@ export interface MotivationalState {
 
 const initialState: MotivationalState = {
 	lastChange: '',
-	lastQuote: { quote: '', author: '' },
+	lastQuote: { author: '', en: { quote: '' }, es: { quote: '' } },
 };
 
 const motivationalSlice = createSlice({
