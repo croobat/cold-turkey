@@ -1,5 +1,5 @@
-import { View, ScrollView, SafeAreaView } from 'react-native';
-import { Card, Text, useTheme, Avatar, List, IconButton } from 'react-native-paper';
+import { View, ScrollView, SafeAreaView, TouchableOpacity } from 'react-native';
+import { Card, Text, useTheme, Avatar, List, Icon } from 'react-native-paper';
 import { router } from 'expo-router';
 import { useTranslation } from 'react-i18next';
 import { useFocusEffect } from '@react-navigation/native';
@@ -11,11 +11,31 @@ import { selectMotivations } from '@/store/motivationsSlice';
 import { useAppSelector } from '@/store';
 import { selectAchievementsOrderedByCompletionDate } from '@/store/achievementsSlice';
 import { Motivation, Achievement } from '@/index';
+import { METRICS } from '@/constants/Metrics';
+
+const TitleRow = ({ title, onPress }: { title: string; onPress: () => void }) => {
+	const theme = useTheme();
+
+	return (
+		<TouchableOpacity onPress={onPress} style={[style.row, style.paddingVertical]}>
+			<Text variant="titleMedium" style={{ color: theme.colors.primary }}>
+				{title}
+			</Text>
+			<Icon source="chevron-right" color={theme.colors.primary} size={METRICS.icon} />
+		</TouchableOpacity>
+	);
+};
 
 export default function ProfileScreen() {
+	const { t } = useTranslation();
 	const theme = useTheme();
-	const [randomMotivation, setRandomMotivation] = useState<Motivation>();
+
 	const motivations = useSelector(selectMotivations);
+
+	const [randomMotivation, setRandomMotivation] = useState<Motivation>();
+
+	const achievements: Achievement[] = useAppSelector(selectAchievementsOrderedByCompletionDate);
+	const firstThreeAchievements = achievements.slice(0, 3);
 
 	useFocusEffect(
 		useCallback(() => {
@@ -26,22 +46,12 @@ export default function ProfileScreen() {
 		}, [motivations]),
 	);
 
-	const { t } = useTranslation();
-
-	const achievements: Achievement[] = useAppSelector(selectAchievementsOrderedByCompletionDate);
-	const firstThreeAchievements = achievements.slice(0, 3);
-
 	return (
 		<SafeAreaView style={style.container}>
 			<ScrollView contentContainerStyle={[style.paddingHorizontal, style.rowGap]}>
 				{/* motivation */}
 				<View>
-					<View style={style.row}>
-						<Text variant="titleMedium" style={{ color: theme.colors.primary }}>
-							{t('profile.motivations')}
-						</Text>
-						<IconButton icon="chevron-right" onPress={() => router.navigate('/profile/motivations')} />
-					</View>
+					<TitleRow title={t('profile.motivations')} onPress={() => router.navigate('/profile/motivations')} />
 					{motivations.length === 0 && <Text variant="bodyMedium">{t('profile.noMotivationsAdded')}</Text>}
 					{motivations.length > 0 && (
 						<Card>
@@ -53,12 +63,7 @@ export default function ProfileScreen() {
 
 				{/* achievements */}
 				<View>
-					<View style={style.row}>
-						<Text variant="titleMedium" style={{ color: theme.colors.primary }}>
-							{t('achievements.title')}
-						</Text>
-						<IconButton icon="chevron-right" onPress={() => router.navigate('/profile/achievements')} />
-					</View>
+					<TitleRow title={t('achievements.title')} onPress={() => router.navigate('/profile/achievements')} />
 
 					{firstThreeAchievements &&
 						firstThreeAchievements.length > 0 &&
@@ -79,12 +84,9 @@ export default function ProfileScreen() {
 							/>
 						))}
 				</View>
-				<View style={style.row}>
-					<Text variant="titleMedium" style={{ color: theme.colors.primary }}>
-						Feedback
-					</Text>
-					<IconButton icon="chevron-right" onPress={() => console.info('Pressed')} />
-				</View>
+
+				<TitleRow title={t('profile.feedback')} onPress={() => console.info('feedback')} />
+
 				<View>
 					<Text variant="titleMedium" style={{ color: theme.colors.primary }}>
 						Donations
