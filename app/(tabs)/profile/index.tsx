@@ -84,7 +84,7 @@ export default function ProfileScreen() {
 					<Text variant="titleMedium" style={{ color: theme.colors.primary }}>
 						Feedback
 					</Text>
-					<IconButton icon="chevron-right" onPress={() => console.log('Pressed')} />
+					<IconButton icon="chevron-right" onPress={() => console.info('Pressed')} />
 				</View>
 				<View>
 					<Text variant="titleMedium" style={{ color: theme.colors.primary }}>

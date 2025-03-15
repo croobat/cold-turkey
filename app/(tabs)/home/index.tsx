@@ -95,7 +95,6 @@ export default function HomeScreen() {
 	}, [dispatch, getRandomQuote]);
 
 	useEffect(() => {
-		console.log(cigaretesPerDay, pricePerCigarette);
 		if (!cigaretesPerDay && !pricePerCigarette) {
 			setIsWelcomeModalVisible(true);
 		}

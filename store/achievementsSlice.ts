@@ -1,22 +1,23 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import type { RootState } from '@/store';
+import achievementsData from '@/data/achievements.json';
 
 export type Achievement = {
 	id: string;
 	title: string;
 	content: string;
 	icon: string;
-	completedAt?: string;
+	completedAt?: string | null;
 };
 
 export interface AchievementsState {
 	achievements: Achievement[];
-	completed_ids: string[];
+	completed: string[];
 }
 
 const initialState: AchievementsState = {
-	achievements: require('@/data/achievements.json'),
-	completed_ids: [],
+	achievements: achievementsData,
+	completed: [],
 };
 
 const achievementsSlice = createSlice({
@@ -25,8 +26,11 @@ const achievementsSlice = createSlice({
 	reducers: {
 		completeAchievement: (state, action: PayloadAction<string>) => {
 			const achievementId = action.payload;
-			state.completed_ids.push(achievementId);
+
+			state.completed.push(achievementId);
+
 			const achievement = state.achievements.find((achievement) => achievement.id === achievementId);
+
 			if (achievement) {
 				achievement.completedAt = new Date().toISOString();
 			}
@@ -39,9 +43,11 @@ const achievementsSlice = createSlice({
 
 export const { completeAchievement, resetAchievementsSlice } = achievementsSlice.actions;
 export const selectAchievements = (state: RootState) => state.achievements.achievements;
-export const selectAchievementsIds = (state: RootState) => state.achievements.completed_ids;
+export const selectAchievementsIds = (state: RootState) => state.achievements.completed;
+
 export const selectCompletedAchievements = (state: RootState) =>
-	state.achievements.achievements.filter((achievement) => state.achievements.completed_ids.includes(achievement.id));
+	state.achievements.achievements.filter((achievement) => state.achievements.completed.includes(achievement.id));
+
 export const selectAchievementsOrderedByCompletionDate = (state: RootState) =>
 	state.achievements.achievements.sort((a, b) => {
 		if (a.completedAt && b.completedAt) {
