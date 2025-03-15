@@ -20,7 +20,7 @@ export default function ProfileLayout() {
 			<Stack.Screen name="settings" options={{ title: t('settings.title') }} />
 			<Stack.Screen name="motivations" options={{ title: t('profile.motivations') }} />
 			<Stack.Screen name="achievements" options={{ title: t('achievements.title') }} />
-			<Stack.Screen 
+			<Stack.Screen
 				name="motivation-add"
 				options={{ title: `${t('form.add')} ${t('common.motivation')}`, presentation: 'modal' }}
 			/>

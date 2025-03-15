@@ -67,7 +67,7 @@ export default function HealthScreen() {
 						<Text>
 							{isCompleted
 								? t('health.congratulationsYouDidIt')
-								: `${Math.round(progress * 100)}% ${t('health.completed')}`}
+								: `${Math.round(progress * 100)}% ${t('common.completed')}`}
 						</Text>
 					</View>
 				</Card.Content>

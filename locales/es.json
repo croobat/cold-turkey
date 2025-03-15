@@ -4,6 +4,9 @@
 		"relapse": "Recaída",
 		"relapses": "Recaídas",
 		"motivation": "Motivación",
+		"motivations": "Motivaciones",
+		"journalEntry": "Entrada de diario",
+		"journalEntries": "Entradas de diario",
 		"cigarettesPerDay": "Cigarros por día",
 		"pricePerCigarette": "Precio por cigarro",
 		"noRelapsesFound": "No se encontraron recaídas",
@@ -23,7 +26,8 @@
 		"year": "Año",
 		"years": "Años",
 		"or": "o",
-		"save": "Guardar"
+		"save": "Guardar",
+		"completed": "Completado"
 	},
 
 	"error": {
@@ -76,11 +80,14 @@
 	},
 
 	"journal": {
-		"title": "Diario"
+		"title": "Diario",
+		"noJournalEntriesFound": "No se encontraron entradas de diario",
+		"pleaseAddAJournalEntryToStartTrackingYourProgress": "Por favor, añade una entrada de diario para comenzar a rastrear tu progreso."
 	},
 
 	"health": {
-		"title": "Salud"
+		"title": "Salud",
+		"congratulationsYouDidIt": "¡Lo lograste! 🎉"
 	},
 
 	"goal": {
@@ -109,7 +116,8 @@
 		"motivations": "Motivaciones",
 		"noMotivationsAdded": "No tienes motivaciones añadidas",
 		"addATextOrImageToRemindYouWhyYouQuit": "Añade un texto o imagen para recordarte por qué dejaste de fumar",
-		"areYouSureYouWantToDeleteThisMotivation": "¿Estás seguro de que quieres eliminar esta motivación?"
+		"areYouSureYouWantToDeleteThisMotivation": "¿Estás seguro de que quieres eliminar esta motivación?",
+		"feedback": "Comentarios"
 	},
 
 	"settings": {

@@ -4,6 +4,9 @@
 		"relapse": "Relapse",
 		"relapses": "Relapses",
 		"motivation": "Motivation",
+		"motivations": "Motivations",
+		"journalEntry": "Journal entry",
+		"journalEntries": "Journal entries",
 		"cigarettesPerDay": "Cigarettes per day",
 		"pricePerCigarette": "Price per cigarette",
 		"noRelapsesFound": "No relapses found",
@@ -23,7 +26,8 @@
 		"year": "Year",
 		"years": "Years",
 		"or": "or",
-		"save": "Save"
+		"save": "Save",
+		"completed": "Completed"
 	},
 
 	"error": {
@@ -76,12 +80,13 @@
 	},
 
 	"journal": {
-		"title": "Journal"
+		"title": "Journal",
+		"noJournalEntriesFound": "No journal entries found",
+		"pleaseAddAJournalEntryToStartTrackingYourProgress": "Please add a journal entry to start tracking your progress."
 	},
 
 	"health": {
 		"title": "Health",
-		"completed": "Completed",
 		"congratulationsYouDidIt": "You did it! 🎉"
 	},
 
@@ -96,7 +101,7 @@
 		"editGoal": "Edit Goal",
 		"defaultGoalName": "My Savings Goal",
 		"addNewGoal": "Add New Goal",
-		"cigaretteSavings": "Savings from Not Smoking",
+		"cigaretteSavings": "Savings",
 		"cigaretteSavingsAmount": "You've saved {{amount}} by not smoking!",
 		"noGoalsFound": "No Savings Goals Yet",
 		"addAGoalToStartTracking": "Add a savings goal to start tracking your progress towards it",
@@ -111,7 +116,8 @@
 		"motivations": "Motivations",
 		"noMotivationsAdded": "No motivations added",
 		"addATextOrImageToRemindYouWhyYouQuit": "Add a text or image to remind you why you quit",
-		"areYouSureYouWantToDeleteThisMotivation": "Are you sure you want to delete this motivation?"
+		"areYouSureYouWantToDeleteThisMotivation": "Are you sure you want to delete this motivation?",
+		"feedback": "Feedback"
 	},
 
 	"settings": {

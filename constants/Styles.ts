@@ -38,6 +38,9 @@ export const style = StyleSheet.create({
 		right: METRICS.lg,
 		position: 'absolute',
 	},
+	keyboardMargin: {
+		marginBottom: 350,
+	},
 
 	// margins
 	noMargin: { margin: 0 },
