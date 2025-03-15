@@ -1,6 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import type { RootState } from '@/store';
-import achievementsData from '@/data/achievements.json';
 
 type completedAchievement = {
 	id: string;
@@ -8,11 +7,11 @@ type completedAchievement = {
 };
 
 export interface AchievementsState {
-	completedAchievements: completedAchievement[];
+	completed: completedAchievement[];
 }
 
 const initialState: AchievementsState = {
-	completedAchievements: [],
+	completed: [],
 };
 
 const achievementsSlice = createSlice({
@@ -22,7 +21,7 @@ const achievementsSlice = createSlice({
 		completeAchievement: (state, action: PayloadAction<string>) => {
 			const achievementId = action.payload;
 
-			state.completedAchievements.push({
+			state.completed.push({
 				id: achievementId,
 				completedAt: new Date().toISOString(),
 			});
@@ -35,11 +34,10 @@ const achievementsSlice = createSlice({
 
 export const { completeAchievement, resetAchievementsSlice } = achievementsSlice.actions;
 
-export const selectCompletedAchievements = (state: RootState) =>
-	state.achievements.completedAchievements;
+export const selectCompletedAchievements = (state: RootState) => state.achievements.completed;
 
 export const selectCompletedAchievementsOrderedByCompletionDate = (state: RootState) =>
-	state.achievements.completedAchievements.sort((a, b) => {
+	state.achievements.completed.sort((a, b) => {
 		if (a.completedAt && b.completedAt) {
 			return new Date(a.completedAt).getTime() - new Date(b.completedAt).getTime();
 		}
