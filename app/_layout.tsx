@@ -13,9 +13,9 @@ import { store } from '@/store';
 
 import '@/locales';
 import { useTheme } from '@/utils/useTheme';
+import { useAchievements } from '@/utils/achievements';
 
 import { Colors } from '@/constants/Colors';
-import ArchivementsProvider from './ArchivementsProvider';
 
 const { LightTheme, DarkTheme } = adaptNavigationTheme({
 	reactNavigationLight: NavigationDefaultTheme,
@@ -40,21 +40,21 @@ export function RootLayout() {
 	const colorScheme = useTheme();
 	const theme = colorScheme === 'dark' ? CombinedDarkTheme : CombinedDefaultTheme;
 
+	useAchievements();
+
 	return (
 		<PaperProvider theme={theme}>
 			{/* @ts-ignore */}
 			<ThemeProvider value={theme}>
-				<ArchivementsProvider>
-					<StatusBar
-						backgroundColor={theme.colors.background}
-						barStyle={colorScheme === 'dark' ? 'light-content' : 'dark-content'}
-					/>
+				<StatusBar
+					backgroundColor={theme.colors.background}
+					barStyle={colorScheme === 'dark' ? 'light-content' : 'dark-content'}
+				/>
 
-					<Stack>
-						<Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-						<Stack.Screen name="+not-found" options={{ headerShown: false }} />
-					</Stack>
-				</ArchivementsProvider>
+				<Stack>
+					<Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+					<Stack.Screen name="+not-found" options={{ headerShown: false }} />
+				</Stack>
 			</ThemeProvider>
 		</PaperProvider>
 	);
