@@ -10,7 +10,7 @@ import { useSelector } from 'react-redux';
 import { selectMotivations } from '@/store/motivationsSlice';
 import { useAppSelector } from '@/store';
 import { selectCompletedAchievementsOrderedByCompletionDate } from '@/store/achievementsSlice';
-import { Motivation, Achievement } from '@/index';
+import { Motivation, Achievement } from '@/types';
 import { METRICS } from '@/constants/Metrics';
 
 import ACHIEVEMENTS_DATA from '@/data/achievements.json';
