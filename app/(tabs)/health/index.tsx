@@ -9,7 +9,7 @@ import { selectLastRelapse } from '@/store/logsSlice';
 
 import { style } from '@/constants/Styles';
 
-import healthData from '@/data/health-milestones.json';
+import HEALTH_DATA from '@/data/health-milestones.json';
 
 type TimeMeasure = 'minutes' | 'hours' | 'days' | 'weeks' | 'months' | 'years';
 type Milestone = {
@@ -81,9 +81,9 @@ export default function HealthScreen() {
 		setTimeout(() => setRefreshing(false), 1000);
 	};
 
-	const milestones = Object.keys(healthData).map((key) => {
+	const milestones = Object.keys(HEALTH_DATA).map((key) => {
 		// @ts-ignore
-		const milestone = healthData[key];
+		const milestone = HEALTH_DATA[key];
 		const languageData = milestone[i18n.language] || milestone.en;
 
 		return {

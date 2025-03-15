@@ -13,7 +13,7 @@ import { selectCigarettesPerDay, selectPricePerCigarette } from '@/store/setting
 import { style } from '@/constants/Styles';
 import { METRICS } from '@/constants/Metrics';
 
-import motivationalQuotes from '@/data/motivational-quotes.json';
+import MOTIVATIONAL_QUOTES_DATA from '@/data/motivational-quotes.json';
 
 import WelcomeModal from '@/components/WelcomeModal';
 
@@ -73,8 +73,8 @@ export default function HomeScreen() {
 	];
 
 	const getRandomQuote = useCallback(() => {
-		const randomIndex = Math.floor(Math.random() * motivationalQuotes.length);
-		const selectedQuote = motivationalQuotes[randomIndex];
+		const randomIndex = Math.floor(Math.random() * MOTIVATIONAL_QUOTES_DATA.length);
+		const selectedQuote = MOTIVATIONAL_QUOTES_DATA[randomIndex];
 		dispatch(updateLastQuote(selectedQuote));
 	}, [dispatch]);
 

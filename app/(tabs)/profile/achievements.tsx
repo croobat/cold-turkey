@@ -3,12 +3,14 @@ import { Avatar, List, useTheme } from 'react-native-paper';
 import { useTranslation } from 'react-i18next';
 
 import { style } from '@/constants/Styles';
-import achievementsData from '@/data/achievements.json';
+
 import { selectCompletedAchievements } from '@/store/achievementsSlice';
 import { useAppSelector } from '@/store';
 
+import ACHIEVEMENTS_DATA from '@/data/achievements.json';
+
 export default function Achievements() {
-	const achievements = achievementsData;
+	const achievements = ACHIEVEMENTS_DATA;
 	const theme = useTheme();
 	const { i18n } = useTranslation();
 	const completedAchievements = useAppSelector(selectCompletedAchievements);

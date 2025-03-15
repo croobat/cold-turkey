@@ -7,7 +7,7 @@ import { selectLastRelapse, selectRelapses } from '@/store/logsSlice';
 import { selectPricePerCigarette } from '@/store/settingsSlice';
 import { selectCigarettesPerDay } from '@/store/settingsSlice';
 
-import achievements from '@/data/achievements.json';
+import ACHIEVEMENTS_DATA from '@/data/achievements.json';
 
 export function useAchievements() {
 	const completedAchievements = useAppSelector(selectCompletedAchievements);
@@ -40,7 +40,7 @@ export function useAchievements() {
 			cigarettesSaved,
 		};
 
-		achievements.forEach((achievement) => {
+		ACHIEVEMENTS_DATA.forEach((achievement) => {
 			const { id, criteria } = achievement;
 			if (!criteria) return;
 
