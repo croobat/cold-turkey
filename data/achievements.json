@@ -2,168 +2,224 @@
 	{
 		"id": "gettingStarted",
 		"icon": "smoking-off",
+		"criteria": {
+			"type": "relapseCount",
+			"value": 1
+		},
 		"en": {
-			"title": "🎯 Getting Started",
+			"title": "Getting Started",
 			"content": "Quit smoking for the first time"
 		},
 		"es": {
-			"title": "🎯 Empezando",
+			"title": "Empezando",
 			"content": "Deja de fumar por primera vez"
 		}
 	},
 	{
 		"id": "oneDayStreak",
 		"icon": "numeric-1-circle",
+		"criteria": {
+			"type": "daysSaved",
+			"value": 1
+		},
 		"en": {
-			"title": "1️⃣ 1 Day",
+			"title": "1 Day",
 			"content": "Quit smoking for 1 day"
 		},
 		"es": {
-			"title": "1️⃣ 1 Día",
+			"title": "1 Día",
 			"content": "Deja de fumar por un día"
 		}
 	},
 	{
 		"id": "threeDayStreak",
 		"icon": "numeric-3-circle",
+		"criteria": {
+			"type": "daysSaved",
+			"value": 3
+		},
 		"en": {
-			"title": "3️⃣ 3 Day Milestone",
+			"title": "3 Day Milestone",
 			"content": "Stayed smoke-free for 3 days"
 		},
 		"es": {
-			"title": "3️⃣ Hito de 3 Días",
+			"title": "Hito de 3 Días",
 			"content": "Permanece sin fumar durante 3 días"
 		}
 	},
 	{
 		"id": "oneWeekStreak",
 		"icon": "numeric-7-circle",
+		"criteria": {
+			"type": "daysSaved",
+			"value": 7
+		},
 		"en": {
-			"title": "7️⃣ One Week Strong",
+			"title": "One Week Strong",
 			"content": "Quit smoking for 7 consecutive days"
 		},
 		"es": {
-			"title": "7️⃣ Una Semana Fuerte",
+			"title": "Una Semana Fuerte",
 			"content": "Deja de fumar durante 7 días consecutivos"
 		}
 	},
 	{
 		"id": "oneMonthStreak",
 		"icon": "calendar-month",
+		"criteria": {
+			"type": "daysSaved",
+			"value": 30
+		},
 		"en": {
-			"title": "📅 Monthly Victory",
+			"title": "Monthly Victory",
 			"content": "Smoke-free for an entire month"
 		},
 		"es": {
-			"title": "📅 Victoria Mensual",
+			"title": "Victoria Mensual",
 			"content": "Sin fumar durante un mes entero"
 		}
 	},
 	{
 		"id": "hundredDays",
 		"icon": "clock-outline",
+		"criteria": {
+			"type": "daysSaved",
+			"value": 100
+		},
 		"en": {
-			"title": "⏰ Centurion",
+			"title": "Centurion",
 			"content": "100 days without smoking"
 		},
 		"es": {
-			"title": "⏰ Centurión",
+			"title": "Centurión",
 			"content": "100 días sin fumar"
 		}
 	},
 	{
 		"id": "oneYearStreak",
 		"icon": "cake-variant",
+		"criteria": {
+			"type": "daysSaved",
+			"value": 365
+		},
 		"en": {
-			"title": "🎂 One Year Anniversary",
+			"title": "One Year Anniversary",
 			"content": "Celebrated one year of being smoke-free"
 		},
 		"es": {
-			"title": "🎂 Aniversario de Un Año",
+			"title": "Aniversario de Un Año",
 			"content": "Celebra un año sin fumar"
 		}
 	},
 	{
 		"id": "oneHundredCash",
 		"icon": "cash-multiple",
+		"criteria": {
+			"type": "moneySaved",
+			"value": 100
+		},
 		"en": {
-			"title": "💵 Saving Money",
+			"title": "Saving Money",
 			"content": "Save $100"
 		},
 		"es": {
-			"title": "💵 Ahorrando Dinero",
+			"title": "Ahorrando Dinero",
 			"content": "Ahorra $100"
 		}
 	},
 	{
 		"id": "fiveHundredCash",
 		"icon": "bank",
+		"criteria": {
+			"type": "moneySaved",
+			"value": 500
+		},
 		"en": {
-			"title": "🏦 Money in the Bank",
+			"title": "Money in the Bank",
 			"content": "Saved $500 by not smoking"
 		},
 		"es": {
-			"title": "🏦 Dinero en el Banco",
+			"title": "Dinero en el Banco",
 			"content": "Ahorra $500 al dejar de fumar"
 		}
 	},
 	{
 		"id": "thousandCash",
 		"icon": "cash-100",
+		"criteria": {
+			"type": "moneySaved",
+			"value": 1000
+		},
 		"en": {
-			"title": "💰 Grand Achievement",
+			"title": "Grand Achievement",
 			"content": "Saved $1,000 since quitting"
 		},
 		"es": {
-			"title": "💰 Gran Logro",
+			"title": "Gran Logro",
 			"content": "Ahorra $1,000 desde que dejaste de fumar"
 		}
 	},
 	{
 		"id": "twentyCigarettes",
 		"icon": "emoticon-happy-outline",
+		"criteria": {
+			"type": "cigarettesSaved",
+			"value": 20
+		},
 		"en": {
-			"title": "🚫 Pack Avoider",
+			"title": "Pack Avoider",
 			"content": "Avoided smoking an entire pack (20 cigarettes)"
 		},
 		"es": {
-			"title": "🚫 Evitador de Paquetes",
+			"title": "Fuera Cajetilla",
 			"content": "Evita fumar un paquete entero (20 cigarrillos)"
 		}
 	},
 	{
 		"id": "hundredCigarettes",
 		"icon": "smoking-off",
+		"criteria": {
+			"type": "cigarettesSaved",
+			"value": 100
+		},
 		"en": {
-			"title": "💪 Century Saver",
+			"title": "Century Saver",
 			"content": "100 cigarettes not smoked since quitting"
 		},
 		"es": {
-			"title": "💪 Centenario",
+			"title": "Centenario",
 			"content": "100 cigarrillos no fumados desde que dejaste"
 		}
 	},
 	{
 		"id": "thousandCigarettes",
 		"icon": "lungs",
+		"criteria": {
+			"type": "cigarettesSaved",
+			"value": 1000
+		},
 		"en": {
-			"title": "🫁 Lungs of Steel",
+			"title": "Lungs of Steel",
 			"content": "1,000 cigarettes not smoked - your lungs thank you!"
 		},
 		"es": {
-			"title": "🫁 Pulmones de Acero",
+			"title": "Pulmones de Acero",
 			"content": "1,000 cigarrillos no fumados - ¡tus pulmones te lo agradecen!"
 		}
 	},
 	{
 		"id": "tenThousandCigarettes",
 		"icon": "trophy-award",
+		"criteria": {
+			"type": "cigarettesSaved",
+			"value": 10000
+		},
 		"en": {
-			"title": "🏆 Clean Air Champion",
+			"title": "Clean Air Champion",
 			"content": "10,000 cigarettes not consumed - truly remarkable!"
 		},
 		"es": {
-			"title": "🏆 Campeón del Aire Limpio",
+			"title": "Campeón del Aire Limpio",
 			"content": "10,000 cigarrillos no consumidos - ¡verdaderamente notable!"
 		}
 	}
