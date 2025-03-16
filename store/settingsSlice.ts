@@ -3,11 +3,11 @@ import type { RootState } from '@/store';
 import type { Theme, Language, Currency, SettingsSliceState } from '@/types';
 
 const initialState: SettingsSliceState = {
-	theme: 'light',
-	language: 'en',
-	currency: 'usd',
-	pricePerCigarette: 0.5,
-	cigarettesPerDay: 20,
+	theme: 'dark',
+	language: 'es',
+	currency: 'mxn',
+	pricePerCigarette: 10,
+	cigarettesPerDay: 5,
 };
 
 const settingsSlice = createSlice({

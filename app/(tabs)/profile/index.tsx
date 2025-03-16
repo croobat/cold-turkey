@@ -1,4 +1,4 @@
-import { View, ScrollView, SafeAreaView, TouchableOpacity } from 'react-native';
+import { View, ScrollView, SafeAreaView, TouchableOpacity, Linking } from 'react-native';
 import { Card, Text, useTheme, Avatar, List, Icon } from 'react-native-paper';
 import { router } from 'expo-router';
 import { useTranslation } from 'react-i18next';
@@ -9,7 +9,7 @@ import { style } from '@/constants/Styles';
 import { useSelector } from 'react-redux';
 import { selectMotivations } from '@/store/motivationsSlice';
 import { useAppSelector } from '@/store';
-import { selectCompletedAchievementsOrderedByCompletionDate } from '@/store/achievementsSlice';
+import { selectCompletedAchievements } from '@/store/achievementsSlice';
 import { Motivation, Achievement } from '@/types';
 import { METRICS } from '@/constants/Metrics';
 
@@ -32,6 +32,20 @@ const TitleRow = ({ title, onPress }: { title: string; onPress: () => void }) =>
 	);
 };
 
+const RedirectLink = ({ url, title, icon }: { url: string; title: string; icon: string }) => {
+	const theme = useTheme();
+
+	return (
+		<TouchableOpacity onPress={() => Linking.openURL(url)} style={[style.row]}>
+			<View style={[style.row, style.smColumnGap]}>
+				<Icon source={icon} size={METRICS.icon} />
+				<Text variant="titleSmall">{title}</Text>
+			</View>
+			<Icon source="open-in-new" color={theme.colors.primary} size={METRICS.icon} />
+		</TouchableOpacity>
+	);
+};
+
 export default function ProfileScreen() {
 	const { t, i18n } = useTranslation();
 	const theme = useTheme();
@@ -39,8 +53,11 @@ export default function ProfileScreen() {
 	const motivations = useSelector(selectMotivations);
 
 	const [randomMotivation, setRandomMotivation] = useState<Motivation>();
-	const completedAchievements = useAppSelector(selectCompletedAchievementsOrderedByCompletionDate);
-	const firstThreeAchievements = completedAchievements.slice(0, 3);
+	const completedAchievements = useAppSelector(selectCompletedAchievements) || [];
+	const orderedCompletedAchievementsByCompletionDate = completedAchievements.sort((a, b) => {
+		return new Date(a.completedAt).getTime() - new Date(b.completedAt).getTime();
+	});
+	const firstThreeAchievements = orderedCompletedAchievementsByCompletionDate.slice(0, 3);
 	const currentLanguage = i18n.language as 'en' | 'es';
 
 	useFocusEffect(
@@ -103,14 +120,27 @@ export default function ProfileScreen() {
 							/>
 						))}
 				</View>
-
-				<TitleRow title={t('profile.feedback')} onPress={() => console.info('feedback')} />
-
 				<View>
 					<Text variant="titleMedium" style={{ color: theme.colors.primary }}>
-						Donations
+						{t('profile.links')}
 					</Text>
-					<Text variant="bodyMedium">Support the development of this app.</Text>
+					<View style={[style.paddingVertical, style.smRowGap]}>
+						<RedirectLink
+							url="https://github.com/croobat/cold-turkey"
+							title={t('profile.supportTheDevelopmentOfThisApp')}
+							icon="code-tags"
+						/>
+						{/* <RedirectLink
+							url="https://github.com/croobat/cold-turkey"
+							title="Rate us and give us feedback"
+							icon="star"
+						/> */}
+						<RedirectLink
+							url="https://ko-fi.com/canteradevs"
+							title={t('profile.youCanSupportUsByDonating')}
+							icon="heart"
+						/>
+					</View>
 				</View>
 			</ScrollView>
 		</SafeAreaView>
