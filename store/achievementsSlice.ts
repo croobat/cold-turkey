@@ -35,12 +35,4 @@ const achievementsSlice = createSlice({
 export const { completeAchievement, resetAchievementsSlice } = achievementsSlice.actions;
 
 export const selectCompletedAchievements = (state: RootState) => state.achievements.completed;
-
-export const selectCompletedAchievementsOrderedByCompletionDate = (state: RootState) =>
-	state.achievements.completed.sort((a, b) => {
-		if (a.completedAt && b.completedAt) {
-			return new Date(a.completedAt).getTime() - new Date(b.completedAt).getTime();
-		}
-		return 0;
-	});
 export default achievementsSlice.reducer;
