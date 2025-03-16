@@ -3,13 +3,15 @@ import { View, ScrollView, RefreshControl, TouchableOpacity } from 'react-native
 import { Text, ProgressBar, Card, IconButton, AnimatedFAB, useTheme, Icon } from 'react-native-paper';
 import { useTranslation } from 'react-i18next';
 import { router } from 'expo-router';
+import { differenceInDays, parseISO } from 'date-fns';
 
 import { useAppSelector, useAppDispatch } from '@/store';
 import { selectSavingsGoals, deleteSavingsGoal, SavingsGoal } from '@/store/goalsSlice';
-import { selectLastRelapse } from '@/store/logsSlice';
-import { selectCigarettesPerDay, selectPricePerCigarette } from '@/store/settingsSlice';
+
+import { useQuitProgress } from '@/utils/useQuitProgress';
+
 import { style } from '@/constants/Styles';
-import { differenceInDays, parseISO } from 'date-fns';
+
 import DeleteAlertBanner from '@/components/DeleteAlertBanner';
 
 const EmptyGoalsState = ({ onPress }: { onPress: () => void }) => {
@@ -37,9 +39,7 @@ export default function GoalScreen() {
 	const theme = useTheme();
 	const dispatch = useAppDispatch();
 	const goals = useAppSelector(selectSavingsGoals);
-	const lastRelapse = useAppSelector(selectLastRelapse);
-	const cigarettesPerDay = useAppSelector(selectCigarettesPerDay);
-	const pricePerCigarette = useAppSelector(selectPricePerCigarette);
+	const { moneySaved, daysSaved } = useQuitProgress();
 
 	const [refreshing, setRefreshing] = useState(false);
 	const [selectedGoal, setSelectedGoal] = useState<SavingsGoal | null>(null);
@@ -49,16 +49,10 @@ export default function GoalScreen() {
 		dispatch(deleteSavingsGoal(selectedGoal.id));
 	};
 
-	const calculateGlobalSavings = () => {
-		if (!lastRelapse?.datetime || !cigarettesPerDay || !pricePerCigarette) return 0;
-		const daysSinceQuit = differenceInDays(new Date(), parseISO(lastRelapse.datetime));
-		return daysSinceQuit * cigarettesPerDay * pricePerCigarette;
-	};
-
 	const calculateGoalSavings = (createdAt?: string) => {
-		if (!createdAt || !cigarettesPerDay || !pricePerCigarette) return 0;
+		if (!createdAt || daysSaved === 0) return 0;
 		const daysSinceCreation = differenceInDays(new Date(), parseISO(createdAt));
-		return daysSinceCreation * cigarettesPerDay * pricePerCigarette;
+		return (moneySaved / daysSaved) * daysSinceCreation;
 	};
 
 	const calculateProgress = (amount: number, target: number) => {
@@ -71,9 +65,7 @@ export default function GoalScreen() {
 		setTimeout(() => setRefreshing(false), 500);
 	};
 
-	const globalSavings = calculateGlobalSavings();
-
-	if (goals.length === 0 && globalSavings === 0) {
+	if (goals.length === 0 && moneySaved === 0) {
 		return <EmptyGoalsState onPress={() => router.push('/goal/goal-add')} />;
 	}
 
@@ -93,13 +85,13 @@ export default function GoalScreen() {
 				}
 			>
 				<View style={style.paddingHorizontal}>
-					{globalSavings > 0 && (
+					{moneySaved > 0 && (
 						<Card style={style.marginBottom}>
 							<Card.Title title={t('goal.cigaretteSavings')} />
 							<Card.Content>
 								<Text>
 									{t('goal.cigaretteSavingsAmount', {
-										amount: globalSavings.toLocaleString('en-US', {
+										amount: moneySaved.toLocaleString('en-US', {
 											style: 'currency',
 											currency: 'USD',
 										}),
