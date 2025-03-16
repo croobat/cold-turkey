@@ -7,9 +7,10 @@ import { selectLastRelapse, selectRelapses } from '@/store/logsSlice';
 import { selectPricePerCigarette } from '@/store/settingsSlice';
 import { selectCigarettesPerDay } from '@/store/settingsSlice';
 
+import ACHIEVEMENTS_DATA from '@/data/achievements.json';
+
 export function useAchievements() {
 	const completedAchievements = useAppSelector(selectCompletedAchievements);
-
 	const pricePerCigarette = useAppSelector(selectPricePerCigarette);
 	const relapses = useAppSelector(selectRelapses);
 	const lastRelapse = useAppSelector(selectLastRelapse);
@@ -18,10 +19,11 @@ export function useAchievements() {
 	const isoString = lastRelapse?.datetime || new Date().toISOString();
 	const quitDate = parseISO(isoString);
 	const duration = intervalToDuration({ start: quitDate, end: new Date() });
-	const { days: daysSinceQuit = 0, hours: hoursSinceQuit = 0 } = duration;
+	const { days: daysSaved = 0, hours: hoursSaved = 0 } = duration;
 
-	const cigarettesNotSmoked = Math.round((daysSinceQuit + hoursSinceQuit / 24) * cigaretesPerDay);
-	const moneySaved = cigarettesNotSmoked * pricePerCigarette;
+	const cigarettesSaved = Math.round((daysSaved + hoursSaved / 24) * cigaretesPerDay);
+	const moneySaved = cigarettesSaved * pricePerCigarette;
+	const relapseCount = relapses.length;
 
 	const handleCompletion = (achievementId: string) => {
 		const isCompleted = completedAchievements.find((achievement) => achievement.id === achievementId);
@@ -30,68 +32,20 @@ export function useAchievements() {
 
 	useEffect(() => {
 		if (!completedAchievements) return;
-		if (relapses.length >= 1) {
-			handleCompletion('gettingStarted');
-		}
-	}, [relapses, completedAchievements]);
 
-	// TODO: Dynamic handle all existing achievements completion
-	useEffect(() => {
-		if (!completedAchievements) return;
-		switch (true) {
-			case daysSinceQuit >= 365:
-				handleCompletion('oneYearStreak');
-				break;
-			case daysSinceQuit >= 100:
-				handleCompletion('hundredDays');
-				break;
-			case daysSinceQuit >= 30:
-				handleCompletion('oneMonthStreak');
-				break;
-			case daysSinceQuit >= 7:
-				handleCompletion('oneWeekStreak');
-				break;
-			case daysSinceQuit >= 3:
-				handleCompletion('threeDayStreak');
-				break;
-			case daysSinceQuit >= 1:
-				handleCompletion('oneDayStreak');
-				break;
-		}
-	}, [daysSinceQuit, completedAchievements]);
+		const progressValues = {
+			relapseCount,
+			daysSaved,
+			moneySaved,
+			cigarettesSaved,
+		};
 
-	useEffect(() => {
-		if (!completedAchievements) return;
-		switch (true) {
-			case moneySaved >= 100:
-				handleCompletion('oneHundredCash');
-				break;
-			case moneySaved >= 500:
-				handleCompletion('fiveHundredCash');
-				break;
-			case moneySaved >= 1000:
-				handleCompletion('thousandCash');
-				break;
-			default:
-				break;
-		}
-	}, [moneySaved, completedAchievements]);
+		ACHIEVEMENTS_DATA.forEach((achievement) => {
+			const { id, criteria } = achievement;
+			if (!criteria) return;
 
-	useEffect(() => {
-		if (!completedAchievements) return;
-		switch (true) {
-			case cigarettesNotSmoked >= 10000:
-				handleCompletion('tenThousandCigarettes');
-				break;
-			case cigarettesNotSmoked >= 1000:
-				handleCompletion('thousandCigarettes');
-				break;
-			case cigarettesNotSmoked >= 100:
-				handleCompletion('hundredCigarettes');
-				break;
-			case cigarettesNotSmoked >= 20:
-				handleCompletion('twentyCigarettes');
-				break;
-		}
-	}, [cigarettesNotSmoked, completedAchievements]);
+			const currentValue = progressValues[criteria.type as keyof typeof progressValues];
+			if (currentValue >= criteria.value) handleCompletion(id);
+		});
+	}, [completedAchievements, daysSaved, moneySaved, cigarettesSaved, relapseCount]);
 }

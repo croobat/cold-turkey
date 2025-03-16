@@ -10,9 +10,14 @@ import { useSelector } from 'react-redux';
 import { selectMotivations } from '@/store/motivationsSlice';
 import { useAppSelector } from '@/store';
 import { selectCompletedAchievements } from '@/store/achievementsSlice';
-import { Motivation } from '@/index';
+import { Motivation, Achievement } from '@/types';
 import { METRICS } from '@/constants/Metrics';
-import achievementsData from '@/data/achievements.json';
+
+import ACHIEVEMENTS_DATA from '@/data/achievements.json';
+
+type CompletedAchievement = Achievement & {
+	completedAt: string | null;
+};
 
 const TitleRow = ({ title, onPress }: { title: string; onPress: () => void }) => {
 	const theme = useTheme();
@@ -42,7 +47,7 @@ const RedirectLink = ({ url, title, icon }: { url: string; title: string; icon: 
 };
 
 export default function ProfileScreen() {
-	const { t } = useTranslation();
+	const { t, i18n } = useTranslation();
 	const theme = useTheme();
 
 	const motivations = useSelector(selectMotivations);
@@ -53,6 +58,7 @@ export default function ProfileScreen() {
 		return new Date(a.completedAt).getTime() - new Date(b.completedAt).getTime();
 	});
 	const firstThreeAchievements = orderedCompletedAchievementsByCompletionDate.slice(0, 3);
+	const currentLanguage = i18n.language as 'en' | 'es';
 
 	useFocusEffect(
 		useCallback(() => {
@@ -63,13 +69,16 @@ export default function ProfileScreen() {
 		}, [motivations]),
 	);
 
-	const achievements = firstThreeAchievements.map((achievement) => {
-		const achievementData = achievementsData.find((achievementData) => achievementData.id === achievement.id);
-		return {
-			...achievementData,
-			completedAt: achievement.completedAt,
-		};
-	});
+	const achievements = firstThreeAchievements
+		.map((achievement) => {
+			const achievementData = ACHIEVEMENTS_DATA.find((achievementData) => achievementData.id === achievement.id);
+			if (!achievementData) return null;
+			return {
+				...achievementData,
+				completedAt: achievement.completedAt,
+			} as CompletedAchievement;
+		})
+		.filter((achievement): achievement is CompletedAchievement => achievement !== null);
 
 	return (
 		<SafeAreaView style={style.container}>
@@ -95,8 +104,8 @@ export default function ProfileScreen() {
 						achievements.map((achievement, index) => (
 							<List.Item
 								key={index}
-								title={achievement.title}
-								description={achievement.content}
+								title={achievement[currentLanguage].title}
+								description={achievement[currentLanguage].content}
 								left={() => (
 									<Avatar.Icon
 										icon={achievement.icon as any}
