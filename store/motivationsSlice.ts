@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import type { RootState } from '@/store';
-import { Motivation } from '@/index';
+import { Motivation } from '@/types';
 
 export interface MotivationsState {
 	motivations: Motivation[];

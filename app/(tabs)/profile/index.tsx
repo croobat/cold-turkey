@@ -10,9 +10,10 @@ import { useSelector } from 'react-redux';
 import { selectMotivations } from '@/store/motivationsSlice';
 import { useAppSelector } from '@/store';
 import { selectCompletedAchievementsOrderedByCompletionDate } from '@/store/achievementsSlice';
-import { Motivation, Achievement } from '@/index';
+import { Motivation, Achievement } from '@/types';
 import { METRICS } from '@/constants/Metrics';
-import achievementsData from '@/data/achievements.json';
+
+import ACHIEVEMENTS_DATA from '@/data/achievements.json';
 
 type CompletedAchievement = Achievement & {
 	completedAt: string | null;
@@ -51,14 +52,16 @@ export default function ProfileScreen() {
 		}, [motivations]),
 	);
 
-	const achievements = firstThreeAchievements.map((achievement) => {
-		const achievementData = achievementsData.find((achievementData) => achievementData.id === achievement.id);
-		if (!achievementData) return null;
-		return {
-			...achievementData,
-			completedAt: achievement.completedAt,
-		} as CompletedAchievement;
-	}).filter((achievement): achievement is CompletedAchievement => achievement !== null);
+	const achievements = firstThreeAchievements
+		.map((achievement) => {
+			const achievementData = ACHIEVEMENTS_DATA.find((achievementData) => achievementData.id === achievement.id);
+			if (!achievementData) return null;
+			return {
+				...achievementData,
+				completedAt: achievement.completedAt,
+			} as CompletedAchievement;
+		})
+		.filter((achievement): achievement is CompletedAchievement => achievement !== null);
 
 	return (
 		<SafeAreaView style={style.container}>

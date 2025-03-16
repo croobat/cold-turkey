@@ -9,7 +9,7 @@ import { addMotivation, selectMotivationById, updateMotivation } from '@/store/m
 import { useTranslation } from 'react-i18next';
 
 import { style } from '@/constants/Styles';
-import { Motivation } from '@/index';
+import { Motivation } from '@/types';
 
 interface Form {
 	title: string;

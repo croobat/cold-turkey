@@ -9,7 +9,7 @@ import EmptyState from '@/components/EmptyState';
 import { useState } from 'react';
 import { useAppDispatch } from '@/store';
 import { useTranslation } from 'react-i18next';
-import { Motivation } from '@/index';
+import { Motivation } from '@/types';
 import DeleteAlertBanner from '@/components/DeleteAlertBanner';
 
 export default function MotivationsScreen() {

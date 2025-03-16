@@ -1,17 +1,8 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import type { RootState } from '@/store';
+import type { RelapseLog, LogsSliceState } from '@/types';
 
-type RelapseLog = {
-	datetime: string;
-	title: string;
-	content: string;
-};
-
-export interface LogsState {
-	relapses: RelapseLog[];
-}
-
-const initialState: LogsState = {
+const initialState: LogsSliceState = {
 	relapses: [],
 };
 

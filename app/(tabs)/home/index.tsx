@@ -13,7 +13,7 @@ import { selectCigarettesPerDay, selectPricePerCigarette } from '@/store/setting
 import { style } from '@/constants/Styles';
 import { METRICS } from '@/constants/Metrics';
 
-import motivationalQuotes from '@/data/motivational-quotes.json';
+import MOTIVATIONAL_QUOTES_DATA from '@/data/motivational-quotes.json';
 
 import WelcomeModal from '@/components/WelcomeModal';
 
@@ -31,8 +31,9 @@ const HomeCardTitle = ({ title }: { title: string }) => {
 
 export default function HomeScreen() {
 	const dispatch = useAppDispatch();
-	const { t } = useTranslation();
+	const { t, i18n } = useTranslation();
 	const theme = useTheme();
+	const currentLanguage = i18n.language as 'en' | 'es';
 
 	const [isResetConfirmVisible, setIsResetConfirmVisible] = useState(false);
 	const [isRefreshing, setIsRefreshing] = useState(false);
@@ -72,8 +73,8 @@ export default function HomeScreen() {
 	];
 
 	const getRandomQuote = useCallback(() => {
-		const randomIndex = Math.floor(Math.random() * motivationalQuotes.length);
-		const selectedQuote = motivationalQuotes[randomIndex];
+		const randomIndex = Math.floor(Math.random() * MOTIVATIONAL_QUOTES_DATA.length);
+		const selectedQuote = MOTIVATIONAL_QUOTES_DATA[randomIndex];
 		dispatch(updateLastQuote(selectedQuote));
 	}, [dispatch]);
 
@@ -142,7 +143,7 @@ export default function HomeScreen() {
 				<Card style={style.padding}>
 					<View style={[style.centered]}>
 						<Text variant="bodyLarge" style={{ fontStyle: 'italic', textAlign: 'center' }}>
-							{lastQuote.quote}
+							{lastQuote[currentLanguage].quote}
 						</Text>
 						<Text variant="bodyMedium" style={{ color: 'gray', textAlign: 'center', fontStyle: 'italic' }}>
 							- {lastQuote.author}
