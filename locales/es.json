@@ -111,13 +111,18 @@
 
 	"profile": {
 		"title": "Perfil",
-
+		"donations": "Donaciones",
 		"motivation": "Motivación",
 		"motivations": "Motivaciones",
+		"contributions": "Contribuciones",
+		"helpUsImprove": "Ayúdanos a mejorar",
 		"noMotivationsAdded": "No tienes motivaciones añadidas",
 		"addATextOrImageToRemindYouWhyYouQuit": "Añade un texto o imagen para recordarte por qué dejaste de fumar",
 		"areYouSureYouWantToDeleteThisMotivation": "¿Estás seguro de que quieres eliminar esta motivación?",
-		"feedback": "Comentarios"
+		"aboutUs": "Sobre Nosotros",
+		"links": "Enlaces",
+		"supportTheDevelopmentOfThisApp": "Apoya el desarrollo de esta app",
+		"youCanSupportUsByDonating": "Puedes apoyarnos donando"
 	},
 
 	"settings": {

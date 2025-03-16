@@ -111,13 +111,18 @@
 
 	"profile": {
 		"title": "Profile",
-
+		"donations": "Donations",
 		"motivation": "Motivation",
 		"motivations": "Motivations",
+		"contributions": "Contributions",
+		"helpUsImprove": "Help us improve",
 		"noMotivationsAdded": "No motivations added",
 		"addATextOrImageToRemindYouWhyYouQuit": "Add a text or image to remind you why you quit",
 		"areYouSureYouWantToDeleteThisMotivation": "Are you sure you want to delete this motivation?",
-		"feedback": "Feedback"
+		"aboutUs": "About Us",
+		"links": "Links",
+		"supportTheDevelopmentOfThisApp": "Support the development of this app",
+		"youCanSupportUsByDonating": "You can support us by donating"
 	},
 
 	"settings": {
