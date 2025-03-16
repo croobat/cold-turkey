@@ -10,8 +10,8 @@ import { selectLastRelapse } from '@/store/logsSlice';
 import { style } from '@/constants/Styles';
 
 import HEALTH_DATA from '@/data/health-milestones.json';
+import type { TimeMeasure } from '@/types';
 
-type TimeMeasure = 'minutes' | 'hours' | 'days' | 'weeks' | 'months' | 'years';
 type Milestone = {
 	title: string;
 	description: string;
