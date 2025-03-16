@@ -48,6 +48,12 @@ export const style = StyleSheet.create({
 	rounded: {
 		borderRadius: METRICS.md,
 	},
+	cardCover: {
+		height: 250,
+		backgroundColor: 'transparent',
+		margin: -16,
+		marginBottom: -8,
+	},
 
 	// margins
 	noMargin: { margin: 0 },

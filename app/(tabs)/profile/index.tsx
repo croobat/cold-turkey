@@ -72,7 +72,9 @@ export default function ProfileScreen() {
 					{motivations.length === 0 && <Text variant="bodyMedium">{t('profile.noMotivationsAdded')}</Text>}
 					{motivations.length > 0 && (
 						<Card>
-							{randomMotivation?.image && <Card.Cover source={{ uri: randomMotivation.image }} />}
+							{randomMotivation?.image && (
+								<Card.Cover style={style.cardCover} source={{ uri: randomMotivation.image }} />
+							)}
 							<Card.Title title={randomMotivation?.title} subtitle={randomMotivation?.content} />
 						</Card>
 					)}
