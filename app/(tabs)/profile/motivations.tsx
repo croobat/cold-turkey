@@ -62,7 +62,7 @@ export default function MotivationsScreen() {
 				<View style={style.paddingHorizontal}>
 					{motivations.map((motivation, index) => (
 						<Card key={index} style={style.marginBottom}>
-							{motivation.image && <Card.Cover source={{ uri: motivation.image }} />}
+							{motivation.image && <Card.Cover source={{ uri: motivation.image }} style={style.cardCover} />}
 							<Card.Title
 								title={motivation.title}
 								subtitle={motivation.content}

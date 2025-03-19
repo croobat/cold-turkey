@@ -41,6 +41,19 @@ export const style = StyleSheet.create({
 	keyboardMargin: {
 		marginBottom: 350,
 	},
+	dashed: {
+		borderWidth: 1,
+		borderStyle: 'dashed',
+	},
+	rounded: {
+		borderRadius: METRICS.md,
+	},
+	cardCover: {
+		height: 250,
+		backgroundColor: 'transparent',
+		margin: -16,
+		marginBottom: -8,
+	},
 
 	// margins
 	noMargin: { margin: 0 },

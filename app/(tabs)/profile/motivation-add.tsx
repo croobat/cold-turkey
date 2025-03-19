@@ -123,7 +123,18 @@ export default function MotivationAddScreen() {
 							mode="outlined"
 							onChangeText={(text) => setForm({ ...form, content: text })}
 						/>
-						<View style={[style.container, style.centered]}>
+
+						<View
+							style={[
+								style.container,
+								style.centered,
+								style.dashed,
+								style.rounded,
+								style.padding,
+								style.smRowGap,
+								{ borderColor: theme.colors.primary },
+							]}
+						>
 							<Button icon="image" onPress={pickImage}>
 								{t('form.pickAnImageFromTheCameraRoll')}
 							</Button>
@@ -131,7 +142,8 @@ export default function MotivationAddScreen() {
 							<Button icon="camera" onPress={takePhoto}>
 								{t('form.takeAPicture')}
 							</Button>
-							{image && <Image source={{ uri: image }} style={[style.fullWidth, { aspectRatio: 1 }]} />}
+
+							{image && <Image source={{ uri: image }} style={[style.fullWidth, style.rounded, { aspectRatio: 1 }]} />}
 						</View>
 					</View>
 				</ScrollView>
