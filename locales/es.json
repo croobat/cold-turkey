@@ -3,6 +3,10 @@
 		"backToHome": "Volver a inicio",
 		"relapse": "Recaída",
 		"relapses": "Recaídas",
+		"motivation": "Motivación",
+		"motivations": "Motivaciones",
+		"journalEntry": "Entrada de diario",
+		"journalEntries": "Entradas de diario",
 		"cigarettesPerDay": "Cigarros por día",
 		"pricePerCigarette": "Precio por cigarro",
 		"noRelapsesFound": "No se encontraron recaídas",
@@ -20,7 +24,10 @@
 		"month": "Mes",
 		"months": "Meses",
 		"year": "Año",
-		"years": "Años"
+		"years": "Años",
+		"or": "o",
+		"save": "Guardar",
+		"completed": "Completado"
 	},
 
 	"error": {
@@ -52,7 +59,8 @@
 		"requiredField": "Campo requerido",
 		"date": "Fecha",
 		"time": "Hora",
-
+		"pickAnImageFromTheCameraRoll": "Selecciona una imagen de la galería",
+		"takeAPicture": "Toma una foto",
 		"thisActionCannotBeUndone": "Esta acción no se puede deshacer."
 	},
 
@@ -72,23 +80,49 @@
 	},
 
 	"journal": {
-		"title": "Diario"
+		"title": "Diario",
+		"noJournalEntriesFound": "No se encontraron entradas de diario",
+		"pleaseAddAJournalEntryToStartTrackingYourProgress": "Por favor, añade una entrada de diario para comenzar a rastrear tu progreso."
 	},
 
 	"health": {
-		"title": "Salud"
+		"title": "Salud",
+		"congratulationsYouDidIt": "¡Lo lograste! 🎉"
 	},
 
 	"goal": {
-		"title": "Objetivo"
+		"title": "Objetivos",
+		"setNewGoal": "Establecer Nueva Meta de Ahorro",
+		"goalName": "Nombre de la Meta",
+		"targetAmount": "Cantidad Objetivo",
+		"currentAmount": "Cantidad Actual",
+		"additionalAmount": "Ahorros Adicionales",
+		"progress": "{{current}} de {{target}}",
+		"editGoal": "Editar Meta",
+		"defaultGoalName": "Mi Meta de Ahorro",
+		"addNewGoal": "Agregar Nueva Meta",
+		"cigaretteSavings": "Ahorros por No Fumar",
+		"cigaretteSavingsAmount": "¡Has ahorrado {{amount}} por no fumar!",
+		"noGoalsFound": "Aún No Hay Metas de Ahorro",
+		"addAGoalToStartTracking": "Agrega una meta de ahorro para comenzar a seguir tu progreso",
+		"addFirstGoal": "Agrega Tu Primera Meta",
+		"areYouSureYouWantToDeleteGoal": "¿Estás seguro de que quieres eliminar esta meta?"
 	},
 
 	"profile": {
 		"title": "Perfil",
-
+		"donations": "Donaciones",
 		"motivation": "Motivación",
 		"motivations": "Motivaciones",
-		"addATextOrImageToRemindYouWhyYouQuit": "Añade un texto o imagen para recordarte por qué dejaste de fumar"
+		"contributions": "Contribuciones",
+		"helpUsImprove": "Ayúdanos a mejorar",
+		"noMotivationsAdded": "No tienes motivaciones añadidas",
+		"addATextOrImageToRemindYouWhyYouQuit": "Añade un texto o imagen para recordarte por qué dejaste de fumar",
+		"areYouSureYouWantToDeleteThisMotivation": "¿Estás seguro de que quieres eliminar esta motivación?",
+		"aboutUs": "Sobre Nosotros",
+		"links": "Enlaces",
+		"supportTheDevelopmentOfThisApp": "Apoya el desarrollo de esta app",
+		"youCanSupportUsByDonating": "Puedes apoyarnos donando"
 	},
 
 	"settings": {
@@ -105,6 +139,12 @@
 		"dangerZone": "Zona de peligro",
 		"areYouSureYouWantToWipeAllData": "¿Estás seguro de que quieres borrar todos los datos?",
 		"wipeAllData": "Borrar todos los datos"
+	},
+
+	"motivations": {
+		"noMotivationsAdded": "No tienes motivaciones añadidas",
+		"addATextOrImageToRemindYouWhyYouQuit": "Añade un texto o imagen para recordarte por qué dejaste de fumar",
+		"areYouSureYouWantToDeleteThisMotivation": "¿Estás seguro de que quieres eliminar esta motivación?"
 	},
 
 	"achievements": {

@@ -9,6 +9,10 @@ export default function JournalLayout() {
 	return (
 		<Stack screenOptions={{ headerShadowVisible: false, headerStyle: { backgroundColor: theme.colors.background } }}>
 			<Stack.Screen name="index" options={{ title: t('journal.title') }} />
+			<Stack.Screen
+				name="journal-entry-add"
+				options={{ title: `${t('form.add')} ${t('common.journalEntry')}`, presentation: 'modal' }}
+			/>
 		</Stack>
 	);
 }

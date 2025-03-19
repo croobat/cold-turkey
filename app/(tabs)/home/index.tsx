@@ -1,7 +1,6 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import { ScrollView, View, RefreshControl, SafeAreaView } from 'react-native';
 import { AnimatedFAB, Banner, Icon, IconButton, Text, Card, useTheme } from 'react-native-paper';
-import { format, intervalToDuration, parseISO } from 'date-fns';
 import { router, useFocusEffect } from 'expo-router';
 import { useTranslation } from 'react-i18next';
 
@@ -9,14 +8,14 @@ import { useAppDispatch, useAppSelector } from '@/store';
 import { selectLastQuote, updateLastQuote } from '@/store/motivationalSlice';
 import { selectLastRelapse } from '@/store/logsSlice';
 import { selectCigarettesPerDay, selectPricePerCigarette } from '@/store/settingsSlice';
+import { useQuitProgress } from '@/utils/useQuitProgress';
 
 import { style } from '@/constants/Styles';
 import { METRICS } from '@/constants/Metrics';
 
-import motivationalQuotes from '@/data/motivational-quotes.json';
+import MOTIVATIONAL_QUOTES_DATA from '@/data/motivational-quotes.json';
 
 import WelcomeModal from '@/components/WelcomeModal';
-import EmptyRelapsesState from '@/components/EmptyRelapsesState';
 
 const HomeCardTitle = ({ title }: { title: string }) => {
 	const theme = useTheme();
@@ -32,12 +31,12 @@ const HomeCardTitle = ({ title }: { title: string }) => {
 
 export default function HomeScreen() {
 	const dispatch = useAppDispatch();
-	const { t } = useTranslation();
+	const { t, i18n } = useTranslation();
 	const theme = useTheme();
+	const currentLanguage = i18n.language as 'en' | 'es';
 
-	const [isResetConfirmVisible, setIsResetConfirmVisible] = useState(false);
 	const [isRefreshing, setIsRefreshing] = useState(false);
-	const [currentTime, setCurrentTime] = useState(new Date());
+	const [isResetConfirmVisible, setIsResetConfirmVisible] = useState(false);
 	const [isWelcomeModalVisible, setIsWelcomeModalVisible] = useState(false);
 
 	const lastQuote = useAppSelector(selectLastQuote);
@@ -45,18 +44,8 @@ export default function HomeScreen() {
 	const cigaretesPerDay = useAppSelector(selectCigarettesPerDay);
 	const pricePerCigarette = useAppSelector(selectPricePerCigarette);
 
-	const isoString = lastRelapse?.datetime || new Date().toISOString();
-	const quitDate = parseISO(isoString);
-
-	const duration = intervalToDuration({ start: quitDate, end: currentTime });
-	const daysSinceQuit = duration.days ?? 0;
-	const hoursSinceQuit = duration.hours ?? 0;
-	const minutesSinceQuit = duration.minutes ?? 0;
-
-	const cigarettesNotSmoked = Math.round((daysSinceQuit + hoursSinceQuit / 24) * cigaretesPerDay);
-	const moneySaved = cigarettesNotSmoked * pricePerCigarette;
-	const dateSinceQuit = format(quitDate, 'MMMM d, yyyy');
-	const timeSinceQuit = format(quitDate, 'p');
+	const { daysSaved, hoursSaved, minutesSaved, cigarettesSaved, moneySaved, dateSinceQuit, timeSinceQuit } =
+		useQuitProgress();
 
 	const resetConfirmActions = [
 		{
@@ -73,14 +62,13 @@ export default function HomeScreen() {
 	];
 
 	const getRandomQuote = useCallback(() => {
-		const randomIndex = Math.floor(Math.random() * motivationalQuotes.length);
-		const selectedQuote = motivationalQuotes[randomIndex];
+		const randomIndex = Math.floor(Math.random() * MOTIVATIONAL_QUOTES_DATA.length);
+		const selectedQuote = MOTIVATIONAL_QUOTES_DATA[randomIndex];
 		dispatch(updateLastQuote(selectedQuote));
 	}, [dispatch]);
 
 	const handleRefresh = () => {
 		setIsRefreshing(true);
-		setCurrentTime(new Date());
 		setTimeout(() => setIsRefreshing(false), 500);
 	};
 
@@ -95,7 +83,6 @@ export default function HomeScreen() {
 	}, [dispatch, getRandomQuote]);
 
 	useEffect(() => {
-		console.log(cigaretesPerDay, pricePerCigarette);
 		if (!cigaretesPerDay && !pricePerCigarette) {
 			setIsWelcomeModalVisible(true);
 		}
@@ -107,9 +94,21 @@ export default function HomeScreen() {
 	// empty state
 	if (lastRelapse === undefined) {
 		return (
-			<EmptyRelapsesState isRefreshing={isRefreshing} onRefresh={handleRefresh}>
+			<>
+				<View style={[style.container, style.centered, style.paddingHorizontal]}>
+					<View style={[style.centered, style.smRowGap]}>
+						<IconButton icon="clipboard-text" size={48} />
+						<Text variant="titleMedium" style={{ textAlign: 'center' }}>
+							{t('common.noRelapsesFound')}
+						</Text>
+						<Text variant="bodyMedium" style={{ textAlign: 'center', color: theme.colors.onSurfaceVariant }}>
+							{t('common.pleaseAddARelapseToStartTrackingYourProgress')}
+						</Text>
+						<IconButton icon="plus" mode="contained" onPress={() => router.navigate('/(tabs)/home/relapse-add')} />
+					</View>
+				</View>
 				<WelcomeModal visible={isWelcomeModalVisible} onDismiss={handleDismissWelcomeModal} />
-			</EmptyRelapsesState>
+			</>
 		);
 	}
 
@@ -132,7 +131,7 @@ export default function HomeScreen() {
 				<Card style={style.padding}>
 					<View style={[style.centered]}>
 						<Text variant="bodyLarge" style={{ fontStyle: 'italic', textAlign: 'center' }}>
-							{lastQuote.quote}
+							{lastQuote[currentLanguage].quote}
 						</Text>
 						<Text variant="bodyMedium" style={{ color: 'gray', textAlign: 'center', fontStyle: 'italic' }}>
 							- {lastQuote.author}
@@ -154,10 +153,10 @@ export default function HomeScreen() {
 				<Card style={style.paddingBottom}>
 					<HomeCardTitle title={t('home.notSmokedSince')} />
 					<View style={[style.centered]}>
-						{Boolean(daysSinceQuit) && <Text variant="titleMedium">{daysSinceQuit} days</Text>}
-						{Boolean(hoursSinceQuit) && <Text variant="titleMedium">{hoursSinceQuit} hours</Text>}
-						{minutesSinceQuit ? (
-							<Text variant="titleMedium">{minutesSinceQuit} minutes</Text>
+						{Boolean(daysSaved) && <Text variant="titleMedium">{daysSaved} days</Text>}
+						{Boolean(hoursSaved) && <Text variant="titleMedium">{hoursSaved} hours</Text>}
+						{minutesSaved ? (
+							<Text variant="titleMedium">{minutesSaved} minutes</Text>
 						) : (
 							<Text variant="titleMedium">Right now</Text>
 						)}
@@ -170,7 +169,7 @@ export default function HomeScreen() {
 					<View style={[style.row, style.marginBottom, { justifyContent: 'space-around' }]}>
 						<View style={[style.centered, style.smRowGap]}>
 							<Icon source="smoking-off" size={METRICS.icon} />
-							<Text>{cigarettesNotSmoked}</Text>
+							<Text>{cigarettesSaved}</Text>
 						</View>
 						<View style={[style.centered, style.smRowGap]}>
 							<Icon source="wallet" size={METRICS.icon} />
@@ -179,12 +178,12 @@ export default function HomeScreen() {
 						<View style={[style.centered, style.smRowGap]}>
 							<Icon source="timer" size={METRICS.icon} />
 							<Text>
-								{daysSinceQuit}d {hoursSinceQuit}h
+								{daysSaved}d {hoursSaved}h
 							</Text>
 						</View>
 						<View style={[style.centered, style.smRowGap]}>
 							<Icon source="heart-pulse" size={METRICS.icon} />
-							<Text>{cigarettesNotSmoked * 5}</Text>
+							<Text>{cigarettesSaved * 5}</Text>
 						</View>
 					</View>
 				</Card>

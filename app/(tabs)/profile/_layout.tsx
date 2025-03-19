@@ -13,18 +13,17 @@ export default function ProfileLayout() {
 				options={{
 					title: t('profile.title'),
 					headerRight: () => (
-						<IconButton
-							icon="cog"
-							onPress={() => router.push('/profile/settings')}
-							mode="contained"
-							style={{ margin: 0, padding: 0 }}
-						/>
+						<IconButton icon="cog" onPress={() => router.push('/profile/settings')} style={{ margin: 0, padding: 0 }} />
 					),
 				}}
 			/>
 			<Stack.Screen name="settings" options={{ title: t('settings.title') }} />
 			<Stack.Screen name="motivations" options={{ title: t('profile.motivations') }} />
 			<Stack.Screen name="achievements" options={{ title: t('achievements.title') }} />
+			<Stack.Screen
+				name="motivation-add"
+				options={{ title: `${t('form.add')} ${t('common.motivation')}`, presentation: 'modal' }}
+			/>
 		</Stack>
 	);
 }

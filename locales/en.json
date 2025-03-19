@@ -3,6 +3,10 @@
 		"backToHome": "Back to home",
 		"relapse": "Relapse",
 		"relapses": "Relapses",
+		"motivation": "Motivation",
+		"motivations": "Motivations",
+		"journalEntry": "Journal entry",
+		"journalEntries": "Journal entries",
 		"cigarettesPerDay": "Cigarettes per day",
 		"pricePerCigarette": "Price per cigarette",
 		"noRelapsesFound": "No relapses found",
@@ -20,7 +24,10 @@
 		"month": "Month",
 		"months": "Months",
 		"year": "Year",
-		"years": "Years"
+		"years": "Years",
+		"or": "or",
+		"save": "Save",
+		"completed": "Completed"
 	},
 
 	"error": {
@@ -52,7 +59,8 @@
 		"requiredField": "Required field",
 		"date": "Date",
 		"time": "Time",
-
+		"pickAnImageFromTheCameraRoll": "Pick an image from camera roll",
+		"takeAPicture": "Take a picture",
 		"thisActionCannotBeUndone": "This action cannot be undone."
 	},
 
@@ -72,25 +80,49 @@
 	},
 
 	"journal": {
-		"title": "Journal"
+		"title": "Journal",
+		"noJournalEntriesFound": "No journal entries found",
+		"pleaseAddAJournalEntryToStartTrackingYourProgress": "Please add a journal entry to start tracking your progress."
 	},
 
 	"health": {
 		"title": "Health",
-		"completed": "Completed",
 		"congratulationsYouDidIt": "You did it! 🎉"
 	},
 
 	"goal": {
-		"title": "Goal"
+		"title": "Goal",
+		"setNewGoal": "Set New Savings Goal",
+		"goalName": "Goal Name",
+		"targetAmount": "Target Amount",
+		"currentAmount": "Current Amount",
+		"additionalAmount": "Additional Savings",
+		"progress": "{{current}} of {{target}}",
+		"editGoal": "Edit Goal",
+		"defaultGoalName": "My Savings Goal",
+		"addNewGoal": "Add New Goal",
+		"cigaretteSavings": "Savings",
+		"cigaretteSavingsAmount": "You've saved {{amount}} by not smoking!",
+		"noGoalsFound": "No Savings Goals Yet",
+		"addAGoalToStartTracking": "Add a savings goal to start tracking your progress towards it",
+		"addFirstGoal": "Add Your First Goal",
+		"areYouSureYouWantToDeleteGoal": "Are you sure you want to delete this goal?"
 	},
 
 	"profile": {
 		"title": "Profile",
-
+		"donations": "Donations",
 		"motivation": "Motivation",
 		"motivations": "Motivations",
-		"addATextOrImageToRemindYouWhyYouQuit": "Add a text or image to remind you why you quit"
+		"contributions": "Contributions",
+		"helpUsImprove": "Help us improve",
+		"noMotivationsAdded": "No motivations added",
+		"addATextOrImageToRemindYouWhyYouQuit": "Add a text or image to remind you why you quit",
+		"areYouSureYouWantToDeleteThisMotivation": "Are you sure you want to delete this motivation?",
+		"aboutUs": "About Us",
+		"links": "Links",
+		"supportTheDevelopmentOfThisApp": "Support the development of this app",
+		"youCanSupportUsByDonating": "You can support us by donating"
 	},
 
 	"settings": {
@@ -107,6 +139,12 @@
 		"dangerZone": "Danger zone",
 		"areYouSureYouWantToWipeAllData": "Are you sure you want to wipe all data?",
 		"wipeAllData": "Wipe all data"
+	},
+
+	"motivations": {
+		"noMotivationsAdded": "No motivations added",
+		"addATextOrImageToRemindYouWhyYouQuit": "Add a text or image to remind you why you quit",
+		"areYouSureYouWantToDeleteThisMotivation": "Are you sure you want to delete this motivation?"
 	},
 
 	"achievements": {

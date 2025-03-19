@@ -13,6 +13,7 @@ import { store } from '@/store';
 
 import '@/locales';
 import { useTheme } from '@/utils/useTheme';
+import { useAchievements } from '@/utils/achievements';
 
 import { Colors } from '@/constants/Colors';
 
@@ -37,8 +38,9 @@ export default function RootLayoutWrapper() {
 
 export function RootLayout() {
 	const colorScheme = useTheme();
-
 	const theme = colorScheme === 'dark' ? CombinedDarkTheme : CombinedDefaultTheme;
+
+	useAchievements();
 
 	return (
 		<PaperProvider theme={theme}>

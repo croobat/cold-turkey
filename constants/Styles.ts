@@ -38,6 +38,25 @@ export const style = StyleSheet.create({
 		right: METRICS.lg,
 		position: 'absolute',
 	},
+	keyboardMargin: {
+		marginBottom: 350,
+	},
+	dashed: {
+		borderWidth: 1,
+		borderStyle: 'dashed',
+	},
+	rounded: {
+		borderRadius: METRICS.md,
+	},
+	cardCover: {
+		height: 250,
+		backgroundColor: 'transparent',
+		margin: -16,
+		marginBottom: -8,
+	},
+
+	// margins
+	noMargin: { margin: 0 },
 
 	xsMargin: { margin: METRICS.xs },
 	xsMarginTop: { marginTop: METRICS.xs },
@@ -45,7 +64,9 @@ export const style = StyleSheet.create({
 
 	smMargin: { margin: METRICS.sm },
 	smMarginTop: { marginTop: METRICS.sm },
+	smMarginRight: { marginRight: METRICS.sm },
 	smMarginBottom: { marginBottom: METRICS.sm },
+	smMarginLeft: { marginLeft: METRICS.sm },
 
 	margin: { margin: METRICS.md },
 	marginHorizontal: { marginHorizontal: METRICS.md },
@@ -70,6 +91,9 @@ export const style = StyleSheet.create({
 	xxxlMargin: { margin: METRICS.xxxl },
 	xxxlMarginTop: { marginTop: METRICS.xxxl },
 	xxxlMarginBottom: { marginBottom: METRICS.xxxl },
+
+	// paddings
+	noPadding: { padding: 0 },
 
 	smPadding: { padding: METRICS.sm },
 

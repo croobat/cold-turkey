@@ -1,43 +1,32 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import type { RootState } from '@/store';
+import type { Theme, Language, Currency, SettingsSliceState } from '@/types';
 
-export type Theme = 'light' | 'dark';
-export type Language = 'en' | 'es';
-export type Currency = 'usd' | 'eur' | 'mxn';
-
-export interface SettingsState {
-	theme: Theme;
-	language: Language;
-	currency: Currency;
-	pricePerCigarette: number;
-	cigarettesPerDay: number;
-}
-
-const initialState: SettingsState = {
+const initialState: SettingsSliceState = {
 	theme: 'dark',
-	language: 'en',
-	currency: 'usd',
-	pricePerCigarette: 0,
-	cigarettesPerDay: 0,
+	language: 'es',
+	currency: 'mxn',
+	pricePerCigarette: 10,
+	cigarettesPerDay: 5,
 };
 
 const settingsSlice = createSlice({
 	name: 'settings',
 	initialState,
 	reducers: {
-		setTheme: (state: SettingsState, action: PayloadAction<Theme>) => {
+		setTheme: (state: SettingsSliceState, action: PayloadAction<Theme>) => {
 			state.theme = action.payload;
 		},
-		setLanguage: (state: SettingsState, action: PayloadAction<Language>) => {
+		setLanguage: (state: SettingsSliceState, action: PayloadAction<Language>) => {
 			state.language = action.payload;
 		},
-		setCurrency: (state: SettingsState, action: PayloadAction<Currency>) => {
+		setCurrency: (state: SettingsSliceState, action: PayloadAction<Currency>) => {
 			state.currency = action.payload;
 		},
-		setPricePerCigarette: (state: SettingsState, action: PayloadAction<number>) => {
+		setPricePerCigarette: (state: SettingsSliceState, action: PayloadAction<number>) => {
 			state.pricePerCigarette = action.payload;
 		},
-		setCigarettesPerDay: (state: SettingsState, action: PayloadAction<number>) => {
+		setCigarettesPerDay: (state: SettingsSliceState, action: PayloadAction<number>) => {
 			state.cigarettesPerDay = action.payload;
 		},
 		resetSettingsSlice: () => {
