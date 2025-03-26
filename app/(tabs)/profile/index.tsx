@@ -1,5 +1,5 @@
-import { View, ScrollView, SafeAreaView, TouchableOpacity, Linking } from 'react-native';
-import { Card, Text, useTheme, Avatar, List, Icon } from 'react-native-paper';
+import { View, ScrollView, SafeAreaView, TouchableOpacity, Linking, Platform } from 'react-native';
+import { Card, Text, useTheme, Avatar, List, Icon, Button } from 'react-native-paper';
 import { router } from 'expo-router';
 import { useTranslation } from 'react-i18next';
 import { useFocusEffect } from '@react-navigation/native';
@@ -49,6 +49,7 @@ const RedirectLink = ({ url, title, icon }: { url: string; title: string; icon: 
 export default function ProfileScreen() {
 	const { t, i18n } = useTranslation();
 	const theme = useTheme();
+	const isIOS = Platform.OS === 'ios';
 
 	const motivations = useSelector(selectMotivations);
 
@@ -142,6 +143,11 @@ export default function ProfileScreen() {
 						/>
 					</View>
 				</View>
+				{!isIOS && (
+					<Button mode="contained" onPress={() => router.navigate('/profile/settings')}>
+						{t('profile.settings')}
+					</Button>
+				)}
 			</ScrollView>
 		</SafeAreaView>
 	);
