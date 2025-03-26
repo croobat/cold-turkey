@@ -1,8 +1,9 @@
-import React, { useState } from 'react';
-import { SafeAreaView, View, KeyboardAvoidingView, Platform, ScrollView } from 'react-native';
+import React, { useState, useEffect } from 'react';
+import { SafeAreaView, View, KeyboardAvoidingView, Platform, ScrollView, Keyboard } from 'react-native';
 import { AnimatedFAB, TextInput, Text, useTheme } from 'react-native-paper';
 import { router } from 'expo-router';
 import { useTranslation } from 'react-i18next';
+import Animated, { withTiming, useSharedValue, useAnimatedStyle } from 'react-native-reanimated';
 
 import { useAppDispatch } from '@/store';
 import { addSavingsGoal } from '@/store/goalsSlice';
@@ -27,6 +28,22 @@ export default function GoalAddScreen() {
 
 	const [form, setForm] = useState<Form>(INITIAL_FORM);
 	const [error, setError] = useState<string | null>(null);
+	const fabTranslateY = useSharedValue(0);
+	// move FAB up when keyboard is shown
+	useEffect(() => {
+		const keyboardDidShowListener = Keyboard.addListener('keyboardDidShow', () => {
+			const fabHeight = Platform.OS === 'ios' ? -300 : -30;
+			fabTranslateY.value = withTiming(fabHeight, { duration: 200 });
+		});
+		const keyboardDidHideListener = Keyboard.addListener('keyboardDidHide', () => {
+			fabTranslateY.value = withTiming(0, { duration: 200 });
+		});
+
+		return () => {
+			keyboardDidShowListener.remove();
+			keyboardDidHideListener.remove();
+		};
+	}, []);
 
 	const handleSubmit = () => {
 		const target = parseFloat(form.target);
@@ -47,6 +64,12 @@ export default function GoalAddScreen() {
 		);
 		router.back();
 	};
+
+	const animatedFabStyle = useAnimatedStyle(() => {
+		return {
+			transform: [{ translateY: fabTranslateY.value }],
+		};
+	});
 
 	return (
 		<SafeAreaView style={[style.container]}>
@@ -88,7 +111,9 @@ export default function GoalAddScreen() {
 						/>
 					</View>
 				</ScrollView>
+			</KeyboardAvoidingView>
 
+			<Animated.View style={animatedFabStyle}>
 				<AnimatedFAB
 					icon="check"
 					label={t('form.save')}
@@ -97,7 +122,7 @@ export default function GoalAddScreen() {
 					disabled={!!error}
 					style={style.fabStyle}
 				/>
-			</KeyboardAvoidingView>
+			</Animated.View>
 		</SafeAreaView>
 	);
 }
