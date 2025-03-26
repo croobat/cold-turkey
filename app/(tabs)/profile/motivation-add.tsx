@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from 'react';
-import { Platform, KeyboardAvoidingView, SafeAreaView, View, ScrollView, Image } from 'react-native';
+import { Platform, KeyboardAvoidingView, SafeAreaView, View, ScrollView, Image, Keyboard } from 'react-native';
 import { AnimatedFAB, TextInput, useTheme, Text, Button } from 'react-native-paper';
 import { router, useLocalSearchParams } from 'expo-router';
 import * as ImagePicker from 'expo-image-picker';
+import Animated, { withTiming, useSharedValue, useAnimatedStyle } from 'react-native-reanimated';
 
 import { useAppDispatch, useAppSelector } from '@/store';
 import { addMotivation, selectMotivationById, updateMotivation } from '@/store/motivationsSlice';
@@ -35,6 +36,24 @@ export default function MotivationAddScreen() {
 
 	const { id } = useLocalSearchParams<{ id: string }>();
 	const motivation = useAppSelector((state) => selectMotivationById(state, parseInt(id)));
+
+	const fabTranslateY = useSharedValue(0);
+
+	// move FAB up when keyboard is shown
+	useEffect(() => {
+		const keyboardDidShowListener = Keyboard.addListener('keyboardDidShow', () => {
+			const fabHeight = Platform.OS === 'ios' ? -300 : -50;
+			fabTranslateY.value = withTiming(fabHeight, { duration: 200 });
+		});
+		const keyboardDidHideListener = Keyboard.addListener('keyboardDidHide', () => {
+			fabTranslateY.value = withTiming(0, { duration: 200 });
+		});
+
+		return () => {
+			keyboardDidShowListener.remove();
+			keyboardDidHideListener.remove();
+		};
+	}, []);
 
 	useEffect(() => {
 		if (motivation) {
@@ -94,6 +113,12 @@ export default function MotivationAddScreen() {
 		}
 	};
 
+	const animatedFabStyle = useAnimatedStyle(() => {
+		return {
+			transform: [{ translateY: fabTranslateY.value }],
+		};
+	});
+
 	return (
 		<SafeAreaView style={[style.container]}>
 			<KeyboardAvoidingView
@@ -147,7 +172,9 @@ export default function MotivationAddScreen() {
 						</View>
 					</View>
 				</ScrollView>
+			</KeyboardAvoidingView>
 
+			<Animated.View style={animatedFabStyle}>
 				<AnimatedFAB
 					icon="check"
 					label="Save"
@@ -156,7 +183,7 @@ export default function MotivationAddScreen() {
 					disabled={!!error}
 					style={style.fabStyle}
 				/>
-			</KeyboardAvoidingView>
+			</Animated.View>
 		</SafeAreaView>
 	);
 }
