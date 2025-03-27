@@ -14,7 +14,11 @@
 		"lint": "expo lint",
 		"lint:fix": "eslint --fix .",
 		"doctor": "npx -y expo-doctor",
-		"doctor:fix": "npx expo install --check"
+		"doctor:fix": "npx expo install --check",
+		"build": "eas build --platform all",
+		"build:dev": "eas build --platform all --profile development",
+		"build:preview": "eas build --platform all --profile preview",
+		"submit": "eas submit --auto --platform all"
 	},
 	"expo": {
 		"doctor": {
