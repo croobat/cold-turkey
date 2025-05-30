@@ -1,10 +1,12 @@
 import { router, Stack } from 'expo-router';
 import { useTranslation } from 'react-i18next';
+import { Platform } from 'react-native';
 import { IconButton, useTheme } from 'react-native-paper';
 
 export default function ProfileLayout() {
 	const theme = useTheme();
 	const { t } = useTranslation();
+	const isIOS = Platform.OS === 'ios';
 
 	return (
 		<Stack screenOptions={{ headerShadowVisible: false, headerStyle: { backgroundColor: theme.colors.background } }}>
@@ -12,9 +14,14 @@ export default function ProfileLayout() {
 				name="index"
 				options={{
 					title: t('profile.title'),
-					headerRight: () => (
-						<IconButton icon="cog" onPress={() => router.push('/profile/settings')} style={{ margin: 0, padding: 0 }} />
-					),
+					headerRight: () =>
+						isIOS && (
+							<IconButton
+								icon="cog"
+								onPress={() => router.push('/profile/settings')}
+								style={{ margin: 0, padding: 0 }}
+							/>
+						),
 				}}
 			/>
 			<Stack.Screen name="settings" options={{ title: t('settings.title') }} />

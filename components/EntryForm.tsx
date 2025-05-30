@@ -32,7 +32,8 @@ export default function EntryForm({ onSubmit, initialData = INITIAL_FORM }: Entr
 	// move FAB up when keyboard is shown
 	useEffect(() => {
 		const keyboardDidShowListener = Keyboard.addListener('keyboardDidShow', () => {
-			fabTranslateY.value = withTiming(-300, { duration: 200 });
+			const fabHeight = Platform.OS === 'ios' ? -300 : -30;
+			fabTranslateY.value = withTiming(fabHeight, { duration: 200 });
 		});
 		const keyboardDidHideListener = Keyboard.addListener('keyboardDidHide', () => {
 			fabTranslateY.value = withTiming(0, { duration: 200 });
