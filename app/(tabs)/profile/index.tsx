@@ -131,16 +131,6 @@ export default function ProfileScreen() {
 							title={t('profile.supportTheDevelopmentOfThisApp')}
 							icon="code-tags"
 						/>
-						{/* <RedirectLink
-							url="https://github.com/croobat/cold-turkey"
-							title="Rate us and give us feedback"
-							icon="star"
-						/> */}
-						<RedirectLink
-							url="https://ko-fi.com/canteradevs"
-							title={t('profile.youCanSupportUsByDonating')}
-							icon="heart"
-						/>
 					</View>
 				</View>
 				{!isIOS && (
