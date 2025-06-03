@@ -121,18 +121,27 @@ export default function ProfileScreen() {
 							/>
 						))}
 				</View>
-				<View>
-					<Text variant="titleMedium" style={{ color: theme.colors.primary }}>
-						{t('profile.links')}
-					</Text>
-					<View style={[style.paddingVertical, style.smRowGap]}>
-						<RedirectLink
-							url="https://github.com/croobat/cold-turkey"
-							title={t('profile.supportTheDevelopmentOfThisApp')}
-							icon="code-tags"
-						/>
+
+				{!isIOS && (
+					<View>
+						<Text variant="titleMedium" style={{ color: theme.colors.primary }}>
+							{t('profile.links')}
+						</Text>
+						<View style={[style.paddingVertical, style.smRowGap]}>
+							<RedirectLink
+								url="https://github.com/croobat/cold-turkey"
+								title={t('profile.supportTheDevelopmentOfThisApp')}
+								icon="code-tags"
+							/>
+							<RedirectLink
+								url="https://ko-fi.com/canteradevs"
+								title={t('profile.youCanSupportUsByDonating')}
+								icon="heart"
+							/>
+						</View>
 					</View>
-				</View>
+				)}
+
 				{!isIOS && (
 					<Button mode="contained" onPress={() => router.navigate('/profile/settings')}>
 						{t('profile.settings')}
